@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Text Case Converter — design mockup (SCR-Converter)</title>
+    <style>
+      /* ===== Tokens — generated from specs/30-experience/tokens.json (names per adapters/design.md) ===== */
+      :root {
+        --tk-color-bg: #0f0b16;
+        --tk-color-surface: #18121f;
+        --tk-color-surface2: #221a2f;
+        --tk-color-line: #2d2440;
+        --tk-color-lineStrong: #6f6290;
+        --tk-color-fg: #efeaf8;
+        --tk-color-muted: #9c92b0;
+        --tk-color-accent: #a47bff;
+        --tk-color-onAccent: #0f0b16;
+        --tk-color-accent2Fg: #ffc48a;
+        --tk-color-selection: #2a1d47;
+        --tk-color-selectionLine: #4a3580;
+        --tk-color-danger: #ff8595;
+        --tk-color-success: #5bd6a0;
+        --tk-color-dangerBg: #3a1622;
+        --tk-color-warnBg: #33240f;
+        --tk-color-successBg: #10291f;
+        --tk-space-1: 4px;
+        --tk-space-2: 8px;
+        --tk-space-3: 12px;
+        --tk-space-4: 16px;
+        --tk-space-5: 20px;
+        --tk-space-6: 24px;
+        --tk-space-8: 32px;
+        --tk-radius-sm: 7px;
+        --tk-radius-md: 10px;
+        --tk-radius-pill: 999px;
+        --tk-size-statusbar: 28px;
+        --tk-size-control: 28px;
+        --tk-size-resultRow: 40px;
+        --tk-size-labelCol: 120px;
+        --tk-size-stackAt: 400px;
+        --tk-size-inputMinHeight: 96px;
+        --tk-size-codeLine: 20px;
+        --tk-size-targetMin: 24px;
+        --tk-size-touchTarget: 44px;
+        --tk-size-iconSm: 16px;
+        --tk-size-minWidth: 320px;
+        --tk-size-contentMax: 720px;
+        --tk-font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+        --tk-font-mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+        --tk-font-size-xs: 12px;
+        --tk-font-size-sm: 13px;
+        --tk-font-size-md: 14px;
+        --tk-font-size-code: 13px;
+        --tk-font-size-input: 16px;
+        --tk-font-weight-medium: 500;
+        --tk-font-weight-semibold: 600;
+        --tk-line-code: 1.5385;
+        --tk-border-hairline: 1px;
+        --tk-border-focus: 2px;
+        --tk-motion-fast: 120ms;
+        --tk-motion-base: 180ms;
+        --tk-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      [data-theme='light'] {
+        --tk-color-bg: #fbfafe;
+        --tk-color-surface: #ffffff;
+        --tk-color-surface2: #f1edfa;
+        --tk-color-line: #e2dcf0;
+        --tk-color-lineStrong: #8c82a2;
+        --tk-color-fg: #16111f;
+        --tk-color-muted: #5e566f;
+        --tk-color-accent: #6837e0;
+        --tk-color-onAccent: #ffffff;
+        --tk-color-accent2Fg: #8f4705;
+        --tk-color-selection: #f0eafe;
+        --tk-color-selectionLine: #cdbbf8;
+        --tk-color-danger: #c0243b;
+        --tk-color-success: #13744c;
+        --tk-color-dangerBg: #fce8ec;
+        --tk-color-warnBg: #fdebd8;
+        --tk-color-successBg: #e7f6ef;
+      }
+
+      /* ===== Page chrome (NOT part of the tool — the mockup's own scaffolding) ===== */
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: #0a0a0c;
+        color: #cfcad8;
+        font-family: var(--tk-font-body);
+        padding: 24px;
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0 0 4px;
+      }
+      .sub {
+        color: #8a8598;
+        font-size: 13px;
+        margin: 0 0 20px;
+        max-width: 74ch;
+      }
+      h2 {
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: #8a8598;
+        margin: 30px 0 10px;
+        border-bottom: 1px solid #26232e;
+        padding-bottom: 6px;
+      }
+      .frames {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        align-items: flex-start;
+      }
+      .frame {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .cap {
+        font-family: var(--tk-font-mono);
+        font-size: 11px;
+        color: #8a8598;
+      }
+      .view {
+        border: 1px solid #26232e;
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--tk-color-bg);
+      }
+
+      /* ===== The tool ===== */
+      .tool {
+        background: var(--tk-color-bg);
+        color: var(--tk-color-fg);
+        font-family: var(--tk-font-body);
+        display: flex;
+        flex-direction: column;
+      }
+      .tool .wrap {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: var(--tk-space-4);
+        padding: var(--tk-space-4);
+        max-width: var(--tk-size-contentMax);
+        width: 100%;
+        margin: 0 auto;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      /* input */
+      .inputwrap {
+        position: relative;
+      }
+      .inputlabel {
+        display: block;
+        font-size: var(--tk-font-size-xs);
+        color: var(--tk-color-muted);
+        margin-bottom: var(--tk-space-1);
+        font-weight: var(--tk-font-weight-semibold);
+      }
+      .input {
+        width: 100%;
+        min-height: var(--tk-size-inputMinHeight);
+        background: var(--tk-color-surface);
+        color: var(--tk-color-fg);
+        border: var(--tk-border-hairline) solid var(--tk-color-lineStrong);
+        border-radius: var(--tk-radius-sm);
+        padding: var(--tk-space-3);
+        padding-right: 88px;
+        font-family: var(--tk-font-mono);
+        font-size: var(--tk-font-size-input);
+        line-height: var(--tk-size-codeLine);
+        resize: vertical;
+      }
+      .input::placeholder {
+        color: var(--tk-color-muted);
+      }
+      .input:focus-visible {
+        outline: var(--tk-border-focus) solid var(--tk-color-accent);
+        outline-offset: 2px;
+      }
+      .clear {
+        position: absolute;
+        top: 22px;
+        right: var(--tk-space-2);
+        min-height: var(--tk-size-control);
+        min-width: var(--tk-size-targetMin);
+        display: inline-flex;
+        align-items: center;
+        gap: var(--tk-space-1);
+        padding: 0 var(--tk-space-2);
+        background: transparent;
+        color: var(--tk-color-muted);
+        border: var(--tk-border-hairline) solid transparent;
+        border-radius: var(--tk-radius-sm);
+        font-size: var(--tk-font-size-sm);
+        cursor: pointer;
+      }
+      .clear:hover {
+        background: var(--tk-color-surface2);
+        color: var(--tk-color-fg);
+      }
+      .clear:focus-visible {
+        outline: var(--tk-border-focus) solid var(--tk-color-accent);
+        outline-offset: 2px;
+      }
+
+      /* notice */
+      .notice {
+        display: flex;
+        align-items: center;
+        gap: var(--tk-space-2);
+        padding: var(--tk-space-2) var(--tk-space-3);
+        border: var(--tk-border-hairline) solid var(--tk-color-lineStrong);
+        border-radius: var(--tk-radius-sm);
+        font-size: var(--tk-font-size-sm);
+      }
+      .notice.info {
+        background: var(--tk-color-warnBg);
+        color: var(--tk-color-accent2Fg);
+      }
+      .notice.error {
+        background: var(--tk-color-dangerBg);
+        color: var(--tk-color-danger);
+      }
+      .notice .msg {
+        flex: 1;
+      }
+      .notice .x {
+        background: transparent;
+        border: var(--tk-border-hairline) solid transparent;
+        color: inherit;
+        cursor: pointer;
+        min-width: var(--tk-size-targetMin);
+        min-height: var(--tk-size-targetMin);
+        border-radius: var(--tk-radius-sm);
+      }
+      .notice .x:focus-visible {
+        outline: var(--tk-border-focus) solid var(--tk-color-accent);
+        outline-offset: 2px;
+      }
+
+      /* result grid — NOT a card: rows on bg, hairline dividers */
+      .grid {
+        display: flex;
+        flex-direction: column;
+      }
+      .row {
+        position: relative;
+        display: flex;
+        align-items: flex-start;
+        gap: var(--tk-space-4);
+        min-height: var(--tk-size-resultRow);
+        padding: var(--tk-space-2) var(--tk-space-3);
+        padding-right: var(--tk-space-8);
+        background: transparent;
+        border: none;
+        border-top: var(--tk-border-hairline) solid var(--tk-color-line);
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+        color: var(--tk-color-fg);
+        font: inherit;
+        transition: background var(--tk-motion-fast) var(--tk-ease);
+      }
+      .grid .row:last-child {
+        border-bottom: var(--tk-border-hairline) solid var(--tk-color-line);
+      }
+      .row:hover {
+        background: var(--tk-color-surface2);
+      }
+      .row:focus-visible {
+        outline: var(--tk-border-focus) solid var(--tk-color-accent);
+        outline-offset: -2px;
+      }
+      .row .label {
+        flex: 0 0 var(--tk-size-labelCol);
+        color: var(--tk-color-muted);
+        font-size: var(--tk-font-size-sm);
+        font-weight: var(--tk-font-weight-semibold);
+        line-height: var(--tk-size-codeLine);
+      }
+      .row .val {
+        flex: 1 1 auto;
+        min-width: 0;
+        font-family: var(--tk-font-mono);
+        font-size: var(--tk-font-size-md);
+        color: var(--tk-color-fg);
+        line-height: var(--tk-size-codeLine);
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+      .row .val.empty {
+        color: var(--tk-color-muted);
+      }
+      .row .copyicon {
+        position: absolute;
+        right: var(--tk-space-3);
+        top: 10px;
+        color: var(--tk-color-muted);
+        font-size: var(--tk-size-iconSm);
+        line-height: 1;
+        transition: color var(--tk-motion-fast) var(--tk-ease);
+      }
+      .row:hover .copyicon,
+      .row:focus-visible .copyicon {
+        color: var(--tk-color-accent);
+      }
+      .row .act {
+        position: absolute;
+        right: var(--tk-space-2);
+        top: var(--tk-space-1);
+        display: none;
+        align-items: center;
+        gap: 4px;
+        background: var(--tk-color-successBg);
+        color: var(--tk-color-success);
+        font-size: var(--tk-font-size-xs);
+        font-weight: var(--tk-font-weight-semibold);
+        padding: 2px var(--tk-space-2);
+        border-radius: var(--tk-radius-sm);
+      }
+      .row.copied {
+        background: var(--tk-color-successBg);
+      }
+      .row.copied .copyicon {
+        display: none;
+      }
+      .row.copied .act {
+        display: inline-flex;
+      }
+      .row.inert {
+        cursor: default;
+      }
+      .row.inert:hover {
+        background: transparent;
+      }
+      .row.inert .copyicon {
+        display: none;
+      }
+      /* stacked (narrow) */
+      .row.stack {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 2px;
+        padding-right: var(--tk-space-8);
+      }
+      .row.stack .label {
+        flex: none;
+      }
+
+      /* status bar */
+      .status {
+        min-height: var(--tk-size-statusbar);
+        display: flex;
+        align-items: center;
+        gap: var(--tk-space-3);
+        padding: 0 var(--tk-space-4);
+        border-top: var(--tk-border-hairline) solid var(--tk-color-line);
+        background: var(--tk-color-surface);
+        font-size: var(--tk-font-size-xs);
+      }
+      .status .lines {
+        color: var(--tk-color-muted);
+      }
+      .status .spacer {
+        flex: 1;
+      }
+      .status .privacy {
+        color: var(--tk-color-success);
+        display: inline-flex;
+        align-items: center;
+        gap: var(--tk-space-1);
+      }
+      .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: var(--tk-radius-pill);
+        background: currentColor;
+        display: inline-block;
+      }
+      .ic {
+        font-style: normal;
+      }
+
+      @media (pointer: coarse) {
+        .row {
+          min-height: var(--tk-size-touchTarget);
+        }
+        .clear,
+        .notice .x {
+          min-height: var(--tk-size-touchTarget);
+          min-width: var(--tk-size-touchTarget);
+        }
+        .row .copyicon {
+          color: var(--tk-color-fg);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .row {
+          transition: none;
+        }
+        .row .copyicon {
+          transition: none;
+        }
+      }
+
+      .swatches {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .sw {
+        width: 58px;
+        height: 40px;
+        border-radius: 7px;
+        border: 1px solid #26232e;
+        display: flex;
+        align-items: flex-end;
+        font-size: 9px;
+        font-family: var(--tk-font-mono);
+        color: #fff;
+        padding: 2px;
+        text-shadow: 0 1px 2px #000;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Text Case Converter — design mockup</h1>
+    <p class="sub">
+      Derived from <code>specs/30-experience/</code> (SCR-Converter, CMP-*, style.md, tokens.json) and
+      <code>adapters/design.md</code>. Sample inputs (<code>getUserID</code>, a list, <code>parseURLToString</code>) and
+      converted values are placeholder data, not UI copy. Icons are unicode stand-ins and are
+      <code>aria-hidden</code> here; the build uses the open-licensed set from architecture. Frames are generated so
+      every state shows all 11 rows.
+    </p>
+
+    <div id="screens"></div>
+    <div id="components"></div>
+
+    <h2>Palette (both themes)</h2>
+    <div class="frames">
+      <div class="frame">
+        <div class="cap">dark</div>
+        <div class="swatches" id="sw-dark"></div>
+      </div>
+      <div class="frame">
+        <div class="cap">light</div>
+        <div class="swatches" id="sw-light"></div>
+      </div>
+    </div>
+
+    <script>
+      const CASES = [
+        ['camel', 'camelCase'],
+        ['pascal', 'PascalCase'],
+        ['snake', 'snake_case'],
+        ['kebab', 'kebab-case'],
+        ['constant', 'CONSTANT_CASE'],
+        ['dot', 'dot.case'],
+        ['path', 'path/case'],
+        ['title', 'Title Case'],
+        ['sentence', 'Sentence case'],
+        ['upper', 'UPPERCASE'],
+        ['lower', 'lowercase'],
+      ];
+
+      const V_DEFAULT = [
+        'getUserId',
+        'GetUserId',
+        'get_user_id',
+        'get-user-id',
+        'GET_USER_ID',
+        'get.user.id',
+        'get/user/id',
+        'Get User Id',
+        'Get user id',
+        'GETUSERID',
+        'getuserid',
+      ];
+      const V_PARSE = [
+        'parseUrlToString',
+        'ParseUrlToString',
+        'parse_url_to_string',
+        'parse-url-to-string',
+        'PARSE_URL_TO_STRING',
+        'parse.url.to.string',
+        'parse/url/to/string',
+        'Parse Url To String',
+        'Parse url to string',
+        'PARSEURLTOSTRING',
+        'parseurltostring',
+      ];
+      const V_MULTI = [
+        'firstName\nlastName\nemailAddress',
+        'FirstName\nLastName\nEmailAddress',
+        'first_name\nlast_name\nemail_address',
+        'first-name\nlast-name\nemail-address',
+        'FIRST_NAME\nLAST_NAME\nEMAIL_ADDRESS',
+        'first.name\nlast.name\nemail.address',
+        'first/name\nlast/name\nemail/address',
+        'First Name\nLast Name\nEmail Address',
+        'First name\nLast name\nEmail address',
+        'FIRST NAME\nLAST_NAME\nEMAILADDRESS',
+        'first name\nlast_name\nemailaddress',
+      ];
+
+      let UID = 0;
+      function el(tag, cls, txt) {
+        const e = document.createElement(tag);
+        if (cls) e.className = cls;
+        if (txt != null) e.textContent = txt;
+        return e;
+      }
+
+      function renderRow(labelPair, value, { stack = false, empty = false, copied = false } = {}) {
+        const [id, label] = labelPair;
+        const row = el('button', 'row' + (stack ? ' stack' : '') + (empty ? ' inert' : '') + (copied ? ' copied' : ''));
+        if (empty) {
+          row.setAttribute('aria-disabled', 'true');
+          row.tabIndex = -1;
+        }
+        row.setAttribute('aria-label', empty ? label + ': No result' : 'Copy ' + label);
+        const lab = el('span', 'label', label);
+        lab.setAttribute('data-copy', 'COPY-case.' + id);
+        const val = el('span', 'val' + (empty ? ' empty' : ''));
+        if (empty) {
+          val.textContent = '—';
+          val.setAttribute('data-copy', 'COPY-result.empty');
+        } else {
+          val.textContent = value;
+        }
+        const vid = 'v' + UID++;
+        val.id = vid;
+        row.setAttribute('aria-describedby', vid);
+        row.appendChild(lab);
+        row.appendChild(val);
+        if (!empty && !copied) {
+          const ci = el('span', 'copyicon');
+          ci.setAttribute('aria-hidden', 'true');
+          ci.textContent = '⧉';
+          row.appendChild(ci);
+        }
+        if (copied) {
+          const a = el('span', 'act');
+          a.setAttribute('data-copy', 'COPY-status.copied_short');
+          const chk = el('span', null, '✓');
+          chk.setAttribute('aria-hidden', 'true');
+          a.appendChild(chk);
+          a.appendChild(document.createTextNode(' Copied'));
+          row.appendChild(a);
+        }
+        return row;
+      }
+
+      function renderTool(stateKey, theme, width) {
+        const stack = width < 400;
+        const tool = el('div', 'tool');
+        tool.setAttribute('data-theme', theme);
+        const wrap = el('div', 'wrap');
+        const live = el('div', 'sr-only');
+        live.setAttribute('role', 'status');
+        live.setAttribute('aria-live', 'polite');
+        // input
+        const iw = el('div', 'inputwrap');
+        const taid = 'ta' + UID++;
+        const lab = el('label', 'inputlabel', 'Text to convert');
+        lab.setAttribute('for', taid);
+        lab.setAttribute('data-copy', 'COPY-label.input');
+        const ta = el('textarea', 'input');
+        ta.id = taid;
+        ta.rows = stack ? 2 : 3;
+        let input = 'getUserID',
+          values = V_DEFAULT;
+        if (stateKey === 'empty') {
+          input = '';
+          values = null;
+        } else if (stateKey === 'multi-line') {
+          input = 'first name\nlast_name\nEmailAddress';
+          values = V_MULTI;
+        } else if (stateKey === 'large') {
+          input = 'parseURLToString';
+          values = V_PARSE;
+        }
+        if (stateKey === 'empty') {
+          ta.placeholder = 'Type or paste text to convert — a name, a phrase, or a list (one per line)';
+          ta.setAttribute('data-copy', 'COPY-placeholder.input');
+        } else {
+          ta.value = input;
+        }
+        iw.appendChild(lab);
+        iw.appendChild(ta);
+        if (stateKey !== 'empty') {
+          const c = el('button', 'clear');
+          c.setAttribute('data-copy', 'COPY-action.clear');
+          const x = el('span', 'ic', '✕');
+          x.setAttribute('aria-hidden', 'true');
+          c.appendChild(x);
+          c.appendChild(document.createTextNode(' Clear'));
+          c.setAttribute('aria-label', 'Clear');
+          iw.appendChild(c);
+        }
+        wrap.appendChild(iw);
+        // notice (after input)
+        if (stateKey === 'large' || stateKey === 'copy-failed') {
+          const kind = stateKey === 'large' ? 'info' : 'error';
+          const n = el('div', 'notice ' + kind);
+          const icn = el('span', 'ic', kind === 'info' ? 'ⓘ' : '⚠');
+          icn.setAttribute('aria-hidden', 'true');
+          const msg = el(
+            'span',
+            'msg',
+            kind === 'info'
+              ? 'Large input — results update after you stop typing'
+              : "Couldn't copy — select the text and copy manually",
+          );
+          msg.setAttribute('data-copy', kind === 'info' ? 'COPY-notice.large' : 'COPY-status.copy_failed');
+          const x = el('button', 'x', '✕');
+          x.setAttribute('aria-label', 'Dismiss');
+          x.setAttribute('data-copy', 'COPY-action.dismiss');
+          x.firstChild && x.setAttribute('aria-label', 'Dismiss');
+          n.appendChild(icn);
+          n.appendChild(msg);
+          n.appendChild(x);
+          wrap.appendChild(n);
+        }
+        // grid
+        const grid = el('div', 'grid');
+        grid.setAttribute('role', 'group');
+        grid.setAttribute('aria-label', 'Converted cases');
+        grid.setAttribute('data-copy', 'COPY-label.results');
+        const copiedIdx = stateKey === 'copied' ? 2 : -1; // snake
+        CASES.forEach((cp, i) => {
+          grid.appendChild(
+            renderRow(cp, values ? values[i] : null, { stack, empty: !values, copied: i === copiedIdx }),
+          );
+        });
+        wrap.appendChild(grid);
+        tool.appendChild(wrap);
+        // status
+        const st = el('div', 'status');
+        const lines = values && input.indexOf('\n') >= 0 ? input.split('\n').length : 1;
+        if (lines > 1) {
+          const l = el('span', 'lines', lines + ' lines');
+          l.setAttribute('data-copy', 'COPY-status.lines');
+          st.appendChild(l);
+        }
+        st.appendChild(el('span', 'spacer'));
+        const pv = el('span', 'privacy');
+        pv.setAttribute('data-copy', 'COPY-label.privacy');
+        const d = el('span', 'dot');
+        d.setAttribute('aria-hidden', 'true');
+        pv.appendChild(d);
+        pv.appendChild(document.createTextNode('Private — nothing leaves your browser'));
+        st.appendChild(pv);
+        tool.appendChild(st);
+        tool.appendChild(live);
+        return tool;
+      }
+
+      function frame(cap, node, width) {
+        const f = el('div', 'frame');
+        f.appendChild(el('div', 'cap', cap));
+        const v = el('div', 'view');
+        v.style.width = width + 'px';
+        v.style.maxWidth = '94vw';
+        v.appendChild(node);
+        f.appendChild(v);
+        return f;
+      }
+
+      const STATES = ['default', 'empty', 'multi-line', 'large', 'copied', 'copy-failed'];
+      const screens = document.getElementById('screens');
+      for (const st of STATES) {
+        const h = el('h2', null, 'SCR-Converter — ' + st);
+        screens.appendChild(h);
+        const row = el('div', 'frames');
+        for (const theme of ['dark', 'light']) {
+          row.appendChild(frame(`SCR-Converter / ${st} / ${theme} / embedded`, renderTool(st, theme, 760), 760));
+          row.appendChild(frame(`SCR-Converter / ${st} / ${theme} / narrow`, renderTool(st, theme, 360), 360));
+        }
+        screens.appendChild(row);
+      }
+      // 320 minimum width check
+      {
+        const h = el('h2', null, 'SCR-Converter — reflow at min width (320)');
+        screens.appendChild(h);
+        const row = el('div', 'frames');
+        row.appendChild(frame('SCR-Converter / default / dark / 320', renderTool('default', 'dark', 320), 320));
+        row.appendChild(frame('SCR-Converter / copied / dark / 320', renderTool('copied', 'dark', 320), 320));
+        screens.appendChild(row);
+      }
+
+      // ===== Component variant frames =====
+      const comp = document.getElementById('components');
+      function compFrame(cap, inner, theme, width = 360) {
+        const tool = el('div', 'tool');
+        tool.setAttribute('data-theme', theme);
+        const wrap = el('div', 'wrap');
+        wrap.appendChild(inner);
+        tool.appendChild(wrap);
+        return frame(cap, tool, width);
+      }
+      comp.appendChild(el('h2', null, 'CMP-ResultRow — variants'));
+      {
+        const row = el('div', 'frames');
+        for (const theme of ['dark', 'light']) {
+          const g1 = el('div', 'grid');
+          g1.appendChild(renderRow(CASES[2], V_DEFAULT[2], {}));
+          row.appendChild(compFrame(`CMP-ResultRow / default / ${theme}`, g1, theme));
+          const g2 = el('div', 'grid');
+          g2.appendChild(renderRow(CASES[2], V_DEFAULT[2], { copied: true }));
+          row.appendChild(compFrame(`CMP-ResultRow / copied / ${theme}`, g2, theme));
+          const g3 = el('div', 'grid');
+          g3.appendChild(renderRow(CASES[2], null, { empty: true }));
+          row.appendChild(compFrame(`CMP-ResultRow / empty / ${theme}`, g3, theme));
+          const g4 = el('div', 'grid');
+          g4.appendChild(renderRow(CASES[2], V_MULTI[2], {}));
+          row.appendChild(compFrame(`CMP-ResultRow / multi-line / ${theme}`, g4, theme));
+        }
+        comp.appendChild(row);
+      }
+
+      comp.appendChild(el('h2', null, 'CMP-Notice — variants'));
+      {
+        const row = el('div', 'frames');
+        for (const theme of ['dark', 'light']) {
+          for (const kind of ['info', 'error']) {
+            const n = el('div', 'notice ' + kind);
+            const icn = el('span', 'ic', kind === 'info' ? 'ⓘ' : '⚠');
+            icn.setAttribute('aria-hidden', 'true');
+            const msg = el(
+              'span',
+              'msg',
+              kind === 'info'
+                ? 'Large input — results update after you stop typing'
+                : "Couldn't copy — select the text and copy manually",
+            );
+            msg.setAttribute('data-copy', kind === 'info' ? 'COPY-notice.large' : 'COPY-status.copy_failed');
+            const x = el('button', 'x', '✕');
+            x.setAttribute('aria-label', 'Dismiss');
+            x.setAttribute('data-copy', 'COPY-action.dismiss');
+            n.appendChild(icn);
+            n.appendChild(msg);
+            n.appendChild(x);
+            row.appendChild(compFrame(`CMP-Notice / ${kind} / ${theme}`, n, theme));
+          }
+        }
+        comp.appendChild(row);
+      }
+
+      comp.appendChild(el('h2', null, 'CMP-StatusBar — variants'));
+      {
+        const row = el('div', 'frames');
+        for (const theme of ['dark', 'light']) {
+          for (const multi of [false, true]) {
+            const tool = el('div', 'tool');
+            tool.setAttribute('data-theme', theme);
+            const st = el('div', 'status');
+            if (multi) {
+              const l = el('span', 'lines', '3 lines');
+              l.setAttribute('data-copy', 'COPY-status.lines');
+              st.appendChild(l);
+            }
+            st.appendChild(el('span', 'spacer'));
+            const pv = el('span', 'privacy');
+            pv.setAttribute('data-copy', 'COPY-label.privacy');
+            const d = el('span', 'dot');
+            d.setAttribute('aria-hidden', 'true');
+            pv.appendChild(d);
+            pv.appendChild(document.createTextNode('Private — nothing leaves your browser'));
+            st.appendChild(pv);
+            tool.appendChild(st);
+            row.appendChild(frame(`CMP-StatusBar / ${multi ? 'multi-line' : 'single-line'} / ${theme}`, tool, 420));
+          }
+        }
+        comp.appendChild(row);
+      }
+
+      comp.appendChild(el('h2', null, 'CMP-InputArea — variants'));
+      {
+        const row = el('div', 'frames');
+        for (const theme of ['dark', 'light']) {
+          const variants = [
+            ['empty', ''],
+            ['single-line', 'getUserID'],
+            ['multi-line', 'first name\nlast_name\nEmailAddress'],
+          ];
+          for (const [name, val] of variants) {
+            const iw = el('div', 'inputwrap');
+            const taid = 'ta' + UID++;
+            const lab = el('label', 'inputlabel', 'Text to convert');
+            lab.setAttribute('for', taid);
+            lab.setAttribute('data-copy', 'COPY-label.input');
+            const ta = el('textarea', 'input');
+            ta.id = taid;
+            ta.rows = 2;
+            if (name === 'empty') {
+              ta.placeholder = 'Type or paste text to convert — a name, a phrase, or a list (one per line)';
+              ta.setAttribute('data-copy', 'COPY-placeholder.input');
+            } else {
+              ta.value = val;
+            }
+            iw.appendChild(lab);
+            iw.appendChild(ta);
+            if (name !== 'empty') {
+              const c = el('button', 'clear');
+              c.setAttribute('aria-label', 'Clear');
+              c.setAttribute('data-copy', 'COPY-action.clear');
+              const x = el('span', 'ic', '✕');
+              x.setAttribute('aria-hidden', 'true');
+              c.appendChild(x);
+              c.appendChild(document.createTextNode(' Clear'));
+              iw.appendChild(c);
+            }
+            row.appendChild(compFrame(`CMP-InputArea / ${name} / ${theme}`, iw, theme, 360));
+          }
+        }
+        comp.appendChild(row);
+      }
+
+      // swatches
+      const roles = [
+        'bg',
+        'surface',
+        'surface2',
+        'line',
+        'lineStrong',
+        'fg',
+        'muted',
+        'accent',
+        'success',
+        'danger',
+        'warnBg',
+        'dangerBg',
+        'successBg',
+      ];
+      for (const t of ['dark', 'light']) {
+        const host = document.getElementById('sw-' + t);
+        const probe = el('div');
+        probe.setAttribute('data-theme', t);
+        document.body.appendChild(probe);
+        const cs = getComputedStyle(probe);
+        for (const r of roles) {
+          const v = cs.getPropertyValue('--tk-color-' + r).trim();
+          const d = el('div', 'sw');
+          d.style.background = v;
+          d.textContent = r;
+          host.appendChild(d);
+        }
+        probe.remove();
+      }
+    </script>
+  </body>
+</html>

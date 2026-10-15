@@ -1,0 +1,265 @@
+{
+  "version": 1,
+  "created": "2026-10-15T01:55:43+00:00",
+  "autonomy": "balanced",
+  "profile": {
+    "goal": "personal/portfolio",
+    "experience": "experienced-developer",
+    "budget": "none-reuse-tarokit",
+    "notes": "Sibling of json-formatter in TaroKit portal; match its quality bar and conventions exactly"
+  },
+  "stack": null,
+  "design_tool": "code-first (tokens + HTML mockup)",
+  "phases": {
+    "setup": {
+      "title": "0 Setup & discovery",
+      "status": "done",
+      "step": null,
+      "gate": {
+        "status": "passed",
+        "at": "2026-10-15T01:57:47+00:00",
+        "note": null
+      }
+    },
+    "product-spec": {
+      "title": "1 Product & spec",
+      "status": "done",
+      "step": "1.3 G1 gate — awaiting owner approval + ready",
+      "gate": {
+        "status": "passed",
+        "at": "2026-10-15T02:33:22+00:00",
+        "note": "G1 approved by owner; 7 features ready; lint 0/0; tokenization corpus verified by review."
+      }
+    },
+    "design": {
+      "title": "2 Design",
+      "status": "done",
+      "step": "2.4 G2 gate — awaiting owner design approval",
+      "gate": {
+        "status": "passed",
+        "at": "2026-10-15T02:56:21+00:00",
+        "note": "Owner approved designs; experience specs ready; 3 audits addressed; contrast AA; lint 0/0"
+      }
+    },
+    "architecture": {
+      "title": "3 Architecture & spikes",
+      "status": "done",
+      "step": null,
+      "gate": {
+        "status": "passed",
+        "at": "2026-10-15T02:56:22+00:00",
+        "note": "Owner approved stack + license policy (ADR-0001) + all candidate deps; tokenizer=build-own (46/46); lint 0/0"
+      }
+    },
+    "build": {
+      "title": "4 Implementation",
+      "status": "in_progress",
+      "step": "4.1 background build running (scaffold + 7 stages)",
+      "gate": {
+        "status": "pending",
+        "at": null,
+        "note": null
+      }
+    },
+    "qa": {
+      "title": "5 QA & hardening",
+      "status": "pending",
+      "step": null,
+      "gate": {
+        "status": "pending",
+        "at": null,
+        "note": null
+      }
+    },
+    "release": {
+      "title": "6 Release",
+      "status": "pending",
+      "step": null,
+      "gate": {
+        "status": "pending",
+        "at": null,
+        "note": null
+      }
+    },
+    "iterate": {
+      "title": "7 Iterate",
+      "status": "pending",
+      "step": null,
+      "gate": {
+        "status": "pending",
+        "at": null,
+        "note": null
+      }
+    }
+  },
+  "decisions": [],
+  "loops": {},
+  "log": [
+    {
+      "at": "2026-10-15T01:55:43+00:00",
+      "event": "initialized (autonomy=balanced)"
+    },
+    {
+      "at": "2026-10-15T01:55:44+00:00",
+      "event": "phase setup -> in_progress"
+    },
+    {
+      "at": "2026-10-15T01:56:37+00:00",
+      "event": "set profile"
+    },
+    {
+      "at": "2026-10-15T01:56:37+00:00",
+      "event": "set autonomy"
+    },
+    {
+      "at": "2026-10-15T01:56:37+00:00",
+      "event": "set environment"
+    },
+    {
+      "at": "2026-10-15T01:57:47+00:00",
+      "event": "gate setup passed"
+    },
+    {
+      "at": "2026-10-15T01:57:47+00:00",
+      "event": "G0 approved by user; scaffold from json-formatter conventions"
+    },
+    {
+      "at": "2026-10-15T02:00:04+00:00",
+      "event": "set spike_candidates"
+    },
+    {
+      "at": "2026-10-15T02:00:10+00:00",
+      "event": "phase product-spec -> in_progress"
+    },
+    {
+      "at": "2026-10-15T02:00:10+00:00",
+      "event": "product-spec step: 1.1 synthesizing vision brief"
+    },
+    {
+      "at": "2026-10-15T02:01:40+00:00",
+      "event": "Vision brief approved. Product decisions: (1) case set = 11 [camel,Pascal,snake,kebab,CONSTANT,dot,path,Title,Sentence,UPPER,lower]; (2) paste & copy only, no file I/O in M-1; (3) per-line batch in M-1."
+    },
+    {
+      "at": "2026-10-15T02:01:40+00:00",
+      "event": "product-spec step: 1.2 writing specs"
+    },
+    {
+      "at": "2026-10-15T02:10:54+00:00",
+      "event": "product-spec step: 1.3 spec review loop"
+    },
+    {
+      "at": "2026-10-15T02:10:55+00:00",
+      "event": "M-1 specs drafted: F-001..F-007, domain model+10 rules, 8 NFRs, SCR-Converter, 5 components, copy, FLOW-01, roadmap. Lint 0 errors/0 warnings."
+    },
+    {
+      "at": "2026-10-15T02:16:32+00:00",
+      "event": "Spec review round 1: 3 reviewers. RULE-02 tokenization verified sound (corpus hand-traced x2). 1 BLOCKER (RULE-01 Ten->Nine), 3 MAJOR (large-notice R/AC, copy-failure string/R/AC, glossary letter/number contradiction), ~10 MINOR. Applying all fixes."
+    },
+    {
+      "at": "2026-10-15T02:20:29+00:00",
+      "event": "Review round 1 fixes applied; lint 0/0. Minor UX decisions taken with defaults: copy-failure=dismissible CMP-Notice announced; unicode no script-boundary (日Foo one token); large-notice once per session dismissible; zero analytics (incl. copy). Ready for G1."
+    },
+    {
+      "at": "2026-10-15T02:20:29+00:00",
+      "event": "product-spec step: 1.3 G1 gate — awaiting owner approval + ready"
+    },
+    {
+      "at": "2026-10-15T02:33:22+00:00",
+      "event": "Owner approved G1 and delegated the status change; set F-001..F-007 draft->ready. UX defaults accepted as-is."
+    },
+    {
+      "at": "2026-10-15T02:33:22+00:00",
+      "event": "gate product-spec passed: G1 approved by owner; 7 features ready; lint 0/0; tokenization corpus verified by review."
+    },
+    {
+      "at": "2026-10-15T02:33:50+00:00",
+      "event": "phase design -> in_progress"
+    },
+    {
+      "at": "2026-10-15T02:33:50+00:00",
+      "event": "phase architecture -> in_progress"
+    },
+    {
+      "at": "2026-10-15T02:36:27+00:00",
+      "event": "set design_tool"
+    },
+    {
+      "at": "2026-10-15T02:36:27+00:00",
+      "event": "design step: 2.1 style: reuse Workbench; writing tokens + style"
+    },
+    {
+      "at": "2026-10-15T02:36:27+00:00",
+      "event": "Design direction = reuse json-formatter 'Workbench' (owner decision). Tool = code-first tokens + HTML mockup."
+    },
+    {
+      "at": "2026-10-15T02:38:23+00:00",
+      "event": "design step: 2.4 design loop: building HTML mockup"
+    },
+    {
+      "at": "2026-10-15T02:45:00+00:00",
+      "event": "design step: 3.1-3.2 complete: 40-technical specs + 11 ADRs + 6 modules; spikes closed"
+    },
+    {
+      "at": "2026-10-15T02:45:00+00:00",
+      "event": "Phase 3 (bg): wrote specs/40-technical (architecture, platform-mapping, dependencies, 11 ADRs, 6 modules). SPK-tokenizer: build-our-own, 46/46 corpus (100%), ~55ms/100k chars -> no worker (ADR-0005). SPK-unicode: locale-independent casing confirmed (ADR-0011). Libs change-case/scule/case-anything all MIT, kept as fallbacks. Lint 0/0. NOT scaffolded (awaits G3). Owner must approve license policy ADR-0001 + runtime/asset deps (candidate)."
+    },
+    {
+      "at": "2026-10-15T02:52:29+00:00",
+      "event": "Design round 1 fixes applied: data-driven mockup (50 frames, all 11 rows, full matrix), copied overlay (no value shredding), persistent copy icon, narrow label-stack, top-aligned labels, grid=hairlines not card, --tk-* tokens, a11y semantics. Specs updated (copy-failed state, notice error variant, input font.size.input, labelCol/stackAt tokens). Lint 0/0, contrast AA both themes."
+    },
+    {
+      "at": "2026-10-15T02:52:29+00:00",
+      "event": "design step: 2.4 G2 gate — awaiting owner design approval"
+    },
+    {
+      "at": "2026-10-15T02:56:21+00:00",
+      "event": "gate design passed: Owner approved designs; experience specs ready; 3 audits addressed; contrast AA; lint 0/0"
+    },
+    {
+      "at": "2026-10-15T02:56:22+00:00",
+      "event": "gate architecture passed: Owner approved stack + license policy (ADR-0001) + all candidate deps; tokenizer=build-own (46/46); lint 0/0"
+    },
+    {
+      "at": "2026-10-15T02:56:22+00:00",
+      "event": "G2 + G3 approved by owner. Deps candidate->approved. Design + Architecture complete."
+    },
+    {
+      "at": "2026-10-15T02:57:26+00:00",
+      "event": "phase build -> in_progress"
+    },
+    {
+      "at": "2026-10-15T02:57:26+00:00",
+      "event": "build step: 4.0 build plan written; awaiting go-ahead"
+    },
+    {
+      "at": "2026-10-15T02:58:22+00:00",
+      "event": "build step: 4.1 background build running (scaffold + 7 stages)"
+    },
+    {
+      "at": "2026-10-15T02:58:22+00:00",
+      "event": "Owner chose background build, report at milestone gate. Sequential build (shared single-screen app)."
+    }
+  ],
+  "updated": "2026-10-15T02:58:22+00:00",
+  "environment": {
+    "git": "2.54.0",
+    "node": "24.19.0",
+    "pnpm": "11.25.0",
+    "python": "3.14.7",
+    "reference_project": "../json-formatter",
+    "stack": "Preact+Vite+TypeScript+vitest+Playwright+CloudflareWorkers",
+    "mcp": ["figma", "claude-in-chrome", "webstorm"]
+  },
+  "spike_candidates": [
+    {
+      "id": "SPK-tokenizer",
+      "q": "Can one ruleset tokenize an adversarial corpus (HTTPResponse, getUserID, v2Point5, utf8Decode, userID, already_snake, dotted.path) acceptably (>=90%), and build-vs-buy (own tokenizer vs scule/change-case/case-anything under strict CSP, no eval, MIT license)?",
+      "phase": 3
+    },
+    {
+      "id": "SPK-unicode",
+      "q": "JS case-mapping on non-ASCII (cafe, Greek, CJK, emoji, Turkish i): no crashes/mojibake; non-Latin passes through untouched.",
+      "phase": 3
+    }
+  ]
+}

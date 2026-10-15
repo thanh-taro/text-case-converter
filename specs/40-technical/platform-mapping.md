@@ -1,0 +1,63 @@
+# Platform mapping
+
+How the neutral wording of the specs maps to browser platform features. Targets: latest two
+versions of Chromium-, Gecko- and WebKit-based desktop browsers (NFR-06), embedded in the portal's
+iframe and standalone. The host, privacy and offline approaches mirror the sibling JSON Formatter,
+whose cross-engine spikes confirmed them; a manual real-Safari pass remains for QA.
+
+## Input & conversion
+
+| Spec wording                                      | Platform mapping                                                                                                                            | Notes                                                                                       |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| Type or paste text (F-001.R1/R3)                  | A plain `<textarea>` (CMP-InputArea); its `input` event updates the input signal                                                            | No editor library (ADR-0005); multi-line kept as-is (RULE-03)                               |
+| Clear the input (F-001.R2)                        | Button that empties the field and refocuses it; disabled when empty                                                                         |                                                                                             |
+| Settle before recompute (RULE-08, NFR-02)         | A ~150 ms debounce timer reset on each `input`; on fire, MOD-Engine runs                                                                    | `requestIdleCallback` not required; a timer is enough at this size                          |
+| Responsiveness cap (RULE-08)                      | Character count checked on input; past 100,000 the debounce waits for a longer idle and CMP-Notice shows COPY-notice.large once per session | Never blocks; compute stays well under NFR-02 (SPK-tokenizer ~55 ms/100k)                   |
+| Tokenize & case (RULE-01/01b/02/04/06)            | Pure functions in MOD-Engine over JS strings; token split by scanning code points (`[...str]`) and a Unicode `\p{L}                         | \p{N}` regex for word runs                                                                  | No `eval`, CSP-safe (ADR-0006) |
+| Locale-independent casing, pass-through (RULE-05) | `String.prototype.toLowerCase`/`toUpperCase` (never `toLocale*`); caseless code points are left unchanged                                   | Confirmed by SPK-unicode (ADR-0011): `BIG`→`big`, Greek final sigma, CJK/emoji pass-through |
+| Per-line results (RULE-03, INV-03)                | `text.split("\n").map(convertLine).join("\n")`                                                                                              | Line count derived for COPY-status.lines                                                    |
+
+## Getting content out
+
+| Spec wording                              | Platform mapping                                                                                                                               | Notes / fallback                                                                                                 |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Copy a result (F-003.R1, RULE-07)         | `navigator.clipboard.writeText(resultText)` inside the click/keydown handler                                                                   | Short synchronous call; no large-Blob path needed at this size                                                   |
+| Copy confirmation / failure (F-003.R2/R5) | Success → COPY-status.copied (aria-live polite); rejection (`NotAllowedError`) → COPY-status.copy_failed via CMP-Notice, text still selectable | Embedded needs `allow="clipboard-write"` (portal grants it); Gecko cannot produce the failure, so tests force it |
+| No file download in M-1                   | Not implemented (non-goal)                                                                                                                     | Paste & copy only                                                                                                |
+
+## Host integration
+
+| Spec wording                                  | Platform mapping                                                                                                                                            | Notes                                         |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| Initial theme in the address (RULE-10)        | `URLSearchParams(location.search).get("theme")` read by an inline, CSP-hashed classic script in `<head>` that sets `<html data-theme>`                      | Before first paint (F-005.AC1)                |
+| Later settings messages                       | `window.addEventListener("message")`; accept only `event.origin ∈ allow-list` and `event.source === window.parent`; payload `{ type: "taro:theme", value }` | Unknown values keep the current theme         |
+| Ready signal                                  | `window.parent.postMessage({ type: "taro:ready" }, origin)` with an allow-listed origin                                                                     | Never `"*"`, never content (INV-01)           |
+| Allowed host origins / who may embed (NFR-07) | Response header `Content-Security-Policy: frame-ancestors https://tarokit.app` (empty list → `'none'`)                                                      | Header only; no `X-Frame-Options`             |
+| Device light/dark preference (F-005.R2)       | `matchMedia("(prefers-color-scheme: dark)")` + `change`; CSS `prefers-color-scheme`; `color-scheme`                                                         | Standalone                                    |
+| Embedded vs standalone                        | `window.top !== window.self` (in try/catch)                                                                                                                 |                                               |
+| Fill the host's area (F-005.R3)               | `html, body, #app { height: 100% }`; internal scroll only; `ResizeObserver` if needed                                                                       | No sizing messages; usable to 320 px (NFR-06) |
+
+## Privacy & policy
+
+| Spec wording                                         | Platform mapping                                                                                                                                                                                                                                                                                         |
+| ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Content policy forbids outgoing connections (NFR-01) | Header CSP: `default-src 'none'; script-src 'self' 'sha256-…'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'none'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors …` (ADR-0006). No `<style>`/`style=""`, no `eval`, no blob workers |
+| No requests after load (NFR-01)                      | Measured with a server-side request log in e2e; exception is the browser's own offline-cache fetch of the tool's own files                                                                                                                                                                               |
+| No analytics, nothing persisted (PRN-01)             | No storage APIs (`localStorage`, IndexedDB, cookies) — lint rule; the one exception is Cache Storage, written only by `/sw.js` with the tool's own files (ADR-0010)                                                                                                                                      |
+| Other headers                                        | `Permissions-Policy` (clipboard-write self; camera/microphone/geolocation/clipboard-read off), `Referrer-Policy: no-referrer`, `X-Content-Type-Options: nosniff`, `Cross-Origin-Opener-Policy: same-origin`                                                                                              |
+
+## Offline (F-007)
+
+| Spec wording                                              | Platform mapping                                                                                                                                                                                           | Notes                                                                          |
+| --------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Works offline after one visit (F-007.R1)                  | `navigator.serviceWorker.register("/sw.js", { updateViaCache: "all" })` after first render; the page posts its loaded same-origin URLs; the worker stores them with `fetch(url, { cache: "force-cache" })` | Registration allowed in the frame (`allow-same-origin`); failure → online-only |
+| Only the tool's files, never user text (F-007.R2, NFR-01) | The worker caches only the posted same-origin asset URLs; user input never leaves memory (INV-01)                                                                                                          |                                                                                |
+| New version on next open (F-007.R3)                       | HTML network-first with offline fallback; hashed assets cache-first; no `skipWaiting`, no mid-session reload                                                                                               |                                                                                |
+
+## Accessibility & responsiveness
+
+| Spec wording                                 | Platform mapping                                                                                                                                                                                |
+| -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Keyboard operable, announced status (NFR-04) | Result rows are `<button>`s in DOM order; COPY-status.copied / copy_failed and CMP-Notice use `aria-live="polite"`; input and grid have accessible names (COPY-label.input, COPY-label.results) |
+| Target size ≥ 24 px (NFR-08)                 | Rows and controls sized via tokens to meet the WCAG 2.2 target-size minimum                                                                                                                     |
+| Narrow widths to 320 px (NFR-06)             | CSS fl/grid layout reflows the grid to a single column; no horizontal page scroll                                                                                                               |
