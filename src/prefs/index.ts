@@ -15,9 +15,11 @@ export interface Preferences {
   recent: CaseId[]; // most-recent first; head is the last-used case
 }
 
+// Strip symbols and Remove accents default ON (RULE-11, RULE-12): clean ASCII identifiers out of
+// the box. The choice is remembered per device (RULE-14).
 export const DEFAULTS: Preferences = {
-  stripSymbols: false,
-  removeAccents: false,
+  stripSymbols: true,
+  removeAccents: true,
   sortMode: 'default',
   pinned: [],
   recent: [],
@@ -35,8 +37,8 @@ function coerce(raw: unknown): Preferences {
   // de-duplicate id lists, keeping first occurrence
   const uniq = (ids: CaseId[]) => [...new Set(ids)];
   return {
-    stripSymbols: o.stripSymbols === true,
-    removeAccents: o.removeAccents === true,
+    stripSymbols: typeof o.stripSymbols === 'boolean' ? o.stripSymbols : DEFAULTS.stripSymbols,
+    removeAccents: typeof o.removeAccents === 'boolean' ? o.removeAccents : DEFAULTS.removeAccents,
     sortMode,
     pinned: uniq(asIds(o.pinned)),
     recent: uniq(asIds(o.recent)),

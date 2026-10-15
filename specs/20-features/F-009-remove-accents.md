@@ -26,7 +26,7 @@ identifiers (PRN-03).
   scripts (not supported — they pass through, RULE-05).
 
 ## Requirements
-- **R1** The user can turn Remove accents on and off; it is off by default and its state is
+- **R1** The user can turn Remove accents on and off; it is on by default and its state is
   remembered on the device (RULE-14).
 - **R2** When on, accented Latin letters are folded to their ASCII base before casing per RULE-12
   (NFD + combining-mark removal, plus the `đ`/`ø`/`ß`/`æ`/`œ`/`ł` map); symbols, digits,
@@ -40,7 +40,7 @@ identifiers (PRN-03).
 - **AC4** Given the input `日本 café` with Remove accents on, when converted, then snake_case is `日本_cafe` (CJK unchanged, accent folded). (R2)
 - **AC5** Given Remove accents on, when the user turns it off, then results return to their accented form live, with no input change. (R1, R3)
 - **AC6** Given the user set Remove accents on, when they reopen the tool, then it is still on (RULE-14). (R1)
-- **AC7** Given a device that has never set Remove accents, when the tool opens, then Remove accents is off and snake_case of `café` is `café`. (R1)
+- **AC7** Given a device that has never set Remove accents, when the tool opens, then Remove accents is on and snake_case of `café` is `cafe`. (R1)
 
 ## UX notes
 CMP-Controls: COPY-action.accents toggle. Results update in CMP-ResultGrid.

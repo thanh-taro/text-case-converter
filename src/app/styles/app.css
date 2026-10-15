@@ -172,14 +172,25 @@
 }
 .sort__select {
   min-height: var(--tk-size-control);
-  background: var(--tk-color-surface);
   color: var(--tk-color-fg);
   border: var(--tk-border-width-hairline) solid var(--tk-color-line-strong);
   border-radius: var(--tk-radius-sm);
-  padding: 0 var(--tk-space-2);
+  /* room for the chevron: text padding left, icon + gaps on the right */
+  padding: 0 calc(var(--tk-space-2) * 2 + 14px) 0 var(--tk-space-3);
   font: inherit;
   font-size: var(--tk-font-size-sm);
   cursor: pointer;
+  /* custom chevron for consistent spacing across browsers (CSP: data: is in img-src) */
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: var(--tk-color-surface);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%239C92B0' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--tk-space-2) center;
+  background-size: 14px;
+}
+:root[data-theme='light'] .sort__select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%235E566F' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
 }
 .sort__select:focus-visible {
   outline: var(--tk-border-width-focus) solid var(--tk-color-accent);

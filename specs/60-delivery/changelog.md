@@ -4,6 +4,14 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
 
 ## Unreleased
 
+- 2026-10-15 — Change (owner): Strip symbols and Remove accents now **default ON** (RULE-11/12,
+  ENT-Preferences, MOD-Prefs DEFAULTS); the choice is still remembered per device (RULE-14). F-008.R1/
+  AC7/AC8 and F-009.R1/AC7 updated; e2e reworked for default-on. Note: with strip on by default,
+  UPPERCASE/lowercase of a plain identifier render space-joined (getUserID → "GET USER ID"), and
+  non-Latin/punctuation is dropped by default until a user turns Strip off.
+- 2026-10-15 — Design: the Sort dropdown uses a custom, theme-aware chevron with proper spacing
+  (app.css + design/mockup.html); CSP-safe data: SVG.
+
 - 2026-10-15 — M-2 built & shipped (F-008/009/010): in-house engine transforms (RULE-11 strip
   symbols, RULE-12 remove accents, pure, zero-dep); CMP-Controls options bar (switches + sort);
   CMP-ResultRow restructured to a group with a copy button + a separate pin button, plus the

@@ -25,7 +25,7 @@ whitespace, accents and non-Latin characters in the source don't leak into ident
   (it applies to all); editing the input itself (the input is untouched).
 
 ## Requirements
-- **R1** The user can turn Strip symbols on and off; it is off by default and its state is
+- **R1** The user can turn Strip symbols on and off; it is on by default and its state is
   remembered on the device (RULE-14).
 - **R2** When on, every result is built from the RULE-02 tokens reduced to ASCII letters and
   digits — accented Latin letters folded to their ASCII base, all other non-ASCII-alphanumeric
@@ -43,8 +43,8 @@ whitespace, accents and non-Latin characters in the source don't leak into ident
 - **AC4** Given Strip symbols on, when the user turns it off, then every result returns to its un-stripped form with no input change, live. (R1, R4)
 - **AC5** Given the user set Strip symbols on, when they reopen the tool, then Strip symbols is still on (RULE-14). (R1)
 - **AC6** Given the input `  !!!  ` with Strip symbols on, when converted, then every result is empty. (R5)
-- **AC7** Given a device that has never set Strip symbols, when the tool opens, then Strip symbols is off and UPPERCASE of `café` is `CAFÉ`. (R1)
-- **AC8** Given per-device storage is unavailable, when the tool opens, then it starts with default preferences (Strip symbols off) and any changes apply for the session only (RULE-14). (R1)
+- **AC7** Given a device that has never set Strip symbols, when the tool opens, then Strip symbols is on and UPPERCASE of `café` is `CAFE`. (R1)
+- **AC8** Given per-device storage is unavailable, when the tool opens, then it starts with default preferences (Strip symbols on) and any changes apply for the session only (RULE-14). (R1)
 
 ## UX notes
 CMP-Controls: COPY-action.strip toggle. Results update in CMP-ResultGrid.

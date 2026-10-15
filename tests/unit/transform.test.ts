@@ -37,7 +37,7 @@ describe('F-009 Remove accents — convertAll', () => {
     expect(convertAll('café').snake).toBe('café');
     expect(convertAll('café', { removeAccents: true }).snake).toBe('cafe');
   });
-  it('F-009.AC7 default (off) leaves accents: snake café = café', () => {
+  it('engine with no options leaves accents: snake café = café', () => {
     expect(convertAll('café').snake).toBe('café');
   });
 });
@@ -64,7 +64,7 @@ describe('F-008 Strip symbols — convertAll', () => {
     const r = convertAll('  !!!  ', { stripSymbols: true });
     for (const v of Object.values(r)) expect(v).toBe('');
   });
-  it('F-008.AC7 default (off): UPPERCASE café = CAFÉ', () => {
+  it('engine with no options keeps symbols: UPPERCASE café = CAFÉ', () => {
     expect(convertAll('café').upper).toBe('CAFÉ');
   });
   it('strip governs when both on (edge)', () => {

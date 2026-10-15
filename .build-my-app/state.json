@@ -330,9 +330,13 @@
     {
       "at": "2026-10-15T04:29:00+00:00",
       "event": "release step: 7.3 M-2 build+QA (background): F-008/009/010"
+    },
+    {
+      "at": "2026-10-15T04:45:22+00:00",
+      "event": "M-2 built+QA complete (fork): F-008/009/010 shipped. 114 unit + 34 e2e, size 15.8KB, 0 ACs uncovered, localStorage prefs-only verified."
     }
   ],
-  "updated": "2026-10-15T04:29:00+00:00",
+  "updated": "2026-10-15T04:45:22+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",

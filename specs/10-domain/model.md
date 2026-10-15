@@ -38,8 +38,8 @@ The input rendered in one case kind.
 
 Per-device settings remembered locally (RULE-14); never user content. Added in M-2.
 
-- `stripSymbols` — boolean (RULE-11); default off.
-- `removeAccents` — boolean (RULE-12); default off.
+- `stripSymbols` — boolean (RULE-11); default on.
+- `removeAccents` — boolean (RULE-12); default on.
 - `sortMode` — `default` | `recent` | `alphabetical` (RULE-13).
 - `pinned` — the set of pinned case kinds (RULE-13).
 - `recent` — the case kinds in most-recently-copied order (RULE-13); its head is the last-used
