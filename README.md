@@ -49,7 +49,22 @@ and is discarded when you close it. To work offline, the browser keeps a copy of
 program files (never your text). When embedded in the portal, the tool only tells the portal that
 it is ready and receives the light or dark theme — never your text.
 
+## Release and deployment
+
+Hosting is Cloudflare Workers static assets at https://text-case-converter.tarokit.app (ADR-0006),
+published by `.github/workflows/deploy.yml` (manual run or a `v*` tag; runs every CI check, builds
+with `HOST_ORIGINS=https://tarokit.app`, uploads `dist/` with `wrangler`, then runs the smoke
+test). Source maps are built hidden and excluded from upload (`dist/.assetsignore`). Account, DNS
+and secret setup is owner work: see `.build-my-app/reports/release-checklist.md`.
+
+| Command | What it does |
+|---|---|
+| `pnpm smoke:prod <url>` | Post-deploy check of headers, no source maps, notices, and zero requests after load in headless Chromium |
+| `pnpm exec wrangler dev --port 8787` | Serve `dist/` locally with the real `_headers`; then `pnpm smoke:prod http://127.0.0.1:8787` |
+| `SW_KILL=1 pnpm build` | Build the offline kill switch (recovery only — see the checklist) |
+
 ## Status
 
-M-1 is built (`specs/60-delivery/roadmap.md`), features `building`. Release (hosting, domain,
-deployment) is the owner's step — see `.build-my-app/reports/`.
+M-1 is built and QA-passed (`specs/60-delivery/roadmap.md`), features `shipped`. Deployment
+(Cloudflare account, domain, first push, deploy) is the owner's step — see
+`.build-my-app/reports/release-checklist.md` and `release-notes.md`.

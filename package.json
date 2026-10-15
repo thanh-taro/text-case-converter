@@ -25,6 +25,7 @@
     "check:licenses": "node scripts/check-licenses.mjs",
     "check:size": "node scripts/check-size.mjs",
     "lhci": "lhci autorun",
+    "smoke:prod": "node scripts/smoke-prod.mjs",
     "spec:lint": "python3 tools/spec_lint.py"
   },
   "dependencies": {
