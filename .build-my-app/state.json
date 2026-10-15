@@ -63,12 +63,12 @@
     },
     "qa": {
       "title": "5 QA & hardening",
-      "status": "in_progress",
+      "status": "done",
       "step": "5.1 background QA running",
       "gate": {
-        "status": "pending",
-        "at": null,
-        "note": null
+        "status": "passed",
+        "at": "2026-10-15T03:48:46+00:00",
+        "note": "Owner passed G5: Chromium suite green, matrix 100%, axe 0, licenses clean. Manual items (FF/WebKit e2e, lhci, SR/touch) tracked for CI/owner. Privacy wording accepted; contact details pending at release."
       }
     },
     "release": {
@@ -262,9 +262,25 @@
     {
       "at": "2026-10-15T03:33:10+00:00",
       "event": "qa step: 5.1 background QA running"
+    },
+    {
+      "at": "2026-10-15T03:45:26+00:00",
+      "event": "QA phase: closed 10 deferred ACs via e2e harness (host+offline), added axe a11y, 3-engine CI. Chromium: 25 e2e + 4 axe + 92 unit green. Firefox/WebKit launch-blocked locally → CI. Traceability 100%, privacy declaration drafted. check:size 14.2KB, licenses clean."
+    },
+    {
+      "at": "2026-10-15T03:48:46+00:00",
+      "event": "set qa_manual_checklist"
+    },
+    {
+      "at": "2026-10-15T03:48:46+00:00",
+      "event": "gate qa passed: Owner passed G5: Chromium suite green, matrix 100%, axe 0, licenses clean. Manual items (FF/WebKit e2e, lhci, SR/touch) tracked for CI/owner. Privacy wording accepted; contact details pending at release."
+    },
+    {
+      "at": "2026-10-15T03:48:46+00:00",
+      "event": "G5 approved. Privacy declaration wording accepted (contact details pending). Manual checklist recorded."
     }
   ],
-  "updated": "2026-10-15T03:33:10+00:00",
+  "updated": "2026-10-15T03:48:46+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",
@@ -289,5 +305,12 @@
       "q": "JS case-mapping on non-ASCII (cafe, Greek, CJK, emoji, Turkish i): no crashes/mojibake; non-Latin passes through untouched.",
       "phase": 3
     }
+  ],
+  "qa_manual_checklist": [
+    "Firefox+WebKit full e2e (CI/owner machine)",
+    "pnpm lhci startup numbers (needs Chrome)",
+    "Screen-reader pass (VoiceOver/NVDA)",
+    "Real touch device + forced-colors + 200% zoom",
+    "Add privacy contact details before publishing"
   ]
 }

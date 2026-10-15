@@ -1,7 +1,7 @@
 # Privacy declaration — Text Case Converter
 
-*Draft produced in QA (phase 5). **Needs owner review before publishing** — the owner is the data
-controller, and contact details for privacy questions are not yet stated here.*
+*Wording reviewed and accepted by the owner (2026-10-15). **Before publishing at release**, the
+owner (the data controller) must add contact details for privacy questions.*
 
 ## Statement
 Text Case Converter runs entirely in your browser. The text you type or paste is never uploaded,
