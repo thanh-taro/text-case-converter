@@ -1,0 +1,5 @@
+/* MOD-App styles entry. Tokens first, then fonts, then base and the tool. */
+@import './tokens.gen.css';
+@import './fonts.css';
+@import './base.css';
+@import './app.css';
