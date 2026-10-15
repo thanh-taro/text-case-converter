@@ -184,9 +184,7 @@ export async function run(base, { browser = true } = {}) {
     ...(/^text\/plain/.test(notices.headers.get('content-type') ?? '')
       ? []
       : [`content-type ${notices.headers.get('content-type')}`]),
-    ...(notices.body.length > 500 && /preact/i.test(notices.body)
-      ? []
-      : ['file empty or lacks the expected packages']),
+    ...(notices.body.length > 500 && /preact/i.test(notices.body) ? [] : ['file empty or lacks the expected packages']),
     ...common(notices.headers, { https }),
   ]);
 

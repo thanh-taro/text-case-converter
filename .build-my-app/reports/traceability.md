@@ -39,3 +39,14 @@ test**. Engines: Chromium verified locally (all green); Firefox + WebKit run in 
 - `pnpm lhci` startup numbers on the owner's machine/CI (needs Chrome).
 - Screen-reader pass (VoiceOver / NVDA) and a real coarse-pointer/touch device pass.
 - Forced-colors / 200% zoom / text-spacing manual pass.
+
+## M-2 — Options & ordering (F-008, F-009, F-010)
+
+| Feature | ACs | Test(s) | Result |
+|---|---|---|---|
+| F-008 Strip symbols | AC1–AC8 | `unit/transform.test.ts`, `e2e/options.spec.ts` (live, persist, fallback — Chromium) | ✅ |
+| F-009 Remove accents | AC1–AC7 | `unit/transform.test.ts`, `e2e/options.spec.ts` (Chromium; FF/WebKit CI) | ✅ |
+| F-010 Sort & pin + last-used badge | AC1–AC7 | `e2e/options.spec.ts` (alphabetical/recent/badge/pin/stable, restore) | ✅ |
+| RULE-14 persistence / privacy | — | `e2e/smoke.spec.ts` (localStorage = only `tcc.prefs`, no user text) + `e2e/options.spec.ts` reloads | ✅ |
+
+M-2 adds **114 unit + 34 Chromium e2e** total green; size 15.8 KB / 250 KB; licenses within ADR-0001 (no new deps; engine transforms in-house). a11y: axe 0 violations incl. the new switches/select/pin.

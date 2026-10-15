@@ -3,6 +3,7 @@
 import type { JSX } from 'preact';
 import { announcement } from './state';
 import { InputArea } from './components/InputArea';
+import { Controls } from './components/Controls';
 import { Notices } from './components/Notices';
 import { ResultGrid } from './components/ResultGrid';
 import { StatusBar } from './components/StatusBar';
@@ -12,6 +13,7 @@ export function Converter(): JSX.Element {
     <div class="tool">
       <div class="wrap">
         <InputArea />
+        <Controls />
         <Notices />
         <ResultGrid />
       </div>

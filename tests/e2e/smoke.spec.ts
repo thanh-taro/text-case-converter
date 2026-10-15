@@ -84,6 +84,11 @@ test('F-006.AC2 F-003.AC3 / NFR-01 no network requests of its own after load', a
   await page.getByRole('button', { name: 'Copy kebab-case' }).click();
   await page.waitForTimeout(300);
   expect(external).toEqual([]);
+  // F-003.AC3 / RULE-14: the only local write is the non-content preferences key — never user text.
+  const storage = await page.evaluate(() => ({ ...localStorage }));
+  expect(Object.keys(storage)).toEqual(['tcc.prefs']);
+  expect(JSON.stringify(storage)).not.toContain('HTTPResponse');
+  expect(JSON.stringify(storage)).not.toContain('getUserID');
 });
 
 test('F-006.AC1 privacy statement is always visible', async ({ page }) => {

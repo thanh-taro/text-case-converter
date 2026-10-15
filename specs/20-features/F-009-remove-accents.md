@@ -1,7 +1,7 @@
 ---
 id: F-009
 title: Remove accents
-status: draft
+status: shipped
 milestone: M-2
 priority: P1
 personas: [PER-01]

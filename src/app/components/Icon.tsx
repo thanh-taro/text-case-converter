@@ -22,6 +22,12 @@ const PATHS: Record<string, JSX.Element> = {
       <path d="M12 9v4M12 17h.01" />
     </>
   ),
+  pin: (
+    <>
+      <path d="M12 17v5" />
+      <path d="M9 10.5V4h6v6.5l2 3.5H7l2-3.5Z" />
+    </>
+  ),
 };
 
 export type IconName = keyof typeof PATHS;

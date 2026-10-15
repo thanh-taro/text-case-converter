@@ -9,6 +9,6 @@
 | F-005 | Fit into the host portal    | M-1       | P0       | shipped  |
 | F-006 | Show the privacy guarantee  | M-1       | P1       | shipped  |
 | F-007 | Work offline                | M-1       | P2       | shipped  |
-| F-008 | Strip symbols | M-2 | P1 | draft |
-| F-009 | Remove accents | M-2 | P1 | draft |
-| F-010 | Sort and pin results | M-2 | P2 | draft |
+| F-008 | Strip symbols | M-2 | P1 | shipped |
+| F-009 | Remove accents | M-2 | P1 | shipped |
+| F-010 | Sort and pin results | M-2 | P2 | shipped |

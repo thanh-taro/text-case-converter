@@ -95,6 +95,24 @@ export default tseslint.config(
     },
   },
   {
+    // MOD-Prefs is the one place that may use localStorage, for ENT-Preferences only
+    // (RULE-14, platform-mapping.md); every other ban still applies. Never user text.
+    files: ['src/prefs/**'],
+    rules: {
+      'no-restricted-globals': [
+        'error',
+        ...NETWORK_AND_STORAGE.filter(({ name }) => name !== 'localStorage'),
+        ...OTHER_WINDOW_GLOBALS,
+      ],
+      'no-restricted-properties': [
+        'error',
+        ...NETWORK_PROPERTIES.filter((p) => !(p.object === 'window' && p.property === 'localStorage')),
+        ...OTHER_WINDOW_PROPERTIES,
+      ],
+      'no-restricted-syntax': ['error', ...NAVIGATION_SYNTAX, ...OTHER_WINDOW_POST],
+    },
+  },
+  {
     // MOD-Engine imports nothing outside itself (architecture.md "Dependency rule").
     files: ['src/engine/**'],
     rules: {

@@ -1,7 +1,7 @@
 ---
 id: F-008
 title: Strip symbols
-status: draft
+status: shipped
 milestone: M-2
 priority: P1
 personas: [PER-01]

@@ -4,6 +4,15 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
 
 ## Unreleased
 
+- 2026-10-15 — M-2 built & shipped (F-008/009/010): in-house engine transforms (RULE-11 strip
+  symbols, RULE-12 remove accents, pure, zero-dep); CMP-Controls options bar (switches + sort);
+  CMP-ResultRow restructured to a group with a copy button + a separate pin button, plus the
+  last-used badge; MOD-Prefs persists ENT-Preferences in a single `localStorage` key (RULE-14,
+  non-content) with a try/catch session-only fallback; ESLint storage-ban updated to allow that one
+  key in `src/prefs/**` only. 114 unit + 34 Chromium e2e green; AC coverage 100%; size 15.8 KB /
+  250 KB; licenses within ADR-0001 (no new deps); axe 0 violations. FF/WebKit e2e + lhci remain
+  CI/owner checks.
+
 - 2026-10-15 — M-2 specs drafted (owner request): F-008 Strip symbols (RULE-11 — ASCII-alnum only,
   folds accents then drops symbols/non-Latin), F-009 Remove accents (RULE-12 — Latin ASCII-fold incl.
   Vietnamese đ, keeps symbols/non-Latin), F-010 Sort and pin results + last-used badge (RULE-13),

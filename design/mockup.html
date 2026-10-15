@@ -220,6 +220,17 @@
         outline-offset: 2px;
       }
 
+      /* options bar (CMP-Controls, M-2) */
+      .controls { display: flex; flex-wrap: wrap; align-items: center; gap: var(--tk-space-4); }
+      .switch { display: inline-flex; align-items: center; gap: var(--tk-space-2); font-size: var(--tk-font-size-sm); color: var(--tk-color-fg); }
+      .switch__track { width: 32px; height: 18px; border-radius: var(--tk-radius-pill); background: var(--tk-color-surface2); border: 1px solid var(--tk-color-lineStrong); position: relative; flex: none; }
+      .switch__thumb { position: absolute; top: 1px; left: 1px; width: 14px; height: 14px; border-radius: var(--tk-radius-pill); background: var(--tk-color-muted); }
+      .switch--on .switch__track { background: var(--tk-color-accent); border-color: var(--tk-color-accent); }
+      .switch--on .switch__thumb { background: var(--tk-color-onAccent); transform: translateX(14px); }
+      .sort { display: inline-flex; align-items: center; gap: var(--tk-space-2); font-size: var(--tk-font-size-sm); color: var(--tk-color-muted); }
+      .sort__select { min-height: 28px; display: inline-flex; align-items: center; background: var(--tk-color-surface); color: var(--tk-color-fg); border: 1px solid var(--tk-color-lineStrong); border-radius: var(--tk-radius-sm); padding: 0 var(--tk-space-2); }
+      .row__badge { display: inline-block; margin-left: var(--tk-space-2); padding: 0 var(--tk-space-1); border-radius: var(--tk-radius-sm); background: var(--tk-color-surface2); color: var(--tk-color-muted); font-size: var(--tk-font-size-xs); }
+
       /* notice */
       .notice {
         display: flex;
@@ -616,6 +627,28 @@
           iw.appendChild(c);
         }
         wrap.appendChild(iw);
+        // options bar (CMP-Controls, M-2): strip/accents switches + sort
+        {
+          const c = el('div', 'controls');
+          c.setAttribute('role', 'group');
+          c.setAttribute('aria-label', 'Options');
+          for (const [label, on] of [
+            ['Strip symbols', false],
+            ['Remove accents', false],
+          ]) {
+            const sw = el('span', 'switch' + (on ? ' switch--on' : ''));
+            const tr = el('span', 'switch__track');
+            tr.appendChild(el('span', 'switch__thumb'));
+            sw.appendChild(tr);
+            sw.appendChild(document.createTextNode(label));
+            c.appendChild(sw);
+          }
+          const sort = el('span', 'sort');
+          sort.appendChild(el('span', 'sort__label', 'Sort'));
+          sort.appendChild(el('span', 'sort__select', 'Default order'));
+          c.appendChild(sort);
+          wrap.appendChild(c);
+        }
         // notice (after input)
         if (stateKey === 'large' || stateKey === 'copy-failed') {
           const kind = stateKey === 'large' ? 'info' : 'error';

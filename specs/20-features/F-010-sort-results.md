@@ -1,7 +1,7 @@
 ---
 id: F-010
 title: Sort and pin results
-status: draft
+status: shipped
 milestone: M-2
 priority: P2
 personas: [PER-01]

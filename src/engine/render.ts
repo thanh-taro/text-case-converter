@@ -1,7 +1,15 @@
 // MOD-Engine — case renderers (pure, zero-dependency).
 // Implements: RULE-01 (token-based kinds), RULE-01b (character-based), RULE-04 (Title/Sentence),
-// RULE-05 (locale-independent casing), RULE-06 (acronym normalization).
+// RULE-05 (locale-independent casing), RULE-06 (acronym normalization),
+// RULE-11 (strip symbols), RULE-12 (remove accents).
 import { tokenize } from './tokenize';
+import { removeAccents, toAsciiToken } from './transform';
+
+/** Optional input transforms (RULE-11, RULE-12); both default off (M-1 behavior). */
+export interface ConvertOptions {
+  stripSymbols?: boolean;
+  removeAccents?: boolean;
+}
 
 /** Lowercase every letter (locale-independent, RULE-05). */
 const lower = (s: string): string => s.toLowerCase();
@@ -70,26 +78,50 @@ export const TOKEN_BASED: ReadonlySet<CaseId> = new Set<CaseId>([
   'sentence',
 ]);
 
+/** Clean tokens of one line for strip-symbols mode (RULE-11): ASCII-alnum only, empties dropped. */
+function asciiTokens(line: string): string[] {
+  return tokenize(line)
+    .map(toAsciiToken)
+    .filter((t) => t.length > 0);
+}
+
+/** Per-line results for all eleven kinds under the given options (RULE-11/RULE-12). */
+function renderLine(line: string, opts: ConvertOptions): Record<CaseId, string> {
+  if (opts.stripSymbols) {
+    // RULE-11: build every kind from ASCII-alnum tokens; char-based kinds join by one space.
+    const toks = asciiTokens(line);
+    const tokenBased = renderTokens(toks) as Record<string, string>;
+    return {
+      ...(tokenBased as Record<CaseId, string>),
+      upper: toks.map(upper).join(' '),
+      lower: toks.map(lower).join(' '),
+    };
+  }
+  const src = opts.removeAccents ? removeAccents(line) : line; // RULE-12 keeps symbols/non-Latin
+  const tokenBased = renderTokens(tokenize(src)) as Record<string, string>;
+  return {
+    ...(tokenBased as Record<CaseId, string>),
+    upper: src.toUpperCase(),
+    lower: src.toLowerCase(),
+  };
+}
+
 /**
- * Convert the whole input to one case kind, line by line (RULE-03). Token-based kinds tokenize
- * each line; the two character-based kinds (RULE-01b) fold the whole input, preserving every
- * separator and the line structure. Deterministic (INV-02); line count preserved (INV-03).
+ * Convert the whole input to one case kind, line by line (RULE-03), honoring the transforms
+ * (RULE-11, RULE-12). Deterministic for a given input and options (INV-02); line count preserved
+ * (INV-03).
  */
-export function convert(input: string, id: CaseId): string {
-  if (id === 'upper') return input.toUpperCase();
-  if (id === 'lower') return input.toLowerCase();
+export function convert(input: string, id: CaseId, opts: ConvertOptions = {}): string {
   return input
     .split('\n')
-    .map((line) => renderTokens(tokenize(line))[id] ?? '')
+    .map((line) => renderLine(line, opts)[id] ?? '')
     .join('\n');
 }
 
-/** Convert the input to all eleven case kinds at once (F-002.R1). */
-export function convertAll(input: string): Record<CaseId, string> {
-  const upperAll = input.toUpperCase();
-  const lowerAll = input.toLowerCase();
-  const perLine = input.split('\n').map((line) => renderTokens(tokenize(line)));
-  const join = (key: string) => perLine.map((r) => r[key] ?? '').join('\n');
+/** Convert the input to all eleven case kinds at once (F-002.R1), honoring the transforms. */
+export function convertAll(input: string, opts: ConvertOptions = {}): Record<CaseId, string> {
+  const perLine = input.split('\n').map((line) => renderLine(line, opts));
+  const join = (id: CaseId) => perLine.map((r) => r[id] ?? '').join('\n');
   return {
     camel: join('camel'),
     pascal: join('pascal'),
@@ -100,7 +132,7 @@ export function convertAll(input: string): Record<CaseId, string> {
     path: join('path'),
     title: join('title'),
     sentence: join('sentence'),
-    upper: upperAll,
-    lower: lowerAll,
+    upper: join('upper'),
+    lower: join('lower'),
   };
 }

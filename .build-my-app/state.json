@@ -74,7 +74,7 @@
     "release": {
       "title": "6 Release",
       "status": "in_progress",
-      "step": "7.2 M-2 spec review",
+      "step": "7.3 M-2 build+QA (background): F-008/009/010",
       "gate": {
         "status": "pending",
         "at": null,
@@ -322,9 +322,17 @@
     {
       "at": "2026-10-15T04:27:52+00:00",
       "event": "M-2 spec review (2 reviewers) applied. Reconciled localStorage-preferences vs privacy across platform-mapping/RULE-07/F-003/F-006/NFR-01; pin a11y (group+2 buttons); CMP-ResultGrid sorted/pinned; glossary +5. Lint 0/0."
+    },
+    {
+      "at": "2026-10-15T04:28:49+00:00",
+      "event": "M-2 specs approved by owner (incl. localStorage-for-preferences-only privacy boundary). F-008/009/010 ready."
+    },
+    {
+      "at": "2026-10-15T04:29:00+00:00",
+      "event": "release step: 7.3 M-2 build+QA (background): F-008/009/010"
     }
   ],
-  "updated": "2026-10-15T04:27:52+00:00",
+  "updated": "2026-10-15T04:29:00+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",
