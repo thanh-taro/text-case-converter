@@ -4,6 +4,11 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
 
 ## Unreleased
 
+- 2026-10-15 — Design change (owner request): the view is now **full-width** like the JSON
+  Formatter — removed the `size.contentMax` (720px) centered cap from style.md, tokens.json and
+  the app layout (`.wrap`); regenerated tokens. No feature/AC/test behavior change; 25 e2e + 92
+  unit green, lint 0/0.
+
 - 2026-10-15 — Phase 1: initial M-1 specs drafted (F-001 … F-007, domain model & rules, NFRs,
   SCR-Converter, components, copy, FLOW-01, roadmap). All features `draft` pending review and
   the owner moving them to `ready`.

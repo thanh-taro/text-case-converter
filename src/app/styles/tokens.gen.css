@@ -46,7 +46,6 @@
     --tk-size-icon-sm: 16px;
     --tk-size-icon-md: 20px;
     --tk-size-min-width: 320px; /** smallest supported width (NFR-06, WCAG reflow) */
-    --tk-size-content-max: 720px; /** max content width standalone (comfortable reading of results) */
     --tk-border-width-hairline: 1px;
     --tk-border-width-focus: 2px;
     --tk-motion-duration-fast: 120ms;

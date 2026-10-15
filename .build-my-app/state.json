@@ -74,7 +74,7 @@
     "release": {
       "title": "6 Release",
       "status": "in_progress",
-      "step": "6.1 release artifacts prepared and verified",
+      "step": "6.2 release prep done; awaiting owner hard-stop steps + G6 confirmation",
       "gate": {
         "status": "pending",
         "at": null,
@@ -294,9 +294,17 @@
     {
       "at": "2026-10-15T03:55:12+00:00",
       "event": "Release prep: deploy.yml, smoke-prod.mjs (+smoke:prod), release-checklist/notes, terms draft, README release section. Local wrangler-dev smoke 10/10. No deploy/push."
+    },
+    {
+      "at": "2026-10-15T03:55:53+00:00",
+      "event": "release step: 6.2 release prep done; awaiting owner hard-stop steps + G6 confirmation"
+    },
+    {
+      "at": "2026-10-15T03:55:53+00:00",
+      "event": "Release prep complete: deploy.yml, smoke-prod.mjs, checklist, notes, terms. Local smoke 10/10. Awaiting owner: accounts/secrets/domain/push/deploy/publish, then G6."
     }
   ],
-  "updated": "2026-10-15T03:55:12+00:00",
+  "updated": "2026-10-15T03:55:53+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",

@@ -47,7 +47,6 @@ export const TOKEN_VARS = {
   "size.icon.sm": "--tk-size-icon-sm",
   "size.icon.md": "--tk-size-icon-md",
   "size.minWidth": "--tk-size-min-width",
-  "size.contentMax": "--tk-size-content-max",
   "border.width.hairline": "--tk-border-width-hairline",
   "border.width.focus": "--tk-border-width-focus",
   "motion.duration.fast": "--tk-motion-duration-fast",

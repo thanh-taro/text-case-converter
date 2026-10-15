@@ -63,8 +63,9 @@ mirror the portal's tokens so the tool looks native when embedded (PRN-05).
   inert (disabled).
 - **Status bar (CMP-StatusBar):** line count (COPY-status.lines) when multi-line at the left, the
   privacy statement (COPY-label.privacy) in `success` at the far end.
-- **Width:** fills the host area; standalone, content is capped at `size.contentMax` and centered.
-  Usable down to `size.minWidth` with no horizontal scroll (NFR-06).
+- **Width:** fills the full available width — the host area when embedded and the whole viewport
+  standalone (like the JSON Formatter), with a comfortable side gutter (`space.4`). No centered
+  content cap. Usable down to `size.minWidth` with no horizontal scroll (NFR-06).
 
 ## Targets & motion
 
