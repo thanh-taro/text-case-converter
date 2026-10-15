@@ -1,7 +1,7 @@
 ---
 id: F-004
 title: Convert a list line by line
-status: building
+status: shipped
 milestone: M-1
 priority: P1
 personas: [PER-01]

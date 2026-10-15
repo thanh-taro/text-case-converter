@@ -53,12 +53,12 @@
     },
     "build": {
       "title": "4 Implementation",
-      "status": "in_progress",
-      "step": "4.1 background build running (scaffold + 7 stages)",
+      "status": "done",
+      "step": "4.9 build complete; awaiting milestone gate",
       "gate": {
-        "status": "pending",
-        "at": null,
-        "note": null
+        "status": "passed",
+        "at": "2026-10-15T03:32:15+00:00",
+        "note": "Owner approved M-1 build. Verified: 92 unit + 10 e2e green, build 14.2KB, lint 0/0. 10 embedding/offline ACs tracked for QA."
       }
     },
     "qa": {
@@ -238,9 +238,25 @@
     {
       "at": "2026-10-15T02:58:22+00:00",
       "event": "Owner chose background build, report at milestone gate. Sequential build (shared single-screen app)."
+    },
+    {
+      "at": "2026-10-15T03:30:03+00:00",
+      "event": "build step: 4.9 build complete; awaiting milestone gate"
+    },
+    {
+      "at": "2026-10-15T03:30:03+00:00",
+      "event": "M-1 built: engine 100% corpus, 92 unit/property + 10 e2e green, build 14.2KB, licenses clean, lint 0/0. Features=building. 3 commits. 10 embedding/offline ACs deferred to QA. DEP-11 lucide not adopted (icons inlined)."
+    },
+    {
+      "at": "2026-10-15T03:32:15+00:00",
+      "event": "gate build passed: Owner approved M-1 build. Verified: 92 unit + 10 e2e green, build 14.2KB, lint 0/0. 10 embedding/offline ACs tracked for QA."
+    },
+    {
+      "at": "2026-10-15T03:32:16+00:00",
+      "event": "G4 approved. Features F-001..F-007 shipped. Independently verified tests/build/lint."
     }
   ],
-  "updated": "2026-10-15T02:58:22+00:00",
+  "updated": "2026-10-15T03:32:16+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",
@@ -248,7 +264,11 @@
     "python": "3.14.7",
     "reference_project": "../json-formatter",
     "stack": "Preact+Vite+TypeScript+vitest+Playwright+CloudflareWorkers",
-    "mcp": ["figma", "claude-in-chrome", "webstorm"]
+    "mcp": [
+      "figma",
+      "claude-in-chrome",
+      "webstorm"
+    ]
   },
   "spike_candidates": [
     {

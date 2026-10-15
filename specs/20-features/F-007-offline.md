@@ -1,7 +1,7 @@
 ---
 id: F-007
 title: Work offline
-status: building
+status: shipped
 milestone: M-1
 priority: P2
 personas: [PER-01]

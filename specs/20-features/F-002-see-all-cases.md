@@ -1,7 +1,7 @@
 ---
 id: F-002
 title: See every case at once
-status: building
+status: shipped
 milestone: M-1
 priority: P0
 personas: [PER-01]
