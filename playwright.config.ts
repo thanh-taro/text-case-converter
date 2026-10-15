@@ -1,10 +1,13 @@
-// End-to-end tests (ADR-0009): production build served by `vite preview`. Run `pnpm build` first.
-// Test titles start with the spec ID they verify (adapters/tests.md). The full three-engine +
-// two-origin host/CSP suite is set up in QA (phase 5); this smoke runs on Chromium.
+// End-to-end tests (ADR-0009). The production build is served by tests/e2e/server.mjs, which
+// applies the generated _headers (CSP, frame-ancestors) and runs a stub portal host on a second
+// origin plus an unlisted origin for the embedding-refusal test. The dist is built with
+// HOST_ORIGINS pointing at the stub host so both the frame-ancestors header and the compiled-in
+// allow-list (__HOST_ORIGINS__) target it. Three engines (NFR-06). Titles start with the spec ID.
 import { defineConfig, devices } from '@playwright/test';
 
 const CI = !!process.env['CI'];
-const PORT = 4173;
+const BASE = Number(process.env['E2E_PORT_BASE'] ?? 4173);
+export const PORTS = { tool: BASE, host: BASE + 1, unlisted: BASE + 2, admin: BASE + 6 };
 
 export default defineConfig({
   testDir: './tests/e2e',
@@ -14,15 +17,20 @@ export default defineConfig({
   timeout: 30_000,
   reporter: CI ? [['list'], ['html', { open: 'never' }]] : [['list']],
   use: {
-    baseURL: `http://localhost:${PORT}`,
+    baseURL: `http://localhost:${PORTS.tool}`,
     trace: 'retain-on-failure',
     permissions: ['clipboard-read', 'clipboard-write'],
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  projects: [
+    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
+    { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+  ],
   webServer: {
-    command: 'pnpm preview',
-    url: `http://localhost:${PORT}/`,
+    // Build the dist against the stub host origin, then serve it with the real _headers.
+    command: `HOST_ORIGINS="http://localhost:${PORTS.host}" pnpm build && node tests/e2e/server.mjs`,
+    url: `http://localhost:${PORTS.admin}/health`,
     reuseExistingServer: !CI,
-    timeout: 60_000,
+    timeout: 120_000,
   },
 });

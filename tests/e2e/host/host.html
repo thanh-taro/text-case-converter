@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Stub portal host</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      iframe {
+        border: 0;
+        width: 100%;
+        height: 100vh;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Stub of the taro-kit portal: embeds the tool and relays theme settings messages.
+         __E2E_PORT_BASE__ is replaced by the fixture server. Query: ?theme=dark|light|none|bad -->
+    <script>
+      const BASE = Number('__E2E_PORT_BASE__');
+      const TOOL = `http://localhost:${BASE}`;
+      const params = new URLSearchParams(location.search);
+      const theme = params.get('theme'); // dark | light | none | bad
+      // Record every message from the tool (fromTool = came from the embedded frame).
+      window.__host = { received: [], loads: 0 };
+      window.addEventListener('message', (e) => {
+        window.__host.received.push({ origin: e.origin, data: e.data, fromTool: e.source === frame.contentWindow });
+      });
+      const frame = document.createElement('iframe');
+      frame.name = 'tool';
+      let src = TOOL + '/';
+      if (theme === 'dark' || theme === 'light') src += `?theme=${theme}`;
+      else if (theme === 'bad') src += `?theme=purple`;
+      frame.src = src;
+      frame.addEventListener('load', () => window.__host.loads++);
+      document.body.appendChild(frame);
+      // Test hooks the spec calls via page.evaluate in the host page context.
+      window.setTheme = (value) => frame.contentWindow.postMessage({ type: 'taro:theme', value }, TOOL);
+      window.postRaw = (data) => frame.contentWindow.postMessage(data, TOOL);
+      window.resizeTool = (w, h) => {
+        frame.style.width = typeof w === 'number' ? w + 'px' : w;
+        frame.style.height = typeof h === 'number' ? h + 'px' : h;
+      };
+    </script>
+  </body>
+</html>
