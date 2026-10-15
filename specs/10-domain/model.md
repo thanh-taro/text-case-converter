@@ -34,11 +34,24 @@ The input rendered in one case kind.
 - `text` — the converted text, with the same line structure as the input (RULE-03).
 - `isEmpty` — whether it has no characters (true when the input is empty, RULE-09).
 
+### ENT-Preferences — Preferences
+
+Per-device settings remembered locally (RULE-14); never user content. Added in M-2.
+
+- `stripSymbols` — boolean (RULE-11); default off.
+- `removeAccents` — boolean (RULE-12); default off.
+- `sortMode` — `default` | `recent` | `alphabetical` (RULE-13).
+- `pinned` — the set of pinned case kinds (RULE-13).
+- `recent` — the case kinds in most-recently-copied order (RULE-13); its head is the last-used
+  case shown with the badge.
+
 ## Invariants
 
-- **INV-01** No user text, or anything derived from it, is sent off the device (PRN-01).
-- **INV-02** Conversion is deterministic: the same input always produces the same eleven
-  results. M-1 has no settings or hidden state that could change an output.
+- **INV-01** No user text, or anything derived from it, is sent off the device (PRN-01). Per-device
+  preferences (ENT-Preferences) are not user text and stay on the device (RULE-14).
+- **INV-02** Conversion is deterministic: the same input and the same preferences (RULE-11 strip
+  symbols, RULE-12 remove accents) always produce the same results. Sort mode, pinning and the
+  last-used badge (RULE-13) change only row order and marking, never a result's text.
 - **INV-03** Every token-based result has the same number of lines as the input; a blank input
   line stays a blank line in the result (RULE-03).
 - **INV-04** Characters with no case mapping appear unchanged in every result (RULE-05); the

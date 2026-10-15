@@ -74,7 +74,7 @@
     "release": {
       "title": "6 Release",
       "status": "in_progress",
-      "step": "6.2 release prep done; awaiting owner hard-stop steps + G6 confirmation",
+      "step": "7.2 M-2 spec review",
       "gate": {
         "status": "pending",
         "at": null,
@@ -302,9 +302,29 @@
     {
       "at": "2026-10-15T03:55:53+00:00",
       "event": "Release prep complete: deploy.yml, smoke-prod.mjs, checklist, notes, terms. Local smoke 10/10. Awaiting owner: accounts/secrets/domain/push/deploy/publish, then G6."
+    },
+    {
+      "at": "2026-10-15T04:04:01+00:00",
+      "event": "Change request: full-width view (removed contentMax cap). Spec+tokens+app.css+mockup updated, regenerated, verified. Committed f-w."
+    },
+    {
+      "at": "2026-10-15T04:12:27+00:00",
+      "event": "release step: 7.1 M-2 spec authoring (F-008 strip, F-009 accents, F-010 sort+recent+badge)"
+    },
+    {
+      "at": "2026-10-15T04:12:27+00:00",
+      "event": "M-2 requested: F-008 strip-symbols (strip from input words), F-009 remove-accents (Latin ASCII-fold incl VN đ; non-Latin untouched), F-010 sort(default/recent/alpha/pinned)+persist(localStorage)+last-used badge. Decisions captured."
+    },
+    {
+      "at": "2026-10-15T04:18:56+00:00",
+      "event": "release step: 7.2 M-2 spec review"
+    },
+    {
+      "at": "2026-10-15T04:27:52+00:00",
+      "event": "M-2 spec review (2 reviewers) applied. Reconciled localStorage-preferences vs privacy across platform-mapping/RULE-07/F-003/F-006/NFR-01; pin a11y (group+2 buttons); CMP-ResultGrid sorted/pinned; glossary +5. Lint 0/0."
     }
   ],
-  "updated": "2026-10-15T03:55:53+00:00",
+  "updated": "2026-10-15T04:27:52+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",

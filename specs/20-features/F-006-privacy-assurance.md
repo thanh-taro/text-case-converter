@@ -5,8 +5,8 @@ status: shipped
 milestone: M-1
 priority: P1
 personas: [PER-01]
-entities: []
-rules: []
+entities: [ENT-Preferences]
+rules: [RULE-14]
 screens: [SCR-Converter]
 components: [CMP-StatusBar]
 nfr: [NFR-01]
@@ -22,7 +22,8 @@ Reassure a developer who may paste sensitive identifiers that their text stays o
 ## Scope
 
 - In: a visible, plain-language privacy statement; the tool making no network requests of its
-  own after load; no analytics or persistence.
+  own after load; no analytics; no persistence of user text (per-device preferences may be stored
+  locally — RULE-14, ENT-Preferences — but never the text you convert).
 - Out: a full privacy policy page (owner work in release); cookie banners (there are none).
 
 ## Requirements
@@ -31,7 +32,8 @@ Reassure a developer who may paste sensitive identifiers that their text stays o
 - **R2** After initial load, the tool makes no network requests of its own; the only network
   activity is the browser maintaining the offline cache of the tool's own files, which never
   carries user text (NFR-01).
-- **R3** The tool uses no analytics and never stores the user's text between sessions (PRN-01).
+- **R3** The tool uses no analytics and never stores the user's text between sessions; only
+  non-content preferences may be stored on the device (PRN-01, RULE-14).
 
 ## Acceptance criteria
 
@@ -40,7 +42,7 @@ Reassure a developer who may paste sensitive identifiers that their text stays o
 - **AC2** Given a full session of entering, converting and copying text, when network activity is
   observed, then there are no requests of the tool's own after load. (R2)
 - **AC3** Given the user enters text and then reloads the tool, when it reopens, then the input
-  is empty (nothing was persisted). (R3)
+  is empty (the input text was not persisted; only non-content preferences may be). (R3)
 - **AC4** Given the tool is inspected, when its content security policy is read, then it forbids
   outgoing connections. (R2)
 

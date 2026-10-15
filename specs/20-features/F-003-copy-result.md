@@ -6,7 +6,7 @@ milestone: M-1
 priority: P0
 personas: [PER-01]
 entities: [ENT-Result]
-rules: [RULE-07, RULE-09]
+rules: [RULE-07, RULE-09, RULE-14]
 screens: [SCR-Converter]
 components: [CMP-ResultRow, CMP-Notice]
 nfr: [NFR-01, NFR-04]
@@ -30,8 +30,10 @@ their privacy (PRN-01).
   (RULE-07).
 - **R2** A brief confirmation (COPY-status.copied) is shown and announced to assistive
   technology (NFR-04).
-- **R3** Copying happens only on an explicit user action and writes nothing anywhere else
-  (PRN-01, INV-01); the clipboard is written only on that action.
+- **R3** Copying happens only on an explicit user action; it sends nothing off the device and
+  stores no user text (PRN-01, INV-01). The clipboard is written only on that action; the only
+  local write is recording the case as most-recently-used in preferences (RULE-14, not content;
+  M-2, see F-010).
 - **R4** When the input is empty, result rows are not activatable and nothing can be copied
   (RULE-09).
 - **R5** If the clipboard write fails or is refused by the browser, the result is unchanged and a
@@ -44,8 +46,8 @@ their privacy (PRN-01).
   the clipboard contains `hello_world` and COPY-status.copied is shown. (R1, R2)
 - **AC2** Given a multi-line input, when the user copies the kebab-case row, then the clipboard
   contains every converted line separated by line breaks. (R1)
-- **AC3** Given any copy action, when it completes, then no network request is made and nothing
-  is stored beyond the clipboard write the user asked for. (R3)
+- **AC3** Given any copy action, when it completes, then no network request is made and no user
+  text is stored; the only local write is the recent-use preference (RULE-14). (R3)
 - **AC4** Given the input is empty, when the user tries to activate a result row, then nothing is
   copied and no confirmation is shown. (R4)
 - **AC5** Given a result was copied, when the confirmation appears, then it is announced once per

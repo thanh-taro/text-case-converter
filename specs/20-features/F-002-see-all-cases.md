@@ -30,7 +30,7 @@ expects (PRN-03).
 
 - **R1** For any non-empty input, the tool shows a result for each of the eleven case kinds
   (RULE-01, RULE-01b) at the same time, without the user selecting a target case; the eleven
-  outputs are deterministic for a given input (INV-02).
+  outputs are deterministic for a given input and the active preferences (INV-02).
 - **R2** Results update live as the input changes, within the responsiveness cap, and always
   describe the current input (RULE-08, NFR-02, INV-05).
 - **R3** Token-based kinds split the input into tokens by RULE-02, handling existing delimiters,

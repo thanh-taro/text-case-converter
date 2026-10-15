@@ -41,3 +41,18 @@ Tone: short, plain, specific; say what happened and what to do. Placeholders in 
 | **COPY-status.copy_failed**  | Couldn't copy — select the text and copy manually                          | Shown and announced when the clipboard write is refused |
 | **COPY-status.lines**        | {n} lines                                                                  | Shown when the input has more than one line             |
 | **COPY-notice.large**        | Large input — results update after you stop typing                         | Shown once past the RULE-08 cap                         |
+
+## Options & sorting (M-2)
+
+| ID                       | Text            | Notes                                              |
+| ------------------------ | --------------- | -------------------------------------------------- |
+| **COPY-label.options**   | Options         | Accessible name of the controls group              |
+| **COPY-action.strip**    | Strip symbols   | Toggle (RULE-11)                                   |
+| **COPY-action.accents**  | Remove accents  | Toggle (RULE-12)                                   |
+| **COPY-label.sort**      | Sort            | Label of the sort control (RULE-13)                |
+| **COPY-sort.default**    | Default order   | Sort option                                        |
+| **COPY-sort.recent**     | Recently copied | Sort option                                        |
+| **COPY-sort.alpha**      | A–Z             | Sort option (alphabetical by case label)           |
+| **COPY-action.pin**      | Pin {case}      | Pin a case to the top (accessible name)            |
+| **COPY-action.unpin**    | Unpin {case}    | Unpin a case (accessible name)                     |
+| **COPY-badge.last_used** | Last used       | Badge on the most-recently-copied row (RULE-13)    |

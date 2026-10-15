@@ -4,6 +4,18 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
 
 ## Unreleased
 
+- 2026-10-15 — M-2 specs drafted (owner request): F-008 Strip symbols (RULE-11 — ASCII-alnum only,
+  folds accents then drops symbols/non-Latin), F-009 Remove accents (RULE-12 — Latin ASCII-fold incl.
+  Vietnamese đ, keeps symbols/non-Latin), F-010 Sort and pin results + last-used badge (RULE-13),
+  all remembered on the device (RULE-14, ENT-Preferences). INV-02 rescoped (determinism given input
+  + preferences). New CMP-Controls; CMP-ResultRow gains badge + pin (restructured to a group with a
+  copy button + pin button so the pin isn't nested in a button). Spec review (2 reviewers) applied:
+  reconciled the privacy boundary for preference persistence — platform-mapping allows a single
+  `localStorage` preferences key (non-content); RULE-07, F-003 (R3/AC3), F-006 (scope/R3/AC3) and
+  NFR-01 now scope their "nothing persisted/written" guarantees to *user text* (preferences excepted);
+  CMP-ResultGrid gains sorted/pinned states; reading order includes the options bar; glossary +5 terms.
+  Lint 0/0. Pending owner ready + the M-2 design/build/QA cycle.
+
 - 2026-10-15 — Design change (owner request): the view is now **full-width** like the JSON
   Formatter — removed the `size.contentMax` (720px) centered cap from style.md, tokens.json and
   the app layout (`.wrap`); regenerated tokens. No feature/AC/test behavior change; 25 e2e + 92

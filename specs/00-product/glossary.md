@@ -14,3 +14,8 @@
 | Pass-through                | Leaving characters the conversion cannot meaningfully re-case exactly as written (RULE-05).                                                                                                                               |
 | Host                        | The portal page that embeds the tool.                                                                                                                                                                                     |
 | Standalone                  | The tool opened at its own address, not embedded.                                                                                                                                                                         |
+| Preference | A per-device setting (not user content) remembered locally: the strip-symbols and remove-accents toggles, the sort mode, pins and recent-use order (ENT-Preferences, RULE-14). |
+| ASCII-fold | Reducing an accented Latin letter to its plain ASCII base, e.g. `é`→`e`, `đ`→`d` (RULE-12). |
+| Sort mode | How result rows are ordered: default, recently copied, or alphabetical (RULE-13). |
+| Pin | Marking a case so its row floats to the top of the grid (RULE-13). |
+| Last-used badge | A text marker on the most-recently-copied case's row (RULE-13, COPY-badge.last_used). |
