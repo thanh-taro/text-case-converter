@@ -19,10 +19,14 @@ export default defineConfig({
   use: {
     baseURL: `http://localhost:${PORTS.tool}`,
     trace: 'retain-on-failure',
-    permissions: ['clipboard-read', 'clipboard-write'],
   },
   projects: [
-    { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+    // Clipboard permissions are Chromium-only names; Firefox and WebKit reject them and allow
+    // writeText on a user click without a grant.
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'], permissions: ['clipboard-read', 'clipboard-write'] },
+    },
     { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],

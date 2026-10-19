@@ -1,7 +1,7 @@
 # Privacy declaration — Text Case Converter
 
 *Wording reviewed and accepted by the owner (2026-10-15). **Updated 2026-10-19 for M-2** (saved
-preferences) — the changed paragraph needs the owner's re-review. **Before publishing at
+preferences) — re-reviewed and approved by the owner 2026-10-19. **Before publishing at
 release**, the owner (the data controller) must add contact details for privacy questions.*
 
 ## Statement

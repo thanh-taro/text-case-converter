@@ -11,7 +11,7 @@ published by `.github/workflows/deploy.yml`. Owner column: **Claude** = done/aut
 - [x] License audit clean; `dist/` ships only Preact, signals, 2 fonts (ADR-0001).
 - [x] `deploy.yml` (manual dispatch or `v*` tag), `scripts/smoke-prod.mjs`, `smoke:prod` script.
 - [x] Privacy declaration wording accepted (`.../qa/privacy-declaration.md`); terms draft written.
-- [ ] **Re-review the privacy paragraph added for M-2** (settings saved on-device) — User.
+- [x] **Re-review the privacy paragraph added for M-2** (settings saved on-device) — User.
 - [x] Release notes written (`.../release-notes.md`).
 
 ## B. Pre-flight the owner should run first (User)
