@@ -52,13 +52,16 @@ test('F-005.AC9 missing theme follows the device preference', async ({ page }) =
   await expect(frame.locator('html')).toHaveAttribute('data-theme', 'light');
 });
 
-test('F-005.AC3 standalone follows the device light/dark preference', async ({ page }) => {
-  await page.emulateMedia({ colorScheme: 'dark' });
-  await page.goto('/');
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  await page.emulateMedia({ colorScheme: 'light' });
-  await page.goto('/');
-  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+test('F-005.AC3 standalone follows the device light/dark preference', async ({ browser }) => {
+  // The preference is set when the context is created: Firefox drops a page-level emulateMedia
+  // made on about:blank when the first navigation moves to the tool's origin.
+  for (const scheme of ['dark', 'light'] as const) {
+    const context = await browser.newContext({ colorScheme: scheme });
+    const page = await context.newPage();
+    await page.goto(`http://localhost:${BASE}/`);
+    await expect(page.locator('html')).toHaveAttribute('data-theme', scheme);
+    await context.close();
+  }
 });
 
 test('F-005.AC4 fills the host area at 320px with no horizontal scroll of its own', async ({ page }) => {
@@ -84,12 +87,18 @@ test('F-005.AC6 the only message the tool sends the host is the ready signal, no
 });
 
 test('F-005.AC7 a non-allow-listed origin cannot embed the tool', async ({ page }) => {
-  await page.goto(`${UNLISTED}/host.html?theme=dark`);
-  // frame-ancestors forbids rendering inside the unlisted origin: the grid never appears.
-  await expect(page.frameLocator('iframe[name="tool"]').getByRole('group', { name: 'Converted cases' })).toHaveCount(
-    0,
-    { timeout: 4000 },
-  );
+  // frame-ancestors makes the browser refuse the tool's document inside the unlisted origin, so
+  // it is never parsed and never fetches its script or stylesheet. Checked through requests
+  // because Firefox does not let the test look inside the refused frame.
+  const toolAssets: string[] = [];
+  page.on('request', (r) => {
+    if (r.url().startsWith(`http://localhost:${BASE}/assets/`)) toolAssets.push(r.url());
+  });
+  await page.goto(`${UNLISTED}/host.html?theme=dark`, { waitUntil: 'domcontentloaded' });
+  await page.waitForTimeout(2000);
+  expect(toolAssets).toEqual([]);
+  const fromTool = await page.evaluate(() => window.__host!.received.filter((m) => m.fromTool));
+  expect(fromTool).toEqual([]);
 });
 
 test('F-005.AC8 standalone: every M-1 feature works', async ({ page }) => {
