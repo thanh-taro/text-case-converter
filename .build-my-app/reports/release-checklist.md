@@ -5,12 +5,13 @@ published by `.github/workflows/deploy.yml`. Owner column: **Claude** = done/aut
 **User** = a hard stop (account, secret, domain, push, deploy, publish) only you can do.
 
 ## A. Ready in the repo (Claude — done)
-- [x] M-1 built, all features `shipped`; lint/typecheck/spec-lint 0/0.
-- [x] Unit + property (92) and Chromium e2e (25) + axe (0 violations) green locally.
-- [x] Production build 14.2 KB critical path (NFR-05 budget 250 KB).
+- [x] M-1 + M-2 built (F-001..F-010), all features `shipped`; lint/typecheck/spec-lint 0/0; 0 ACs without a test.
+- [x] Unit + property (114) and Chromium e2e (34) + axe (0 violations) green locally.
+- [x] Production build 16.1 KB critical path (NFR-05 budget 250 KB).
 - [x] License audit clean; `dist/` ships only Preact, signals, 2 fonts (ADR-0001).
 - [x] `deploy.yml` (manual dispatch or `v*` tag), `scripts/smoke-prod.mjs`, `smoke:prod` script.
 - [x] Privacy declaration wording accepted (`.../qa/privacy-declaration.md`); terms draft written.
+- [ ] **Re-review the privacy paragraph added for M-2** (settings saved on-device) — User.
 - [x] Release notes written (`.../release-notes.md`).
 
 ## B. Pre-flight the owner should run first (User)
@@ -41,7 +42,7 @@ These need engines/tools that can't run in the build sandbox:
 
 ## F. Verify live (User, or Claude once a URL exists)
 11. [ ] `pnpm smoke:prod https://text-case-converter.tarokit.app` → all checks pass (headers, no source maps, notices, zero post-load requests).
-12. [ ] Open the live tool standalone; paste `getUserID`; confirm all 11 cases + click-to-copy.
+12. [ ] Open the live tool standalone; paste `getUserID`; confirm all 11 cases + click-to-copy; toggle Strip symbols / Remove accents, pin a case, reload → settings kept.
 13. [ ] Add/confirm the tool's tile/link in the **tarokit.app portal** (host side) and check it embeds with the right theme and no console errors.
 
 ## G. Publish policy text (User)

@@ -12,8 +12,14 @@ text or identifier into every case at once.
   `http_response`, `v2Point5`, `utf8` and friends are tokenized the way a developer expects.
 - **Lists, line by line.** Multi-line input converts each line independently — paste a column of
   database fields, get a column of API names.
+- **Clean up as you convert.** *Strip symbols* reduces every word to plain ASCII letters and
+  digits (`café, v2!` → `cafe_v2`); *Remove accents* folds accented Latin letters — Vietnamese
+  included — to their base (`Nguyễn Đặng` → `nguyen_dang`) and leaves everything else alone.
+  Both are on by default.
+- **Your cases first.** Sort by default order, recently copied, or alphabetically; pin the cases
+  you use most to the top; a *last used* badge marks the case you copied last.
 - **Private by construction.** Everything runs in your browser; your text is never uploaded,
-  logged, or stored, there are no analytics and no cookies, and the content security policy
+  logged, or saved (only your settings — toggles, sort, pins — are remembered on your device), there are no analytics and no cookies, and the content security policy
   forbids the tool from making any network connection.
 - **Works offline** after the first load, and **fits the TaroKit portal** (light/dark theme,
   embedded or standalone).
@@ -21,7 +27,7 @@ text or identifier into every case at once.
   both themes.
 
 ## Under the hood
-- ~14 KB over the wire; a pure in-house tokenizer (no third-party casing library).
+- ~16 KB over the wire; a pure in-house tokenizer (no third-party casing library).
 - Preact + signals, strict CSP, Cloudflare static hosting.
 
 ## Known limitations
