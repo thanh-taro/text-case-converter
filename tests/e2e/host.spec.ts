@@ -53,10 +53,11 @@ test('F-005.AC9 missing theme follows the device preference', async ({ page }) =
 });
 
 test('F-005.AC3 standalone follows the device light/dark preference', async ({ browser }) => {
-  // The preference is set when the context is created: Firefox drops a page-level emulateMedia
-  // made on about:blank when the first navigation moves to the tool's origin.
+  // The preference is set on a fresh context, with service workers blocked: in Playwright's
+  // Firefox the emulated colour scheme is lost once the tool's offline worker is involved
+  // (a test-harness quirk; a real device preference is unaffected). Offline is F-007's test.
   for (const scheme of ['dark', 'light'] as const) {
-    const context = await browser.newContext({ colorScheme: scheme });
+    const context = await browser.newContext({ colorScheme: scheme, serviceWorkers: 'block' });
     const page = await context.newPage();
     await page.goto(`http://localhost:${BASE}/`);
     await expect(page.locator('html')).toHaveAttribute('data-theme', scheme);
