@@ -74,7 +74,7 @@
     "release": {
       "title": "6 Release",
       "status": "in_progress",
-      "step": "7.3 M-2 build+QA (background): F-008/009/010",
+      "step": "6.3 deployed v1.0.0; awaiting owner: portal tile, privacy contact, source license, GitHub repo + G6",
       "gate": {
         "status": "pending",
         "at": null,
@@ -334,9 +334,29 @@
     {
       "at": "2026-10-15T04:45:22+00:00",
       "event": "M-2 built+QA complete (fork): F-008/009/010 shipped. 114 unit + 34 e2e, size 15.8KB, 0 ACs uncovered, localStorage prefs-only verified."
+    },
+    {
+      "at": "2026-10-19T01:18:43+00:00",
+      "event": "release step: 6.2 release prep done (M-1+M-2); awaiting owner hard-stop steps, privacy re-review + G6"
+    },
+    {
+      "at": "2026-10-19T01:18:44+00:00",
+      "event": "M-2 folded into v1.0.0 release docs: notes, checklist (114 unit/34 e2e/16.1KB), privacy text adds on-device settings paragraph (needs owner re-review). Re-verified lint 0/0, 0 uncovered ACs, 114 unit green, size 16.1KB."
+    },
+    {
+      "at": "2026-10-19T01:27:56+00:00",
+      "event": "Owner approved the M-2 privacy paragraph (on-device settings) 2026-10-19."
+    },
+    {
+      "at": "2026-10-19T01:54:20+00:00",
+      "event": "Deployed v1.0.0 (M-1+M-2) to https://text-case-converter.tarokit.app via local wrangler at owner's request; version 954f0398-fe2a-4484-afd5-ba55fd816455, commit 78b0811; smoke:prod 9/9. Pre-flight: Chromium 34/34, WebKit 34/34, Firefox 23/27 (4 launch-blocked locally), lhci pass (TTI<=454ms). Fixed committed _headers (localhost->tarokit.app) and e2e clipboard perms."
+    },
+    {
+      "at": "2026-10-19T01:54:21+00:00",
+      "event": "release step: 6.3 deployed v1.0.0; awaiting owner: portal tile, privacy contact, source license, GitHub repo + G6"
     }
   ],
-  "updated": "2026-10-15T04:45:22+00:00",
+  "updated": "2026-10-19T01:54:21+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",
