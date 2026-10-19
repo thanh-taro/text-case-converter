@@ -11,7 +11,10 @@ export const PORTS = { tool: BASE, host: BASE + 1, unlisted: BASE + 2, admin: BA
 
 export default defineConfig({
   testDir: './tests/e2e',
-  fullyParallel: true,
+  // One test at a time, like the JSON Formatter: the fixture server's state (/publish) is
+  // shared, and parallel browsers on CI made Firefox page loads stall past the timeout.
+  workers: 1,
+  fullyParallel: false,
   forbidOnly: CI,
   retries: CI ? 1 : 0,
   timeout: 30_000,
