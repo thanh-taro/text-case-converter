@@ -16,7 +16,7 @@ published by `.github/workflows/deploy.yml`. Owner column: **Claude** = done/aut
 
 ## B. Pre-flight the owner should run first (User)
 These need engines/tools that can't run in the build sandbox:
-- [x] **Three-engine e2e** (2026-10-19, Claude): Chromium 34/34, WebKit 34/34 (after scoping clipboard permissions to Chromium). Firefox 23/27 — the other 4 (F-005.AC2, AC3, AC7, AC9-missing) never got a browser: Playwright's Firefox is killed at launch on this Mac (SIGTERM). They pass on Chromium + WebKit; re-check on CI.
+- [x] **Three-engine e2e**: GitHub CI green on Chromium, Firefox and WebKit (88 pass; run 39208956212, re-run green). Fixes on the way: clipboard permissions scoped to Chromium; F-005.AC7 checks refusal via asset requests; F-005.AC3 drives Firefox with its real appearance pref (Playwright's emulated scheme is lost on the tool page in Firefox; verified the live site follows real Firefox prefs, so not a user bug); e2e runs one test at a time. Known: an occasional Firefox page-load stall (30 s) that passes on retry; CI uploads traces on failure. Playwright's Firefox cannot launch on this Mac, so Firefox is CI-only.
 - [x] **Lighthouse budgets** (2026-10-19, Claude): all assertions pass; perf 99–100, a11y 100, best-practices 96, TTI 388–454 ms (budget 1500).
 - [ ] **Screen-reader pass** (VoiceOver/NVDA) + a **real touch device** pass + forced-colors/200% zoom.
 - [ ] Add **privacy contact details** (you are the data controller) to the privacy text before publishing.
@@ -26,7 +26,7 @@ These need engines/tools that can't run in the build sandbox:
 1. [ ] **Cloudflare account**: sign in at https://dash.cloudflare.com (the same account that hosts `tarokit.app` / the JSON Formatter). Confirm the `tarokit.app` zone is active.
 2. [ ] **Account ID**: Dashboard → any domain → right sidebar → copy **Account ID**.
 3. [ ] **API token**: My Profile → API Tokens → Create Token → *Edit Cloudflare Workers* template (or custom with: Account → Workers Scripts → Edit; Account → Account Settings → Read; Zone → Workers Routes → Edit on `tarokit.app`; Zone → DNS → Edit on `tarokit.app`). Copy the token once.
-4. [ ] **GitHub repo**: create a private repo (e.g. `tarokit/text-case-converter`), then from this folder:
+4. [x] **GitHub repo** (2026-10-19, Claude, as `thanh-taro`): https://github.com/thanh-taro/text-case-converter (private), `main` pushed. Original step: create a private repo (e.g. `tarokit/text-case-converter`), then from this folder:
    `git remote add origin git@github.com:<you>/text-case-converter.git && git push -u origin main`
    *(first push = hard stop; nothing has been pushed yet — there are local commits only.)*
 5. [ ] **Repo secrets**: GitHub → Settings → Environments → **New environment `production`** (add yourself as a Required reviewer if you want manual approval). In that environment add secrets **`CLOUDFLARE_API_TOKEN`** and **`CLOUDFLARE_ACCOUNT_ID`**.

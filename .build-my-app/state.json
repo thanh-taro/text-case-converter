@@ -74,7 +74,7 @@
     "release": {
       "title": "6 Release",
       "status": "in_progress",
-      "step": "6.3 deployed v1.0.0; awaiting owner: portal tile, privacy contact, source license, GitHub repo + G6",
+      "step": "6.3 deployed v1.0.0 + repo pushed, CI green; awaiting owner: GitHub production env + secrets, portal tile, privacy contact, source license, G6",
       "gate": {
         "status": "pending",
         "at": null,
@@ -354,9 +354,17 @@
     {
       "at": "2026-10-19T01:54:21+00:00",
       "event": "release step: 6.3 deployed v1.0.0; awaiting owner: portal tile, privacy contact, source license, GitHub repo + G6"
+    },
+    {
+      "at": "2026-10-19T06:25:34+00:00",
+      "event": "GitHub repo thanh-taro/text-case-converter (private) created and pushed at owner's request. CI green on 3 engines after e2e fixes (clipboard perms, AC7 via asset requests, AC3 real Firefox prefs, serial workers, trace upload). Firefox theme failure confirmed harness-only: live site follows real Firefox prefs. Known: occasional Firefox load stall passing on retry."
+    },
+    {
+      "at": "2026-10-19T06:25:35+00:00",
+      "event": "release step: 6.3 deployed v1.0.0 + repo pushed, CI green; awaiting owner: GitHub production env + secrets, portal tile, privacy contact, source license, G6"
     }
   ],
-  "updated": "2026-10-19T01:54:21+00:00",
+  "updated": "2026-10-19T06:25:35+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",
