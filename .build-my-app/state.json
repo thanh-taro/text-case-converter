@@ -83,18 +83,18 @@
     },
     "deploy": {
       "title": "7 Deploy",
-      "status": "in_progress",
+      "status": "done",
       "step": "7.2 v1.1.0 live (smoke 9/9, tagged); portal tile + privacy contact done",
       "gate": {
-        "status": "pending",
-        "at": null,
-        "note": null
+        "status": "passed",
+        "at": "2026-10-20T15:26:07+00:00",
+        "note": "v1.1.0 live, smoke 9/9, owner verified manually 2026-10-20; all release checklist items closed."
       }
     },
     "iterate": {
       "title": "8 Iterate",
-      "status": "pending",
-      "step": null,
+      "status": "in_progress",
+      "step": "8.0 live; collect feedback and next changes",
       "gate": {
         "status": "pending",
         "at": null,
@@ -416,9 +416,25 @@
     {
       "at": "2026-10-20T15:25:29+00:00",
       "event": "deploy step: 7.2 v1.1.0 live (smoke 9/9, tagged); portal tile + privacy contact done"
+    },
+    {
+      "at": "2026-10-20T15:26:07+00:00",
+      "event": "Owner manual check of live v1.1.0 (screen reader, touch device, zoom): works well."
+    },
+    {
+      "at": "2026-10-20T15:26:07+00:00",
+      "event": "gate deploy passed: v1.1.0 live, smoke 9/9, owner verified manually 2026-10-20; all release checklist items closed."
+    },
+    {
+      "at": "2026-10-20T15:26:07+00:00",
+      "event": "phase deploy -> done"
+    },
+    {
+      "at": "2026-10-20T15:26:07+00:00",
+      "event": "phase iterate -> in_progress"
     }
   ],
-  "updated": "2026-10-20T15:25:29+00:00",
+  "updated": "2026-10-20T15:26:07+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",
