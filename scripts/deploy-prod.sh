@@ -11,8 +11,11 @@ export WRANGLER_SEND_METRICS=false
 
 step() { printf '\n== %s\n' "$*"; }
 
-step "Working tree is clean and on main"
-[ -z "$(git status --porcelain)" ] || { echo "Uncommitted changes; commit first." >&2; exit 1; }
+# Tracked files must match the commit being deployed. Untracked files (IDE, local settings) and
+# the workflow's own progress file never reach dist/, so they are not checked.
+step "Tracked files are committed and on main"
+[ -z "$(git status --porcelain --untracked-files=no -- . ':!.build-my-app/state.json')" ] ||
+  { echo "Uncommitted changes to tracked files; commit first." >&2; exit 1; }
 [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] || { echo "Not on main." >&2; exit 1; }
 
 step "Checks"
