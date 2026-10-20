@@ -84,7 +84,7 @@
     "deploy": {
       "title": "7 Deploy",
       "status": "in_progress",
-      "step": "7.2 v1.1.0 live (smoke 9/9, tagged); open owner items: portal tile, privacy contact",
+      "step": "7.2 v1.1.0 live (smoke 9/9, tagged); portal tile + privacy contact done",
       "gate": {
         "status": "pending",
         "at": null,
@@ -408,9 +408,17 @@
     {
       "at": "2026-10-20T15:22:50+00:00",
       "event": "deploy step: 7.2 v1.1.0 live (smoke 9/9, tagged); open owner items: portal tile, privacy contact"
+    },
+    {
+      "at": "2026-10-20T15:24:04+00:00",
+      "event": "deploy step: 7.2 v1.1.0 live (smoke 9/9, tagged); portal tile done (owner); open: privacy contact"
+    },
+    {
+      "at": "2026-10-20T15:25:29+00:00",
+      "event": "deploy step: 7.2 v1.1.0 live (smoke 9/9, tagged); portal tile + privacy contact done"
     }
   ],
-  "updated": "2026-10-20T15:22:50+00:00",
+  "updated": "2026-10-20T15:25:29+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",

@@ -49,6 +49,8 @@ and is discarded when you close it. To work offline, the browser keeps a copy of
 program files (never your text). When embedded in the portal, the tool only tells the portal that
 it is ready and receives the light or dark theme — never your text.
 
+Questions about privacy: Thanh Nguyen Tri, [adamnguyen.itdn@gmail.com](mailto:adamnguyen.itdn@gmail.com).
+
 ## Release and deployment
 
 Hosting is Cloudflare Workers static assets at https://text-case-converter.tarokit.app (ADR-0006).
