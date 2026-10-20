@@ -9,3 +9,5 @@ playwright-report/
 tests/fixtures/
 # build-my-app working reports (local only)
 .build-my-app/reports/
+# Claude Code local settings (per machine)
+.claude/settings.local.json

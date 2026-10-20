@@ -84,7 +84,7 @@
     "deploy": {
       "title": "7 Deploy",
       "status": "in_progress",
-      "step": "7.1 v1.1.0 manual deploy from owner's machine (ADR-0012)",
+      "step": "7.2 v1.1.0 live (smoke 9/9, tagged); open owner items: portal tile, privacy contact",
       "gate": {
         "status": "pending",
         "at": null,
@@ -392,9 +392,25 @@
     {
       "at": "2026-10-20T15:06:59+00:00",
       "event": "phase deploy -> in_progress"
+    },
+    {
+      "at": "2026-10-20T15:14:24+00:00",
+      "event": "deploy step: 7.1 v1.1.0 committed (177218e, fb6a28c, 31d303c), pushed, CI green (run 39445731885); awaiting owner to run pnpm deploy:prod (Claude's run was blocked by permission check), then tag v1.1.0"
+    },
+    {
+      "at": "2026-10-20T15:14:25+00:00",
+      "event": "Owner: deploys manual only (ADR-0012), deploy.yml removed, pnpm deploy:prod added; .build-my-app/reports/ gitignored. v1.1.0 pushed, CI green; deploy pending owner."
+    },
+    {
+      "at": "2026-10-20T15:22:50+00:00",
+      "event": "Deployed v1.1.0 (620f63a, tag v1.1.0) via pnpm deploy:prod; Cloudflare version 1cd05932-0f75-403e-9f0f-7e7af1f517f7; Chromium 37/37 + WebKit 30/30 (7 skipped by design), smoke 9/9."
+    },
+    {
+      "at": "2026-10-20T15:22:50+00:00",
+      "event": "deploy step: 7.2 v1.1.0 live (smoke 9/9, tagged); open owner items: portal tile, privacy contact"
     }
   ],
-  "updated": "2026-10-20T15:06:59+00:00",
+  "updated": "2026-10-20T15:22:50+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",
