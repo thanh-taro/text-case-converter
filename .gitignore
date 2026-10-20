@@ -11,3 +11,7 @@ tests/fixtures/
 .build-my-app/reports/
 # Claude Code local settings (per machine)
 .claude/settings.local.json
+# IDE files (JetBrains, VS Code)
+.idea/
+.vscode/
+*.iml
