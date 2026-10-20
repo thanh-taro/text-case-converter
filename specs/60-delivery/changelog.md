@@ -4,6 +4,22 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
 
 ## Unreleased
 
+## v1.1.0 — 2026-10-20
+
+- 2026-10-20 — Release process (owner decision, ADR-0012): deploys are manual only. The deploy
+  workflow is removed; `pnpm deploy:prod` (scripts/deploy-prod.sh) runs the checks, builds, uploads
+  with the owner's own login and runs the smoke test. CI stays (tests only). Working reports under
+  `.build-my-app/reports/` are no longer tracked.
+- 2026-10-20 — Change (owner request): a **Source code** link to the public repository in the
+  status bar, so anyone can verify the privacy promise (F-006.R4, AC5–AC6; CMP-StatusBar; COPY-link.source,
+  COPY-link.source_a11y; platform-mapping row). Opens in a new tab with `noopener noreferrer`; no CSP
+  change. F-006 shipped in v1.1.0. Follow-up (owner request): the link shows the GitHub mark — one CC0 path
+  from Simple Icons inlined (DEP-43, trademark used only to link to the repo; owner sign-off).
+- 2026-10-20 — Tooling (owner request): local ports moved off the Vite defaults, which clashed with
+  sibling tools — dev 5190, preview 4190, e2e fixture servers 4500–4506 (`E2E_PORT_BASE`).
+
+## v1.0.0 — 2026-10-19
+
 - 2026-10-15 — Change (owner): Strip symbols and Remove accents now **default ON** (RULE-11/12,
   ENT-Preferences, MOD-Prefs DEFAULTS); the choice is still remembered per device (RULE-14). F-008.R1/
   AC7/AC8 and F-009.R1/AC7 updated; e2e reworked for default-on. Note: with strip on by default,

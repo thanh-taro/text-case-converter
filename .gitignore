@@ -7,3 +7,5 @@ playwright-report/
 *.local
 .DS_Store
 tests/fixtures/
+# build-my-app working reports (local only)
+.build-my-app/reports/

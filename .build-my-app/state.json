@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "created": "2026-10-15T01:55:43+00:00",
   "autonomy": "balanced",
   "profile": {
@@ -72,9 +72,19 @@
       }
     },
     "release": {
-      "title": "6 Release",
-      "status": "in_progress",
+      "title": "6 Release candidate",
+      "status": "done",
       "step": "6.3 deployed v1.0.0 + repo pushed, CI green; awaiting owner: GitHub production env + secrets, portal tile, privacy contact, source license, G6",
+      "gate": {
+        "status": "passed",
+        "at": "2026-10-20T15:06:58+00:00",
+        "note": "Owner approved on 2026-10-20: 'commit, make a new version, push and deploy' (v1.1.0: source link + GitHub mark, ports). Owner also ruled: deploys are manual only, no deploy workflow (ADR-0012). Open owner items carried over: portal tile, privacy contact."
+      }
+    },
+    "deploy": {
+      "title": "7 Deploy",
+      "status": "in_progress",
+      "step": "7.1 v1.1.0 manual deploy from owner's machine (ADR-0012)",
       "gate": {
         "status": "pending",
         "at": null,
@@ -82,7 +92,7 @@
       }
     },
     "iterate": {
-      "title": "7 Iterate",
+      "title": "8 Iterate",
       "status": "pending",
       "step": null,
       "gate": {
@@ -362,9 +372,29 @@
     {
       "at": "2026-10-19T06:25:35+00:00",
       "event": "release step: 6.3 deployed v1.0.0 + repo pushed, CI green; awaiting owner: GitHub production env + secrets, portal tile, privacy contact, source license, G6"
+    },
+    {
+      "at": "2026-10-20T14:24:50+00:00",
+      "event": "Change request: Source code link in status bar (F-006.R4, AC5-AC6). Specs+mockup+code+tests updated; lint 0/0, 114 unit + 37 chromium e2e green, AC coverage 100%. Uncommitted; needs a new candidate (v1.1.0) to ship."
+    },
+    {
+      "at": "2026-10-20T14:59:01+00:00",
+      "event": "Source link now shows the GitHub mark (DEP-43, CC0 path from simple-icons 13.21.0, owner sign-off). 114 unit + 37 chromium e2e green; licenses/size OK. Uncommitted."
+    },
+    {
+      "at": "2026-10-20T15:06:58+00:00",
+      "event": "gate release passed: Owner approved on 2026-10-20: 'commit, make a new version, push and deploy' (v1.1.0: source link + GitHub mark, ports). Owner also ruled: deploys are manual only, no deploy workflow (ADR-0012). Open owner items carried over: portal tile, privacy contact."
+    },
+    {
+      "at": "2026-10-20T15:06:59+00:00",
+      "event": "phase release -> done"
+    },
+    {
+      "at": "2026-10-20T15:06:59+00:00",
+      "event": "phase deploy -> in_progress"
     }
   ],
-  "updated": "2026-10-19T06:25:35+00:00",
+  "updated": "2026-10-20T15:06:59+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",

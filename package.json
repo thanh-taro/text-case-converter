@@ -1,6 +1,6 @@
 {
   "name": "text-case-converter",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "description": "A private, client-side text case converter for developers, embedded in the taro-kit tools portal.",
@@ -26,6 +26,7 @@
     "check:size": "node scripts/check-size.mjs",
     "lhci": "lhci autorun",
     "smoke:prod": "node scripts/smoke-prod.mjs",
+    "deploy:prod": "bash scripts/deploy-prod.sh",
     "spec:lint": "python3 tools/spec_lint.py"
   },
   "dependencies": {
