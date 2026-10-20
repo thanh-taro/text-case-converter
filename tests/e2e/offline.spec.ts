@@ -4,6 +4,10 @@
 // (recorded in the traceability matrix).
 import { expect, test, type Page } from '@playwright/test';
 
+// Fixture admin port: E2E_PORT_BASE + 6 (playwright.config.ts / server.mjs, default 4506).
+const env = (globalThis as { process?: { env: Record<string, string | undefined> } }).process?.env;
+const ADMIN = `http://localhost:${Number(env?.['E2E_PORT_BASE'] ?? 4500) + 6}`;
+
 const CACHE_PREFIX = 'text-case-converter-';
 
 test.describe('F-007 offline', () => {
@@ -62,9 +66,9 @@ test.describe('F-007 offline', () => {
 
   test('F-007.AC3 a newer version is picked up on a later online open', async ({ page, request }) => {
     await loadAndSeed(page);
-    await request.get(`http://localhost:4179/publish?on=1`); // server now serves v2
+    await request.get(`${ADMIN}/publish?on=1`); // server now serves v2
     await page.reload(); // network-first page fetch gets the new HTML
     await expect(page.locator('meta[name="tk-test-version"]')).toHaveCount(1);
-    await request.get(`http://localhost:4179/publish?on=0`);
+    await request.get(`${ADMIN}/publish?on=0`);
   });
 });

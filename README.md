@@ -15,10 +15,10 @@ Requirements: Node 24 (`.nvmrc`), pnpm 11 (`corepack enable`), Python 3 for the 
 | Command | What it does |
 |---|---|
 | `pnpm install` | Install dependencies (lockfile committed; lifecycle scripts blocked) |
-| `pnpm dev` | Regenerate code, then start the dev server at http://localhost:5173 |
+| `pnpm dev` | Regenerate code, then start the dev server at http://localhost:5190 |
 | `pnpm gen` / `pnpm gen:check` | Regenerate tokens, copy, notices and `_headers` / fail if stale |
 | `pnpm build` | Codegen, typecheck, production build into `dist/` |
-| `pnpm preview` | Serve `dist/` at http://localhost:4173 |
+| `pnpm preview` | Serve `dist/` at http://localhost:4190 |
 | `pnpm typecheck` | TypeScript, app and e2e projects |
 | `pnpm lint` / `pnpm format` | ESLint + Prettier check / write |
 | `pnpm test` | Vitest: engine corpus, property and unit tests |
@@ -51,23 +51,24 @@ it is ready and receives the light or dark theme — never your text.
 
 ## Release and deployment
 
-Hosting is Cloudflare Workers static assets at https://text-case-converter.tarokit.app (ADR-0006),
-published by `.github/workflows/deploy.yml` (manual run or a `v*` tag; runs every CI check, builds
-with `HOST_ORIGINS=https://tarokit.app`, uploads `dist/` with `wrangler`, then runs the smoke
-test). Source maps are built hidden and excluded from upload (`dist/.assetsignore`). Account, DNS
-and secret setup is owner work: see `.build-my-app/reports/release-checklist.md`.
+Hosting is Cloudflare Workers static assets at https://text-case-converter.tarokit.app (ADR-0006).
+Deploys are manual only (ADR-0012): there is no deploy workflow, and pushing a branch or tag deploys
+nothing. From a clean `main`, after the commit's CI run is green, run `pnpm deploy:prod`. It runs
+every check, builds with `HOST_ORIGINS=https://tarokit.app`, uploads `dist/` with your own
+`wrangler` login, then runs the smoke test. Source maps are built hidden and excluded from upload
+(`dist/.assetsignore`).
 
 | Command | What it does |
 |---|---|
+| `pnpm deploy:prod` | Manual production deploy: checks, production build, upload, smoke test |
 | `pnpm smoke:prod <url>` | Post-deploy check of headers, no source maps, notices, and zero requests after load in headless Chromium |
 | `pnpm exec wrangler dev --port 8787` | Serve `dist/` locally with the real `_headers`; then `pnpm smoke:prod http://127.0.0.1:8787` |
-| `SW_KILL=1 pnpm build` | Build the offline kill switch (recovery only — see the checklist) |
+| `SW_KILL=1 pnpm deploy:prod` | Deploy the offline kill switch (recovery only) |
 
 ## Status
 
-M-1 is built and QA-passed (`specs/60-delivery/roadmap.md`), features `shipped`. Deployment
-(Cloudflare account, domain, first push, deploy) is the owner's step — see
-`.build-my-app/reports/release-checklist.md` and `release-notes.md`.
+M-1 and M-2 are built, QA-passed and live at https://text-case-converter.tarokit.app
+(`specs/60-delivery/roadmap.md`). Release history: `specs/60-delivery/changelog.md`.
 
 ## License
 

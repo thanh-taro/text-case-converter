@@ -1,11 +1,11 @@
 // E2E fixture server (QA phase 5). Serves the production build (dist/) with the generated
 // _headers applied the way Cloudflare static assets does, plus a stub portal host on a second
 // origin and an unlisted origin for the frame-ancestors refusal test (F-005.AC7).
-//   tool      http://localhost:4173   (dist/, headers from dist/_headers)
-//   host      http://localhost:4174   (tests/e2e/host/, allow-listed — build with HOST_ORIGINS)
-//   unlisted  http://localhost:4175   (tests/e2e/host/, NOT allow-listed)
-//   admin     http://localhost:4179   (/log, /reset, /publish?on=1 — serve a newer version)
-// Build the dist with HOST_ORIGINS="http://localhost:4174" so both outputs (frame-ancestors and
+//   tool      http://localhost:4500   (dist/, headers from dist/_headers)
+//   host      http://localhost:4501   (tests/e2e/host/, allow-listed — build with HOST_ORIGINS)
+//   unlisted  http://localhost:4502   (tests/e2e/host/, NOT allow-listed)
+//   admin     http://localhost:4506   (/log, /reset, /publish?on=1 — serve a newer version)
+// Build the dist with HOST_ORIGINS="http://localhost:4501" so both outputs (frame-ancestors and
 // the compiled-in allow-list, __HOST_ORIGINS__) point at the stub host.
 import fs from 'node:fs';
 import http from 'node:http';
@@ -15,7 +15,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../..');
 const DIST = path.join(ROOT, 'dist');
 const HOST_DIR = path.join(ROOT, 'tests/e2e/host');
-const BASE = Number(process.env.E2E_PORT_BASE ?? 4173);
+const BASE = Number(process.env.E2E_PORT_BASE ?? 4500);
 export const PORTS = { tool: BASE, host: BASE + 1, unlisted: BASE + 2, admin: BASE + 6 };
 
 if (!fs.existsSync(path.join(DIST, 'index.html')) || !fs.existsSync(path.join(DIST, '_headers'))) {

@@ -2,7 +2,9 @@
 // refusal — against the production build and a stub host on a second origin. Three engines.
 import { expect, test, type Frame, type Page } from '@playwright/test';
 
-const BASE = 4173; // matches playwright.config.ts webServer / server.mjs default
+// Matches playwright.config.ts / server.mjs (E2E_PORT_BASE, default 4500).
+const env = (globalThis as { process?: { env: Record<string, string | undefined> } }).process?.env;
+const BASE = Number(env?.['E2E_PORT_BASE'] ?? 4500);
 const PORTS = { host: BASE + 1, unlisted: BASE + 2 };
 
 declare global {
@@ -124,3 +126,11 @@ test('F-005.AC8 standalone: every M-1 feature works', async ({ page }) => {
 // → standalone only) are covered by unit tests: host-contract.test.ts (acceptThemeMessage rejects
 // non-allowed origins) and headers.test.ts / host-contract (empty allow-list → no listener, no
 // ready, frame-ancestors 'none'). They need a separate build permutation to exercise end-to-end.
+
+test('F-006.AC5 source-code link is shown when embedded too', async ({ page }) => {
+  const frame = await embed(page, '?theme=light');
+  const link = frame.getByRole('link', { name: 'Source code (opens in a new tab)' });
+  await expect(link).toBeVisible();
+  await expect(link).toHaveAttribute('target', '_blank');
+  await expect(link).toHaveAttribute('href', 'https://github.com/thanh-taro/text-case-converter');
+});

@@ -30,8 +30,8 @@ export default defineConfig({
     sourcemap: 'hidden',
     assetsInlineLimit: 0,
   },
-  preview: { port: 4173, strictPort: true },
-  server: { port: 5173, strictPort: true },
+  preview: { port: 4190, strictPort: true },
+  server: { port: 5190, strictPort: true },
   test: {
     include: ['tests/unit/**/*.test.ts', 'tests/property/**/*.test.ts'],
     environment: 'node',

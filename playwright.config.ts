@@ -6,7 +6,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const CI = !!process.env['CI'];
-const BASE = Number(process.env['E2E_PORT_BASE'] ?? 4173);
+const BASE = Number(process.env['E2E_PORT_BASE'] ?? 4500);
 export const PORTS = { tool: BASE, host: BASE + 1, unlisted: BASE + 2, admin: BASE + 6 };
 
 export default defineConfig({
