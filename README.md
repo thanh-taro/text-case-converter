@@ -68,3 +68,10 @@ and secret setup is owner work: see `.build-my-app/reports/release-checklist.md`
 M-1 is built and QA-passed (`specs/60-delivery/roadmap.md`), features `shipped`. Deployment
 (Cloudflare account, domain, first push, deploy) is the owner's step — see
 `.build-my-app/reports/release-checklist.md` and `release-notes.md`.
+
+## License
+
+Copyright (c) 2026 Thanh Nguyen Tri. The source is published under the
+[PolyForm Strict License 1.0.0](LICENSE): you may read it and use it for personal, noncommercial purposes.
+You may not use it commercially, redistribute it, or publish modified versions or new works based on it.
+For any other use, ask the author.
