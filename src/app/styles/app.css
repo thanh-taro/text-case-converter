@@ -362,6 +362,24 @@
   align-items: center;
   gap: var(--tk-space-1);
 }
+.status__source {
+  color: var(--tk-color-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--tk-space-1);
+  text-decoration: none;
+}
+.status__source-text {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.status__source:hover {
+  color: var(--tk-color-fg);
+}
+.status__source:focus-visible {
+  outline: var(--tk-border-width-focus) solid var(--tk-color-accent);
+  outline-offset: 2px;
+}
 .status__dot {
   width: 7px;
   height: 7px;
@@ -370,6 +388,10 @@
   display: inline-block;
 }
 
+.icon.icon--brand {
+  fill: currentColor;
+  stroke: none;
+}
 .icon {
   width: var(--tk-size-icon-sm);
   height: var(--tk-size-icon-sm);

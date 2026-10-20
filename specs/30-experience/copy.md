@@ -29,6 +29,8 @@ Tone: short, plain, specific; say what happened and what to do. Placeholders in 
 | **COPY-label.results**   | Converted cases                       | Accessible name of the result grid                    |
 | **COPY-label.privacy**   | Private — nothing leaves your browser | Status-bar privacy statement                          |
 | **COPY-label.no_result** | No result                             | Accessible name of an empty result row's value        |
+| **COPY-link.source**     | Source code                           | Status-bar link to the public source (F-006.R4)       |
+| **COPY-link.source_a11y** | Source code (opens in a new tab)     | Accessible name of the source link                    |
 
 ## Placeholders & status
 

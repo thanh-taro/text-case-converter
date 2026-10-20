@@ -95,3 +95,36 @@ test('F-006.AC1 privacy statement is always visible', async ({ page }) => {
   await page.goto('/');
   await expect(page.getByText('Private — nothing leaves your browser')).toBeVisible();
 });
+
+test('F-006.AC5 source-code link is visible, points to the public source and is keyboard-reachable', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const link = page.getByRole('link', { name: 'Source code (opens in a new tab)' });
+  await expect(link).toBeVisible();
+  await expect(link).toHaveText('Source code');
+  await expect(link).toHaveAttribute('href', 'https://github.com/thanh-taro/text-case-converter');
+  // CMP-StatusBar / DEP-43: led by the GitHub mark, decorative (the accessible name carries the meaning).
+  const mark = link.locator('svg');
+  await expect(mark).toBeVisible();
+  await expect(mark).toHaveAttribute('aria-hidden', 'true');
+  await link.focus();
+  await expect(link).toBeFocused();
+});
+
+test('F-006.AC6 source link opens a new page, keeps the tool and input, and leaks nothing', async ({ page }) => {
+  await page.goto('/');
+  await page.getByLabel('Text to convert').fill('getUserID');
+  const link = page.getByRole('link', { name: 'Source code (opens in a new tab)' });
+  await expect(link).toHaveAttribute('target', '_blank');
+  const rel = (await link.getAttribute('rel')) ?? '';
+  expect(rel.split(/\s+/)).toEqual(expect.arrayContaining(['noopener', 'noreferrer']));
+  expect(await link.getAttribute('href')).not.toContain('getUserID');
+  // Stop the new page at the network so the test stays offline.
+  await page.context().route('https://github.com/**', (route) => route.abort());
+  const popup = page.context().waitForEvent('page');
+  await link.click();
+  await popup;
+  await expect(page).toHaveURL(/^http:\/\/[^/]+\/(\?.*)?$/);
+  await expect(page.getByLabel('Text to convert')).toHaveValue('getUserID');
+});

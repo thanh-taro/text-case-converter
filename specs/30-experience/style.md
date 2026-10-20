@@ -62,7 +62,8 @@ mirror the portal's tokens so the tool looks native when embedded (PRN-05).
   `successBg` + overlay "Copied". Empty input shows a dimmed `—` (COPY-result.empty) and rows are
   inert (disabled).
 - **Status bar (CMP-StatusBar):** line count (COPY-status.lines) when multi-line at the left, the
-  privacy statement (COPY-label.privacy) in `success` at the far end.
+  privacy statement (COPY-label.privacy) in `success` at the far end, followed by the source-code
+  link (COPY-link.source) in `muted`, led by the code host's logo mark, text underlined, → `fg` on hover; focus a 2 px `accent` ring.
 - **Width:** fills the full available width — the host area when embedded and the whole viewport
   standalone (like the JSON Formatter), with a comfortable side gutter (`space.4`). No centered
   content cap. Usable down to `size.minWidth` with no horizontal scroll (NFR-06).
@@ -79,4 +80,6 @@ mirror the portal's tokens so the tool looks native when embedded (PRN-05).
 1.5 px stroke icons at `size.icon.sm`, rounded caps, from the open-licensed set chosen in the
 architecture (same family as the portal): clear, copy, dismiss, check (copied), info/warning. All
 icons are decorative and hidden from assistive technology; the control's accessible name carries
-the meaning.
+the meaning. One exception to the stroke style: the source-code link shows the code host's own
+logo mark, filled in `currentColor` at `size.icon.sm`, before its text (F-006.R4); brand marks are
+never redrawn or recoloured beyond `currentColor`.

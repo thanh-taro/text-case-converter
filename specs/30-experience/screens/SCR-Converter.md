@@ -16,7 +16,7 @@ The single screen: enter text, see every case at once, and copy the one you want
 2. CMP-Controls (M-2) — strip-symbols and remove-accents toggles and the sort control.
 3. CMP-Notice (when present) — occasional messages such as the large-input notice.
 4. CMP-ResultGrid — the eleven CMP-ResultRow results for the current input, ordered per the sort.
-5. CMP-StatusBar — line count (when multi-line) and the privacy statement.
+5. CMP-StatusBar — line count (when multi-line), the privacy statement and the source-code link.
 
 ## States
 
