@@ -23,7 +23,7 @@ const EN = { input: 'Text to convert', results: 'Converted cases', sort: 'Sort' 
 /** Open the stub host with `query` and return the tool frame once it shows `results`. */
 async function embed(page: Page, query: string, results: string): Promise<Frame> {
   await page.goto(`${HOST}/host.html${query}`);
-  await expect(page.frameLocator('iframe[name="tool"]').getByRole('group', { name: results })).toBeVisible();
+  await expect(page.frameLocator('iframe[name="tool"]').getByRole('grid', { name: results })).toBeVisible();
   return page.frame({ name: 'tool' })!;
 }
 
@@ -133,7 +133,7 @@ test('F-011.AC7 labels, results and A–Z order are identical in vi-VN and en-US
   };
   const vi = await snapshot('vi-VN', VI);
   const en = await snapshot('en-US', EN);
-  expect(vi).toHaveLength(11);
+  expect(vi).toHaveLength(13);
   expect(vi).toEqual(en);
 });
 

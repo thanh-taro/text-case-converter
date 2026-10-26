@@ -2,14 +2,16 @@
 import { describe, expect, it } from 'vitest';
 import { convert, convertAll, tokenize, CASE_IDS } from '../../src/engine';
 
-describe('F-002.AC1 getUserID — all eleven cases', () => {
+describe('F-002.AC1 getUserID — every case (RULE-01)', () => {
   const r = convertAll('getUserID');
   const expected = {
     camel: 'getUserId',
     pascal: 'GetUserId',
     snake: 'get_user_id',
     kebab: 'get-user-id',
+    train: 'Get-User-Id',
     constant: 'GET_USER_ID',
+    cobol: 'GET-USER-ID',
     dot: 'get.user.id',
     path: 'get/user/id',
     title: 'Get User Id',

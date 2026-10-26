@@ -1,7 +1,7 @@
 ---
 id: F-012
 title: See which case the input is in
-status: draft
+status: building
 milestone: M-3
 priority: P1
 personas: [PER-01]

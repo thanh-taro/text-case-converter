@@ -16,7 +16,7 @@ test.describe('F-007 offline', () => {
   /** Load the tool and wait until the worker has seeded its cache. */
   async function loadAndSeed(page: Page): Promise<void> {
     await page.goto('/');
-    await expect(page.getByRole('group', { name: 'Converted cases' })).toBeVisible();
+    await expect(page.getByRole('grid', { name: 'Converted cases' })).toBeVisible();
     await page.evaluate(async () => {
       await navigator.serviceWorker.ready;
     });
@@ -38,7 +38,7 @@ test.describe('F-007 offline', () => {
     await loadAndSeed(page);
     await context.setOffline(true);
     await page.reload();
-    await expect(page.getByRole('group', { name: 'Converted cases' })).toBeVisible();
+    await expect(page.getByRole('grid', { name: 'Converted cases' })).toBeVisible();
     await page.getByLabel('Text to convert').fill('getUserID');
     await expect(page.getByRole('button', { name: 'Copy snake_case' })).toContainText('get_user_id');
     await context.setOffline(false);

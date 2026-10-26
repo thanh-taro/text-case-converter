@@ -6,15 +6,15 @@ test('F-005.AC1 opens with the host theme from the address, no light flash', asy
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 });
 
-test('F-002.AC1 F-002.AC12 shows all eleven cases of getUserID at once', async ({ page }) => {
+test('F-002.AC1 F-002.AC12 shows every case of getUserID at once', async ({ page }) => {
   await page.goto('/');
   await page.getByLabel('Text to convert').fill('getUserID');
-  const grid = page.getByRole('group', { name: 'Converted cases' });
+  const grid = page.getByRole('grid', { name: 'Converted cases' });
   await expect(grid.getByRole('button', { name: 'Copy snake_case' })).toContainText('get_user_id');
   await expect(grid.getByRole('button', { name: 'Copy camelCase' })).toContainText('getUserId');
   await expect(grid.getByRole('button', { name: 'Copy CONSTANT_CASE' })).toContainText('GET_USER_ID');
-  // F-002.AC12: all eleven shown at once, no target-case picker.
-  await expect(grid.getByRole('button', { name: /Copy/ })).toHaveCount(11);
+  // F-002.AC12: every case shown at once, no target-case picker.
+  await expect(grid.getByRole('button', { name: /Copy/ })).toHaveCount(13);
 });
 
 test('F-002.AC13 results update live as the input changes', async ({ page }) => {

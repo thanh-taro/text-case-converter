@@ -15,7 +15,13 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
   in the line"; F-014 focus follows a copy in recent sort, grid is a composite widget (ARIA grid
   pattern, platform-mapping); empty rows keep the pin operable (style, CMP-ResultRow); badge styles;
   MOD-Engine takes preferences and computes the match; MOD-App owns grid focus; MOD-Prefs migrates
-  pre-M-3 prefs; NFR-03 covers RULE-16 and all kinds. Pending owner ready.
+  pre-M-3 prefs; NFR-03 covers RULE-16 and all kinds. Owner set ready ("Approve & build").
+- 2026-10-26 — M-3 built (F-012–F-015 `building`): thirteen kinds; Keep acronyms switch (persisted,
+  pre-M-3 prefs migrate with it off); matches-input badge before the last-used badge, hidden at once
+  when the input is emptied; the grid is one Tab stop (ARIA grid, roving tabindex) that remembers the
+  focused case across pins and sort moves, enters on copy whenever the input is not empty, and only
+  restores focus after a row move if the moved action had it. NFR-02: 23 ms (defaults) / 30.5 ms (all
+  preferences on) per 100k characters. Unit 163, e2e (Chromium + WebKit) 131 pass, AC coverage 100%.
 
 ## v1.2.0 — 2026-10-26
 

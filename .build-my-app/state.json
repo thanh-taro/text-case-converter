@@ -94,7 +94,7 @@
     "iterate": {
       "title": "8 Iterate",
       "status": "in_progress",
-      "step": "8.6 M-3 specs reviewed; awaiting owner ready",
+      "step": "8.7 M-3 built + reviewed on feat/m-3; awaiting owner: release v1.3.0?",
       "gate": {
         "status": "pending",
         "at": null,
@@ -533,9 +533,41 @@
     {
       "at": "2026-10-26T06:47:03+00:00",
       "event": "iterate step: 8.6 M-3 specs reviewed; awaiting owner ready"
+    },
+    {
+      "at": "2026-10-26T06:47:28+00:00",
+      "event": "M-3 F-012..F-015 marked ready by owner"
+    },
+    {
+      "at": "2026-10-26T06:47:28+00:00",
+      "event": "iterate step: 8.7 M-3 build: F-015 → F-013 → F-012 → F-014"
+    },
+    {
+      "at": "2026-10-26T06:56:53+00:00",
+      "event": "context compaction (auto) at: build-my-app: phase 8 Iterate [in_progress] — 8.7 M-3 build: F-015 → F-013 → F-012 → F-014 · 8/9 phases done · autonomy balanced"
+    },
+    {
+      "at": "2026-10-26T06:59:36+00:00",
+      "event": "M-3 implemented: unit 163, e2e chromium+webkit 126 pass, AC coverage 100%, perf 23/30.5ms per 100k"
+    },
+    {
+      "at": "2026-10-26T06:59:45+00:00",
+      "event": "iterate step: 8.7 M-3 build: implemented; checks green; code review running"
+    },
+    {
+      "at": "2026-10-26T06:59:45+00:00",
+      "event": "M-3 implemented: unit 163, e2e chromium+webkit 126 pass, AC coverage 100%, perf 23/30.5ms per 100k"
+    },
+    {
+      "at": "2026-10-26T07:03:56+00:00",
+      "event": "iterate step: 8.7 M-3 built + reviewed on feat/m-3; awaiting owner: release v1.3.0?"
+    },
+    {
+      "at": "2026-10-26T07:03:56+00:00",
+      "event": "M-3 code review: 4 findings fixed (stray _headers, badge on emptied input, focus restore after mouse click, remembered action while empty) + regression tests"
     }
   ],
-  "updated": "2026-10-26T06:47:03+00:00",
+  "updated": "2026-10-26T07:03:56+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",

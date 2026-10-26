@@ -222,7 +222,7 @@ async function browserCheck(origin) {
     const res = await page.goto(origin + '/?theme=dark', { waitUntil: 'load' });
     if (res?.status() !== 200) fails.push(`page status ${res?.status()}`);
     // The result grid is the tool's core region (F-002, COPY-label.results).
-    await page.getByRole('group', { name: 'Converted cases' }).waitFor({ timeout: 15000 });
+    await page.getByRole('grid', { name: 'Converted cases' }).waitFor({ timeout: 15000 });
     await page.waitForTimeout(1500); // let the page and the offline worker finish opening
     mark = Date.now();
     await page.getByLabel('Text to convert').fill('getUserID');

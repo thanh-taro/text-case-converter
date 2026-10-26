@@ -49,17 +49,17 @@ test('F-010.AC6 sorting never changes a result’s text', async ({ page }) => {
   await expect(snakeVal(page)).toContainText('get_user_id');
   await page.getByLabel('Sort').selectOption('alphabetical');
   await expect(snakeVal(page)).toContainText('get_user_id'); // unchanged after reorder
-  await expect(page.getByRole('button', { name: /Copy / })).toHaveCount(11); // all eleven still present
+  await expect(page.getByRole('button', { name: /Copy / })).toHaveCount(13); // every case still present
 });
 
-test('F-010.AC1 alphabetical sort order', async ({ page }) => {
+test('F-010.AC1 F-015.AC6 alphabetical sort order (thirteen kinds)', async ({ page }) => {
   await page.goto('/');
   await page.getByLabel('Text to convert').fill('getUserID');
   await page.getByLabel('Sort').selectOption('alphabetical');
-  const labels = await page.locator('.row__label').allInnerTexts();
-  const names = labels.map((l) => l.replace(/Last used/i, '').trim());
+  const names = await page.locator('.row__label [lang]').allInnerTexts(); // label text only, no badges
   expect(names).toEqual([
     'camelCase',
+    'COBOL-CASE',
     'CONSTANT_CASE',
     'dot.case',
     'kebab-case',
@@ -69,6 +69,7 @@ test('F-010.AC1 alphabetical sort order', async ({ page }) => {
     'Sentence case',
     'snake_case',
     'Title Case',
+    'Train-Case',
     'UPPERCASE',
   ]);
 });

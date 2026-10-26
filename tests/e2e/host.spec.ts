@@ -23,7 +23,7 @@ const UNLISTED = `http://localhost:${PORTS.unlisted}`;
 async function embed(page: Page, query = ''): Promise<Frame> {
   await page.goto(`${HOST}/host.html${query}`);
   const toolFrame = page.frameLocator('iframe[name="tool"]');
-  await expect(toolFrame.getByRole('group', { name: 'Converted cases' })).toBeVisible();
+  await expect(toolFrame.getByRole('grid', { name: 'Converted cases' })).toBeVisible();
   const frame = page.frame({ name: 'tool' });
   expect(frame).not.toBeNull();
   return frame!;

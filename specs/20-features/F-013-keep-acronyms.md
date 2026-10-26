@@ -1,7 +1,7 @@
 ---
 id: F-013
 title: Keep acronyms
-status: draft
+status: building
 milestone: M-3
 priority: P1
 personas: [PER-01]

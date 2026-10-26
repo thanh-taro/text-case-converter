@@ -1,9 +1,18 @@
 // MOD-App — the options bar (CMP-Controls): strip/accents switches + sort selector (M-2).
-// Implements: F-008.R1, F-009.R1, F-010.R1; RULE-11/12/13; NFR-04/NFR-08.
+// Implements: F-008.R1, F-009.R1, F-010.R1, F-013.R1; RULE-11/12/13/16; NFR-04/NFR-08.
 import type { JSX } from 'preact';
 import { t } from '../../copy';
 import type { SortMode } from '../../prefs';
-import { removeAccents, setRemoveAccents, setSortMode, setStripSymbols, sortMode, stripSymbols } from '../state';
+import {
+  keepAcronyms,
+  removeAccents,
+  setKeepAcronyms,
+  setRemoveAccents,
+  setSortMode,
+  setStripSymbols,
+  sortMode,
+  stripSymbols,
+} from '../state';
 
 const SORTS: { mode: SortMode; id: 'sort.default' | 'sort.recent' | 'sort.alpha' }[] = [
   { mode: 'default', id: 'sort.default' },
@@ -33,6 +42,7 @@ export function Controls(): JSX.Element {
     <div class="controls" role="group" aria-label={t('label.options')}>
       <Switch label={t('action.strip')} on={stripSymbols.value} onChange={setStripSymbols} />
       <Switch label={t('action.accents')} on={removeAccents.value} onChange={setRemoveAccents} />
+      <Switch label={t('action.acronyms')} on={keepAcronyms.value} onChange={setKeepAcronyms} />
       <label class="sort">
         <span class="sort__label">{t('label.sort')}</span>
         <select

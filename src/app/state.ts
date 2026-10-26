@@ -2,9 +2,10 @@
 // storage is ENT-Preferences via MOD-Prefs (RULE-14, non-content).
 // Implements: F-001 (input/clear), F-002.R2 (live results), RULE-08 (settle delay + cap),
 // RULE-09 (empty), F-004.R4 (line count), F-003 (copy feedback),
-// F-008 (strip symbols), F-009 (remove accents), F-010 (sort/pin/recent/last-used), RULE-11..14.
+// F-008 (strip symbols), F-009 (remove accents), F-010 (sort/pin/recent/last-used), RULE-11..14;
+// M-3: F-013 (keep acronyms, RULE-16), F-012 (input match, RULE-17).
 import { batch, computed, effect, signal } from '@preact/signals';
-import { CASE_IDS, convertAll, type CaseId } from '../engine';
+import { CASE_IDS, convertAll, matchingCases, type CaseId } from '../engine';
 import { MESSAGES, language, type MessageId } from '../copy';
 import { loadPrefs, savePrefs, type Preferences, type SortMode } from '../prefs';
 
@@ -24,6 +25,8 @@ const initial: Preferences = loadPrefs();
 export const stripSymbols = signal(initial.stripSymbols);
 /** Remove-accents transform (F-009, RULE-12). */
 export const removeAccents = signal(initial.removeAccents);
+/** Keep-acronyms transform (F-013, RULE-16); default off. */
+export const keepAcronyms = signal(initial.keepAcronyms);
 /** Result sort mode (F-010, RULE-13). */
 export const sortMode = signal<SortMode>(initial.sortMode);
 /** Pinned case kinds, floated to the top (F-010, RULE-13). */
@@ -38,17 +41,25 @@ function persist(): void {
   savePrefs({
     stripSymbols: stripSymbols.value,
     removeAccents: removeAccents.value,
+    keepAcronyms: keepAcronyms.value,
     sortMode: sortMode.value,
     pinned: pinned.value,
     recent: recent.value,
   });
 }
 
-/** Results for all eleven cases of the settled input and the active transforms (F-002.R1, RULE-03,
- * RULE-11, RULE-12). */
+/** Results for every case of the settled input and the active transforms (F-002.R1, RULE-03,
+ * RULE-11, RULE-12, RULE-16). */
 export const results = computed<Record<CaseId, string>>(() =>
-  convertAll(settled.value, { stripSymbols: stripSymbols.value, removeAccents: removeAccents.value }),
+  convertAll(settled.value, {
+    stripSymbols: stripSymbols.value,
+    removeAccents: removeAccents.value,
+    keepAcronyms: keepAcronyms.value,
+  }),
 );
+
+/** Case kinds whose result equals the settled input (RULE-17, F-012.R1/R2); empty when empty. */
+export const matches = computed<ReadonlySet<CaseId>>(() => new Set(matchingCases(settled.value, results.value)));
 
 const labelOf = (id: CaseId): string => MESSAGES[`case.${id}` as MessageId];
 
@@ -80,6 +91,11 @@ export function setStripSymbols(on: boolean): void {
 /** Toggle Remove accents (F-009.R1). */
 export function setRemoveAccents(on: boolean): void {
   removeAccents.value = on;
+  persist();
+}
+/** Toggle Keep acronyms (F-013.R1). */
+export function setKeepAcronyms(on: boolean): void {
+  keepAcronyms.value = on;
   persist();
 }
 /** Choose the sort mode (F-010.R1). */
