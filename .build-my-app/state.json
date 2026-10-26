@@ -501,9 +501,13 @@
     {
       "at": "2026-10-26T05:38:05+00:00",
       "event": "iterate step: 8.0 live v1.2.0; collect feedback and next changes"
+    },
+    {
+      "at": "2026-10-26T05:38:58+00:00",
+      "event": "v1.2.0 verified by the owner in the portal (live language switch works)"
     }
   ],
-  "updated": "2026-10-26T05:38:05+00:00",
+  "updated": "2026-10-26T05:38:58+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",
