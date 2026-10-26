@@ -4,10 +4,12 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
 
 ## Unreleased
 
+## v1.3.1 — 2026-10-26
+
 - 2026-10-26 — Change (owner request, M-4 scope): a copy activated before the results settle now
   copies the result for the current input, settling first (RULE-07, F-003.R6/AC7); previously it
   copied the previous input's result. Owner dropped slug mode from M-4 (kebab-case with the
-  default switches already gives slugs); it stays a roadmap idea.
+  default switches already gives slugs); it stays a roadmap idea. Shipped in v1.3.1.
 ## v1.3.0 — 2026-10-26
 
 - 2026-10-26 — M-3 specs drafted (owner scope): F-012 matches-input badge (RULE-17, every exact match),
