@@ -4,6 +4,8 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
 
 ## Unreleased
 
+## v1.2.0 — 2026-10-26
+
 - 2026-10-26 — Change (owner request): the tool follows the portal's language. The host passes
   `?lang=en-US|vi-VN` and may switch live with a `taro:language` settings message (RULE-10 extended);
   missing/unsupported → the browser's language → en-US (new RULE-15). New F-011; copy.md gains a
@@ -17,7 +19,7 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
   stacked layout the last-used badge steps aside while the copied flash shows (CMP-ResultRow) and
   status-bar count/link never break. Message type aligned with the portal's tool contract:
   `taro:language` (the portal answers `taro:ready` with theme + language; repeats are idempotent). 133 unit + 49 Chromium + 41 WebKit e2e green; AC coverage
-  100%; critical path 18.2 KB / 250 KB. Firefox e2e: CI. Owner kept the English tool title in vi-VN.
+  100%; critical path 18.2 KB / 250 KB. Firefox e2e: CI. Owner kept the English tool title in vi-VN. F-011 shipped in v1.2.0.
 
 ## v1.1.0 — 2026-10-20
 

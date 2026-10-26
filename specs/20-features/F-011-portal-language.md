@@ -1,7 +1,7 @@
 ---
 id: F-011
 title: Use the portal's language
-status: ready
+status: shipped
 milestone: M-3
 priority: P1
 personas: [PER-02, PER-01]
