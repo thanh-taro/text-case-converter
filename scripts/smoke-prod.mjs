@@ -247,6 +247,17 @@ async function browserCheck(origin) {
     const notFramed = await page.evaluate(() => window.top === window);
     if (!notFramed) fails.push('page unexpectedly framed');
     notes.push(`${seen.length} requests in total during load, all same-origin`);
+
+    // F-011: the portal's language reaches the tool (after the request audit above).
+    const vi = await context.newPage();
+    await vi.goto(origin + '/?theme=dark&lang=vi-VN', { waitUntil: 'load' });
+    await vi
+      .getByLabel('Văn bản cần chuyển đổi')
+      .waitFor({ timeout: 15000 })
+      .catch(() => fails.push('?lang=vi-VN did not show the Vietnamese UI'));
+    const lang = await vi.evaluate(() => document.documentElement.lang);
+    if (lang !== 'vi-VN') fails.push(`?lang=vi-VN set <html lang="${lang}">`);
+    else notes.push('vi-VN UI shown for ?lang=vi-VN');
   } catch (e) {
     fails.push(`browser run failed: ${e.message}`);
   } finally {
