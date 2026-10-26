@@ -32,7 +32,7 @@ runtime dependency — the main difference from the sibling's dependency set.
 | **DEP-13** | @fontsource-variable/jetbrains-mono                  | ^5                             | OFL-1.1          | asset          | Mono face for result text, self-hosted Latin subset         | approved                                             | ADR-0007   |
 | **DEP-14** | Portal design tokens ("Night Market", `tokens.json`) | copy pinned to a portal commit | Owner's own work | asset (source) | Colours, spacing, radii, motion shared with the portal      | candidate (owner's own work, reused with permission) | ADR-0007   |
 
-## Build, dev, test, CI (never shipped)
+## Build, dev, test (never shipped)
 
 | ID         | Name                                                    | Version range              | License                                                              | Kind  | Purpose                                                     | Status   | Decided by         |
 | ---------- | ------------------------------------------------------- | -------------------------- | -------------------------------------------------------------------- | ----- | ----------------------------------------------------------- | -------- | ------------------ |
@@ -45,7 +45,7 @@ runtime dependency — the main difference from the sibling's dependency set.
 | **DEP-21** | vitest                                                  | ^5.0                       | MIT                                                                  | dev   | Unit, property and corpus tests                             | approved | ADR-0009           |
 | **DEP-23** | fast-check                                              | ^4.10                      | MIT                                                                  | dev   | Property-based tests (INV-02/03/04, RULE-05)                | approved | ADR-0009           |
 | **DEP-25** | @playwright/test                                        | ~1.63                      | Apache-2.0                                                           | dev   | E2E on three engines, host contract, no-network             | approved | ADR-0009           |
-| **DEP-26** | Playwright browser binaries (Chromium, Firefox, WebKit) | via DEP-25                 | Chromium BSD; Firefox MPL-2.0; WebKit LGPL-2.1 (test-only exception) | dev   | E2E engines                                                 | approved | ADR-0001, ADR-0009 |
+| **DEP-26** | Playwright browser binaries (Chromium, WebKit) | via DEP-25                 | Chromium BSD; WebKit LGPL-2.1 (test-only exception) | dev   | E2E engines (Firefox dropped, ADR-0014) | approved | ADR-0001, ADR-0009 |
 | **DEP-27** | @axe-core/playwright (pulls axe-core)                   | ^4.13                      | MPL-2.0 (dev-only exception)                                         | dev   | Automated accessibility audit                               | approved | ADR-0001, ADR-0009 |
 | **DEP-28** | @lhci/cli                                               | ^0.15                      | Apache-2.0                                                           | dev   | Startup/size budgets for NFR-05                             | approved | ADR-0009           |
 | **DEP-29** | eslint                                                  | ^10                        | MIT                                                                  | dev   | Linting incl. network/storage-API ban and module boundaries | approved | ADR-0003           |

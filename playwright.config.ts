@@ -11,8 +11,7 @@ export const PORTS = { tool: BASE, host: BASE + 1, unlisted: BASE + 2, admin: BA
 
 export default defineConfig({
   testDir: './tests/e2e',
-  // One test at a time, like the JSON Formatter: the fixture server's state (/publish) is
-  // shared, and parallel browsers on CI made Firefox page loads stall past the timeout.
+  // One test at a time, like the JSON Formatter: the fixture server's state (/publish) is shared.
   workers: 1,
   fullyParallel: false,
   forbidOnly: CI,
@@ -24,13 +23,12 @@ export default defineConfig({
     trace: 'retain-on-failure',
   },
   projects: [
-    // Clipboard permissions are Chromium-only names; Firefox and WebKit reject them and allow
-    // writeText on a user click without a grant.
+    // Clipboard permissions are Chromium-only names; WebKit rejects them and allows writeText on
+    // a user click without a grant. Firefox is not automated (ADR-0014).
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'], permissions: ['clipboard-read', 'clipboard-write'] },
     },
-    { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
   webServer: {

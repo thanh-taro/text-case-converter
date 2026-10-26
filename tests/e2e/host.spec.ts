@@ -54,23 +54,13 @@ test('F-005.AC9 missing theme follows the device preference', async ({ page }) =
   await expect(frame.locator('html')).toHaveAttribute('data-theme', 'light');
 });
 
-test('F-005.AC3 standalone follows the device light/dark preference', async ({ browser, browserName, playwright }) => {
+test('F-005.AC3 standalone follows the device light/dark preference', async ({ browser }) => {
   for (const scheme of ['dark', 'light'] as const) {
-    // Playwright's emulated colour scheme does not survive on the tool page in Firefox, so there
-    // the preference is set the way a user sets it: Firefox's "Website appearance" pref (0 = dark,
-    // 1 = light). Verified against the live site in CI: real prefs are followed in both schemes.
-    const ff =
-      browserName === 'firefox'
-        ? await playwright.firefox.launch({
-            firefoxUserPrefs: { 'layout.css.prefers-color-scheme.content-override': scheme === 'dark' ? 0 : 1 },
-          })
-        : null;
-    const context = ff ? await ff.newContext({ colorScheme: null }) : await browser.newContext({ colorScheme: scheme });
+    const context = await browser.newContext({ colorScheme: scheme });
     const page = await context.newPage();
     await page.goto(`http://localhost:${BASE}/`);
     await expect(page.locator('html')).toHaveAttribute('data-theme', scheme);
     await context.close();
-    await ff?.close();
   }
 });
 

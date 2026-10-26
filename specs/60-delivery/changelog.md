@@ -4,6 +4,12 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
 
 ## Unreleased
 
+- 2026-10-26 — Owner decision (all three taro-kit tools): no code-host workflows — `ci.yml` removed,
+  deploys by the owner or Claude by hand with `pnpm deploy:prod` — and Firefox removed from the
+  automated e2e suite (Playwright's Firefox never launches here). ADR-0014 (amends ADR-0009 and
+  ADR-0012); NFR-06 verification is Chromium + WebKit e2e plus a manual Firefox check per release
+  candidate; DEP-26, MOD-Build, README, deploy script and the Firefox branch in host.spec.ts updated.
+
 ## v1.3.2 — 2026-10-26
 
 - 2026-10-26 — Bug fix (F-011.R7/AC12, NFR-01): in WebKit the Vietnamese UI face was sometimes not

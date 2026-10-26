@@ -25,7 +25,7 @@ pnpm typecheck
 pnpm lint
 pnpm test
 
-# Firefox e2e only runs in CI (it cannot launch on this machine); check that run is green first.
+# Firefox is not automated (ADR-0014); it is checked by hand on the release candidate.
 step "E2E (Chromium + WebKit; builds its own dist against the stub host)"
 pnpm exec playwright test --project=chromium --project=webkit
 

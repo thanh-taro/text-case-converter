@@ -55,7 +55,7 @@ Questions about privacy: Thanh Nguyen Tri, [adamnguyen.itdn@gmail.com](mailto:ad
 
 Hosting is Cloudflare Workers static assets at https://text-case-converter.tarokit.app (ADR-0006).
 Deploys are manual only (ADR-0012): there is no deploy workflow, and pushing a branch or tag deploys
-nothing. From a clean `main`, after the commit's CI run is green, run `pnpm deploy:prod`. It runs
+nothing. There is no CI either (ADR-0014). From a clean `main`, run `pnpm deploy:prod`. It runs
 every check, builds with `HOST_ORIGINS=https://tarokit.app`, uploads `dist/` with your own
 `wrangler` login, then runs the smoke test. Source maps are built hidden and excluded from upload
 (`dist/.assetsignore`).

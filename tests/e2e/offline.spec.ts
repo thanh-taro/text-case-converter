@@ -1,6 +1,6 @@
 // F-007 work offline (ADR-0010, NFR-01): after first load the tool runs with no network; the
 // cache holds only the tool's own files; a newer version is picked up on a later online open.
-// Service-worker automation is reliable on Chromium; Firefox/WebKit offline is a manual check
+// Service-worker automation is reliable on Chromium; WebKit and Firefox offline is a manual check
 // (recorded in the traceability matrix).
 import { expect, test, type Page } from '@playwright/test';
 
