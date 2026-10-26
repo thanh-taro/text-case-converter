@@ -42,7 +42,7 @@
       document.body.appendChild(frame);
       // Test hooks the spec calls via page.evaluate in the host page context.
       window.setTheme = (value) => frame.contentWindow.postMessage({ type: 'taro:theme', value }, TOOL);
-      window.setLang = (value) => frame.contentWindow.postMessage({ type: 'taro:lang', value }, TOOL);
+      window.setLang = (value) => frame.contentWindow.postMessage({ type: 'taro:language', value }, TOOL);
       window.postRaw = (data) => frame.contentWindow.postMessage(data, TOOL);
       window.resizeTool = (w, h) => {
         frame.style.width = typeof w === 'number' ? w + 'px' : w;

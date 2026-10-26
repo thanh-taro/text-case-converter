@@ -122,7 +122,7 @@ describe('RULE-10 language settings messages', () => {
     expect(acceptLanguageMessage(msg(data, { source: { id: 'sibling' } }), ORIGINS, PARENT)).toBeNull();
     expect(acceptLanguageMessage(msg(data, { source: null }), ORIGINS, PARENT)).toBeNull();
     expect(acceptLanguageMessage(msg({ type: LANGUAGE_MESSAGE, value: 'fr-FR' }), ORIGINS, PARENT)).toBeNull();
-    expect(acceptLanguageMessage(msg('taro:lang'), ORIGINS, PARENT)).toBeNull();
+    expect(acceptLanguageMessage(msg('taro:language'), ORIGINS, PARENT)).toBeNull();
   });
   it('F-011 edge case: theme and language messages are independent', () => {
     const lang = msg({ type: LANGUAGE_MESSAGE, value: 'vi-VN' });

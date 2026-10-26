@@ -9,7 +9,8 @@ supersedes: []
 ## Context
 
 The portal now passes the user's language to embedded tools as `?lang=` (`en-US`, `vi-VN`) and
-can switch it live (F-011, RULE-10, RULE-15). The tool must show the right language from first
+can switch it live (portal tool contract, "Language hand-off"; portal ADR-0012: the answer to
+`taro:ready` carries `taro:theme` and `taro:language`, and every switch re-sends `taro:language`) (F-011, RULE-10, RULE-15). The tool must show the right language from first
 display, follow live switches without losing input, keep the single source of strings
 (ADR-0007) and the size budget (NFR-05), and render Vietnamese in its own typefaces. ADR-0008
 (theme contract) and ADR-0007 (copy generation) stay in force; this ADR extends both.
@@ -20,7 +21,7 @@ display, follow live switches without losing input, keep the single source of st
    resolves the language per RULE-15 (address → `navigator.languages` → `en-US`) and sets
    `<html lang>` before first paint. The app reads the same resolution at start, so the first
    render is already in the right language (no flash: strings are rendered only by the app).
-2. **Live switch.** A settings message `{ type: "taro:lang", value }` is accepted under the exact
+2. **Live switch.** A settings message `{ type: "taro:language", value }` is accepted under the exact
    ADR-0008 rules (allow-listed `event.origin`, `event.source === window.parent`); unsupported
    values are ignored. The latest accepted message wins over the address. No new outbound message.
 3. **Catalog.** `copy.md` holds one column per language; `scripts/gen-copy.mjs` generates one

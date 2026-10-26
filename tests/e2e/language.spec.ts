@@ -85,7 +85,7 @@ test('F-011.AC4 unsupported language messages are ignored', async ({ page }) => 
   await page.evaluate(() => {
     window.setLang!('fr-FR');
     window.setLang!(42);
-    window.postRaw!({ type: 'taro:lang' });
+    window.postRaw!({ type: 'taro:language' });
   });
   await page.waitForTimeout(200);
   await expect(frame.locator('html')).toHaveAttribute('lang', 'vi-VN');

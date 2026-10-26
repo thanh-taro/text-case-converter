@@ -7,7 +7,7 @@ export type Theme = 'light' | 'dark';
 
 /** Inbound settings message types (portal → tool). */
 export const THEME_MESSAGE = 'taro:theme';
-export const LANGUAGE_MESSAGE = 'taro:lang';
+export const LANGUAGE_MESSAGE = 'taro:language';
 /** The only outbound message type (tool → portal). */
 export const READY_MESSAGE = 'taro:ready';
 

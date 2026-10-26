@@ -5,7 +5,7 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
 ## Unreleased
 
 - 2026-10-26 — Change (owner request): the tool follows the portal's language. The host passes
-  `?lang=en-US|vi-VN` and may switch live with a `taro:lang` settings message (RULE-10 extended);
+  `?lang=en-US|vi-VN` and may switch live with a `taro:language` settings message (RULE-10 extended);
   missing/unsupported → the browser's language → en-US (new RULE-15). New F-011; copy.md gains a
   vi-VN column and COPY-app.title; case labels and results never change with language. ADR-0013;
   MOD-Host/MOD-Copy, platform mapping, SCR-Converter, glossary updated; DEP-12/13 add their
@@ -15,7 +15,8 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
   Built: header-driven copy codegen (fails on a missing translation or placeholder mismatch);
   case labels carry `lang="en"`; a live switch clears the last live-region announcement; in the
   stacked layout the last-used badge steps aside while the copied flash shows (CMP-ResultRow) and
-  status-bar count/link never break. 133 unit + 49 Chromium + 41 WebKit e2e green; AC coverage
+  status-bar count/link never break. Message type aligned with the portal's tool contract:
+  `taro:language` (the portal answers `taro:ready` with theme + language; repeats are idempotent). 133 unit + 49 Chromium + 41 WebKit e2e green; AC coverage
   100%; critical path 18.2 KB / 250 KB. Firefox e2e: CI. Owner kept the English tool title in vi-VN.
 
 ## v1.1.0 — 2026-10-20

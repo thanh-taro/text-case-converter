@@ -477,9 +477,13 @@
     {
       "at": "2026-10-26T05:05:07+00:00",
       "event": "iterate step: 8.3 CR locale: built & verified locally; awaiting owner to release (v1.2.0)"
+    },
+    {
+      "at": "2026-10-26T05:08:19+00:00",
+      "event": "F-011: message type aligned with portal tool contract (taro:language)"
     }
   ],
-  "updated": "2026-10-26T05:05:07+00:00",
+  "updated": "2026-10-26T05:08:19+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",
