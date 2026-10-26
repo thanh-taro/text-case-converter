@@ -4,6 +4,15 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
 
 ## Unreleased
 
+## v1.3.2 — 2026-10-26
+
+- 2026-10-26 — Bug fix (F-011.R7/AC12, NFR-01): in WebKit the Vietnamese UI face was sometimes not
+  requested at startup (the stylesheet's faces were not registered yet when the app script ran),
+  so it was fetched later, when Vietnamese text first appeared. Each Manrope face is now loaded
+  directly at startup, on the next frame and at page load. Seen as an intermittent WebKit e2e
+  failure (9/30 under parallel load; now 0/30). v1.3.1 was tagged but never deployed — the
+  deploy's checks stopped on this failure; v1.3.2 ships both fixes.
+
 ## v1.3.1 — 2026-10-26
 
 - 2026-10-26 — Change (owner request, M-4 scope): a copy activated before the results settle now

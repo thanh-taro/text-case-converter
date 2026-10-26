@@ -94,7 +94,7 @@
     "iterate": {
       "title": "8 Iterate",
       "status": "in_progress",
-      "step": "8.11 release v1.3.1 — CI then deploy",
+      "step": "8.12 release v1.3.2 (v1.3.1 never deployed) — CI then deploy",
       "gate": {
         "status": "pending",
         "at": null,
@@ -605,9 +605,17 @@
     {
       "at": "2026-10-26T12:25:47+00:00",
       "event": "v1.3.1 release commit on main (F-003.R6)"
+    },
+    {
+      "at": "2026-10-26T12:48:29+00:00",
+      "event": "iterate step: 8.12 release v1.3.2 (v1.3.1 never deployed) — CI then deploy"
+    },
+    {
+      "at": "2026-10-26T12:48:29+00:00",
+      "event": "v1.3.1 deploy stopped by WebKit font race (F-011.AC12); fixed; v1.3.2 release commit on main"
     }
   ],
-  "updated": "2026-10-26T12:25:47+00:00",
+  "updated": "2026-10-26T12:48:29+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",
