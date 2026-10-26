@@ -1,7 +1,7 @@
 ---
 id: F-014
 title: Move through results with the keyboard
-status: building
+status: shipped
 milestone: M-3
 priority: P2
 personas: [PER-01]

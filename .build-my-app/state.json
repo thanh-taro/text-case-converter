@@ -94,7 +94,7 @@
     "iterate": {
       "title": "8 Iterate",
       "status": "in_progress",
-      "step": "8.7 M-3 built + reviewed on feat/m-3; awaiting owner: release v1.3.0?",
+      "step": "8.8 M-3: release v1.3.0 — CI then deploy",
       "gate": {
         "status": "pending",
         "at": null,
@@ -565,9 +565,17 @@
     {
       "at": "2026-10-26T07:03:56+00:00",
       "event": "M-3 code review: 4 findings fixed (stray _headers, badge on emptied input, focus restore after mouse click, remembered action while empty) + regression tests"
+    },
+    {
+      "at": "2026-10-26T10:33:47+00:00",
+      "event": "iterate step: 8.8 M-3: release v1.3.0 — CI then deploy"
+    },
+    {
+      "at": "2026-10-26T10:33:47+00:00",
+      "event": "v1.3.0 release commit on main (F-012–F-015 shipped)"
     }
   ],
-  "updated": "2026-10-26T07:03:56+00:00",
+  "updated": "2026-10-26T10:33:47+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",

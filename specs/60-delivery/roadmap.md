@@ -18,7 +18,7 @@ Features: F-008 … F-010.
 First: use the portal's language — en-US and vi-VN from the host's address or messages, else the
 browser's (F-011, RULE-15; shipped in v1.2.0). Then: mark the rows that match the input (F-012,
 RULE-17); keep acronyms in capitals (F-013, RULE-16); move through results with the keyboard
-(F-014); Train-Case and COBOL-CASE (F-015, RULE-01).
+(F-014); Train-Case and COBOL-CASE (F-015, RULE-01); shipped in v1.3.0.
 Features: F-011 … F-015.
 
 ### M-4 — Candidates

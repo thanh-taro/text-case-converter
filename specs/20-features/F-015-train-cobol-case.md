@@ -1,7 +1,7 @@
 ---
 id: F-015
 title: Train-Case and COBOL-CASE
-status: building
+status: shipped
 milestone: M-3
 priority: P2
 personas: [PER-01]

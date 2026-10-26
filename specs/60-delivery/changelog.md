@@ -4,6 +4,8 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
 
 ## Unreleased
 
+## v1.3.0 — 2026-10-26
+
 - 2026-10-26 — M-3 specs drafted (owner scope): F-012 matches-input badge (RULE-17, every exact match),
   F-013 Keep acronyms (RULE-16, default off; RULE-06 now describes the default), F-014 keyboard
   navigation in the grid (single Tab stop, arrows/Home/End), F-015 Train-Case + COBOL-CASE (RULE-01 now
@@ -21,7 +23,7 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
   when the input is emptied; the grid is one Tab stop (ARIA grid, roving tabindex) that remembers the
   focused case across pins and sort moves, enters on copy whenever the input is not empty, and only
   restores focus after a row move if the moved action had it. NFR-02: 23 ms (defaults) / 30.5 ms (all
-  preferences on) per 100k characters. Unit 163, e2e (Chromium + WebKit) 131 pass, AC coverage 100%.
+  preferences on) per 100k characters. Unit 163, e2e (Chromium + WebKit) 131 pass, AC coverage 100%. F-012–F-015 shipped in v1.3.0.
 
 ## v1.2.0 — 2026-10-26
 
