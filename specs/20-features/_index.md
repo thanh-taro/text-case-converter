@@ -13,3 +13,7 @@
 | F-009 | Remove accents | M-2 | P1 | shipped |
 | F-010 | Sort and pin results | M-2 | P2 | shipped |
 | F-011 | Use the portal's language | M-3 | P1 | shipped |
+| F-012 | See which case the input is in | M-3 | P1 | draft |
+| F-013 | Keep acronyms | M-3 | P1 | draft |
+| F-014 | Move through results with the keyboard | M-3 | P2 | draft |
+| F-015 | Train-Case and COBOL-CASE | M-3 | P2 | draft |

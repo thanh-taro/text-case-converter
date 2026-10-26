@@ -16,7 +16,9 @@ Case labels are technical names and stay the same in every language (RULE-15).
 | **COPY-case.pascal**   | PascalCase    | PascalCase    |       |
 | **COPY-case.snake**    | snake_case    | snake_case    |       |
 | **COPY-case.kebab**    | kebab-case    | kebab-case    |       |
+| **COPY-case.train** | Train-Case | Train-Case | M-3 |
 | **COPY-case.constant** | CONSTANT_CASE | CONSTANT_CASE |       |
+| **COPY-case.cobol** | COBOL-CASE | COBOL-CASE | M-3 |
 | **COPY-case.dot**      | dot.case      | dot.case      |       |
 | **COPY-case.path**     | path/case     | path/case     |       |
 | **COPY-case.title**    | Title Case    | Title Case    |       |
@@ -56,13 +58,14 @@ Case labels are technical names and stay the same in every language (RULE-15).
 | **COPY-status.lines**        | {n} lines                                                                  | {n} dòng                                                                                   | Shown when the input has more than one line             |
 | **COPY-notice.large**        | Large input — results update after you stop typing                         | Văn bản dài — kết quả sẽ cập nhật khi ngừng gõ                                               | Shown once past the RULE-08 cap                         |
 
-## Options & sorting (M-2)
+## Options, sorting & badges (M-2, M-3)
 
 | ID                       | en-US           | vi-VN            | Notes                                           |
 | ------------------------ | --------------- | ---------------- | ----------------------------------------------- |
 | **COPY-label.options**   | Options         | Tùy chọn         | Accessible name of the controls group           |
 | **COPY-action.strip**    | Strip symbols   | Xóa ký tự đặc biệt | Toggle (RULE-11)                                |
 | **COPY-action.accents**  | Remove accents  | Xóa dấu          | Toggle (RULE-12)                                |
+| **COPY-action.acronyms** | Keep acronyms | Giữ chữ viết tắt | Toggle (RULE-16), M-3 |
 | **COPY-label.sort**      | Sort            | Sắp xếp          | Label of the sort control (RULE-13)             |
 | **COPY-sort.default**    | Default order   | Thứ tự mặc định  | Sort option                                     |
 | **COPY-sort.recent**     | Recently copied | Đã sao chép gần đây | Sort option                                     |
@@ -70,3 +73,4 @@ Case labels are technical names and stay the same in every language (RULE-15).
 | **COPY-action.pin**      | Pin {case}      | Ghim {case}      | Pin a case to the top (accessible name)         |
 | **COPY-action.unpin**    | Unpin {case}    | Bỏ ghim {case}   | Unpin a case (accessible name)                  |
 | **COPY-badge.last_used** | Last used       | Dùng gần nhất    | Badge on the most-recently-copied row (RULE-13) |
+| **COPY-badge.matches_input** | Matches input | Khớp đầu vào | Badge on every row whose result equals the input (RULE-17), M-3 |

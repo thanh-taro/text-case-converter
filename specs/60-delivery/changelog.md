@@ -4,6 +4,19 @@ Behavior changes to `building` or `shipped` specs are recorded here (specs/READM
 
 ## Unreleased
 
+- 2026-10-26 — M-3 specs drafted (owner scope): F-012 matches-input badge (RULE-17, every exact match),
+  F-013 Keep acronyms (RULE-16, default off; RULE-06 now describes the default), F-014 keyboard
+  navigation in the grid (single Tab stop, arrows/Home/End), F-015 Train-Case + COBOL-CASE (RULE-01 now
+  thirteen kinds; default order changes — Train-Case after kebab-case, COBOL-CASE after CONSTANT_CASE).
+  The case count is now stated only in RULE-01 (F-002, F-010, glossary, style, flow, modules,
+  architecture point to it). ENT-Preferences gains `keepAcronyms`. CMP-Controls default row corrected
+  (Strip/Accents default on since v1.0.0). Larger-input hardening moved to M-4. Spec review (2 reviewers) applied: shipped
+  F-010.AC1/AC2/AC5 updated for thirteen kinds; RULE-16 all-caps exception is "no lowercase letter
+  in the line"; F-014 focus follows a copy in recent sort, grid is a composite widget (ARIA grid
+  pattern, platform-mapping); empty rows keep the pin operable (style, CMP-ResultRow); badge styles;
+  MOD-Engine takes preferences and computes the match; MOD-App owns grid focus; MOD-Prefs migrates
+  pre-M-3 prefs; NFR-03 covers RULE-16 and all kinds. Pending owner ready.
+
 ## v1.2.0 — 2026-10-26
 
 - 2026-10-26 — Change (owner request): the tool follows the portal's language. The host passes

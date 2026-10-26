@@ -94,7 +94,7 @@
     "iterate": {
       "title": "8 Iterate",
       "status": "in_progress",
-      "step": "8.0 live v1.2.0; collect feedback and next changes",
+      "step": "8.6 M-3 specs reviewed; awaiting owner ready",
       "gate": {
         "status": "pending",
         "at": null,
@@ -111,6 +111,14 @@
       "started": "2026-10-26T04:47:22+00:00",
       "outcome": "converged",
       "ended": "2026-10-26T04:51:29+00:00"
+    },
+    "spec-review-m3": {
+      "round": 1,
+      "max": 3,
+      "active": false,
+      "started": "2026-10-26T06:42:29+00:00",
+      "outcome": "converged",
+      "ended": "2026-10-26T06:47:03+00:00"
     }
   },
   "log": [
@@ -505,9 +513,29 @@
     {
       "at": "2026-10-26T05:38:58+00:00",
       "event": "v1.2.0 verified by the owner in the portal (live language switch works)"
+    },
+    {
+      "at": "2026-10-26T05:40:13+00:00",
+      "event": "iterate step: 8.5 M-3: scoping candidates with owner"
+    },
+    {
+      "at": "2026-10-26T06:42:28+00:00",
+      "event": "iterate step: 8.6 M-3 specs drafted; spec review"
+    },
+    {
+      "at": "2026-10-26T06:42:29+00:00",
+      "event": "loop spec-review-m3 started (max 3)"
+    },
+    {
+      "at": "2026-10-26T06:47:03+00:00",
+      "event": "loop spec-review-m3 ended: converged"
+    },
+    {
+      "at": "2026-10-26T06:47:03+00:00",
+      "event": "iterate step: 8.6 M-3 specs reviewed; awaiting owner ready"
     }
   ],
-  "updated": "2026-10-26T05:38:58+00:00",
+  "updated": "2026-10-26T06:47:03+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",

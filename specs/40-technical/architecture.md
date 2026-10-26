@@ -10,7 +10,7 @@ Spikes applied: SPK-tokenizer, SPK-unicode (`.build-my-app/reports/spike-tokeniz
 A static single-page web app at `https://text-case-converter.tarokit.app`, embedded by the
 taro-kit portal (`https://tarokit.app`) in a sandboxed iframe and fully usable standalone.
 **Preact 10 + signals** render one screen (SCR-Converter): a plain `<textarea>` input and a live
-grid of eleven result rows (ADR-0002, ADR-0005). An **in-house, dependency-free case engine**
+grid of result rows (one per case kind) (ADR-0002, ADR-0005). An **in-house, dependency-free case engine**
 (MOD-Engine) does all tokenization and casing **synchronously on the main thread**,
 debounced ~150 ms; there is **no editor library and no worker** because the input is bounded by
 the RULE-08 cap and the work is pure string transformation measured at ~55 ms for 100k characters
@@ -67,8 +67,8 @@ for the offline cache.
 
 | Module     | Responsibility (short)                                                | Main features / NFRs                                                     |
 | ---------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| MOD-Engine | Pure tokenizer + eleven case renders, per line                        | F-002, F-003 data, F-004; RULE-01/01b/02/03/04/05/06; INV-01..04; NFR-03 |
-| MOD-App    | Preact shell, state, settle-debounced recompute, grid, status, notice | SCR-Converter, F-001, F-002, F-004, F-006; NFR-02, NFR-06, NFR-08        |
+| MOD-Engine | Pure tokenizer + case renders (RULE-01), match, per line             | F-002, F-003 data, F-004, F-008, F-009, F-012, F-013, F-015; RULE-01/01b/02/03/04/05/06/11/12/16/17; INV-01..04; NFR-03 |
+| MOD-App    | Preact shell, state, settle-debounced recompute, grid, status, notice | SCR-Converter, F-001, F-002, F-004, F-006, F-012, F-013, F-014, F-015; NFR-02, NFR-06, NFR-08 |
 | MOD-Host   | Theme, language, origin-checked messages, ready signal, offline SW    | F-005, F-007, F-011; RULE-10, RULE-15; NFR-01, NFR-07                    |
 | MOD-IO     | Clipboard copy with failure reporting                                 | F-003; RULE-07                                                           |
 | MOD-Copy   | Generated strings per language from copy.md; active language          | copy.md; F-011                                                           |
@@ -79,7 +79,7 @@ imports Preact; nothing imports a network or storage API.
 
 ## Execution model
 
-- **One thread.** Input → (settle ~150 ms, RULE-08) → MOD-Engine computes all eleven results →
+- **One thread.** Input → (settle ~150 ms, RULE-08) → MOD-Engine computes every result →
   signals update the affected rows. No worker; SPK-tokenizer measured 11 cases on 100k chars at
   ~55 ms, well within NFR-02's 100 ms.
 - **Cap behavior.** Past 100,000 characters, compute runs only after the input stops changing and
@@ -98,7 +98,7 @@ sequenceDiagram
   U->>A: type / paste (CMP-InputArea)
   A->>A: debounce ~150 ms (RULE-08)
   A->>E: convertAll(text)
-  E->>A: eleven results (per line, RULE-03)
+  E->>A: all results (per line, RULE-03)
   A->>A: render CMP-ResultGrid rows; status line count
   U->>A: activate a row (copy)
   A->>IO: copy(result text)
@@ -129,7 +129,7 @@ No editor and no worker, so the critical path is small.
 
 | Measure                                           | Target                      | Source                         |
 | ------------------------------------------------- | --------------------------- | ------------------------------ |
-| All eleven cases on a cap-sized (100k char) input | ≤ 100 ms after settle       | NFR-02, SPK-tokenizer (~55 ms) |
+| All cases + input match on a cap-sized input      | ≤ 100 ms after settle       | NFR-02 (re-measure for M-3; 11-case spike ~55 ms) |
 | Engine correctness on the adversarial corpus      | 100%                        | NFR-03, SPK-tokenizer (46/46)  |
 | Keystroke → visible feedback                      | ≤ 100 ms (settle-debounced) | NFR-02                         |
 | Startup interactive (cold / cached)               | ≤ 1.5 s / ≤ 0.5 s           | NFR-05                         |

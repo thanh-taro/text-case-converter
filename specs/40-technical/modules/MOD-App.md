@@ -9,16 +9,18 @@ depends_on: [MOD-Engine, MOD-Copy, MOD-Host, MOD-IO]
 
 The Preact shell and app state: renders SCR-Converter (CMP-InputArea, CMP-ResultGrid,
 CMP-ResultRow, CMP-StatusBar, CMP-Notice), holds the current input in a signal, and recomputes
-the eleven results through MOD-Engine when the input settles (RULE-08). Owns the responsiveness
+the results through MOD-Engine when the input settles (RULE-08). Owns the responsiveness
 cap: below the cap it recomputes after the settle delay; past the cap it shows COPY-notice.large
 once per session and recomputes only after the input stops changing (RULE-08, NFR-02). Keeps the
-line count for the status bar (RULE-03).
+line count for the status bar (RULE-03). Renders CMP-Controls and the matches-input and last-used
+badges (RULE-13, RULE-17), and owns grid keyboard focus: a single Tab stop, arrow/Home/End
+movement, the remembered focused case, and focus following a moved row (F-014).
 
 ## Not responsible for
 
 - The conversion logic itself (MOD-Engine).
 - Clipboard writes (MOD-IO) or host messages/theme (MOD-Host).
-- Any persistence — there is none (PRN-01).
+- Persistence of preferences (MOD-Prefs); user text is never persisted (PRN-01).
 
 ## Public surface
 
@@ -29,5 +31,6 @@ line count for the status bar (RULE-03).
 ## Implements
 
 SCR-Converter; F-001 (enter/clear, settle recompute, large-input notice), F-002 (live grid),
-F-004 (per-line results + line count), F-006 (privacy statement placement); NFR-02, NFR-06,
+F-004 (per-line results + line count), F-006 (privacy statement placement), F-012 (badge),
+F-013 (toggle), F-014 (keyboard navigation), F-015 (rows); NFR-02, NFR-06,
 NFR-08. Decided by ADR-0002, ADR-0005, ADR-0007.

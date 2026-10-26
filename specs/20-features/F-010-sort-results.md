@@ -39,12 +39,12 @@ pinning — and see at a glance which case they last copied, so repeated convers
   next open (RULE-14).
 
 ## Acceptance criteria
-- **AC1** Given sort = default, when the user switches to alphabetical, then the rows are ordered by case label case-insensitively (camelCase, CONSTANT_CASE, dot.case, kebab-case, lowercase, PascalCase, path/case, Sentence case, snake_case, Title Case, UPPERCASE). (R1)
-- **AC2** Given sort = recently copied and the user copies snake_case then kebab-case, when the grid reorders, then kebab-case is first, snake_case second, and the other nine follow in RULE-01 order. (R2)
+- **AC1** Given sort = default, when the user switches to alphabetical, then the rows are ordered by case label case-insensitively (camelCase, COBOL-CASE, CONSTANT_CASE, dot.case, kebab-case, lowercase, PascalCase, path/case, Sentence case, snake_case, Title Case, Train-Case, UPPERCASE). (R1)
+- **AC2** Given sort = recently copied and the user copies snake_case then kebab-case, when the grid reorders, then kebab-case is first, snake_case second, and the other rows follow in RULE-01 order. (R2)
 - **AC3** Given the user copies snake_case, when the grid is shown in any sort mode, then the snake_case row shows COPY-badge.last_used and no other row does. (R3)
 - **AC4** Given the user copies kebab-case after snake_case, when the grid updates, then the last-used badge is on kebab-case only. (R3)
-- **AC5** Given the user pins path/case with sort = default, when the grid is shown, then path/case is the first row and the remaining ten keep RULE-01 order. (R4)
-- **AC6** Given any sort or pin change, when the grid updates, then each case's result text is unchanged and all eleven cases are still present. (R5)
+- **AC5** Given the user pins path/case with sort = default, when the grid is shown, then path/case is the first row and the other rows keep RULE-01 order. (R4)
+- **AC6** Given any sort or pin change, when the grid updates, then each case's result text is unchanged and every case is still present. (R5)
 - **AC7** Given the user set sort = recently copied, pinned path/case, and copied snake_case, when they reopen the tool, then the sort, the pin and the last-used badge on snake_case are all restored. (R6)
 
 ## UX notes

@@ -7,8 +7,8 @@
 | Token                       | One word the input is split into before re-joining in a case (RULE-02). E.g. `getUserID` splits into `get`, `User`, `ID`.                                                                                                 |
 | Tokenization                | Splitting a line into tokens at separators and letter-case boundaries, including before a capital that follows a digit; digits stay attached to their token, so there is no split between a letter and a digit (RULE-02). |
 | Separator (delimiter)       | A character that separates tokens in the input: space, `_`, `-`, `.`, `/`, and any other non-alphanumeric character. "Separator" and "delimiter" are used interchangeably; RULE-02 uses "separator" (RULE-02).            |
-| Acronym                     | A run of consecutive capital letters, e.g. `HTTP`, `ID`, `URL`; handled as one token where it ends before a following capitalized word (RULE-02).                                                                         |
-| Case (case kind)            | One way of joining tokens into a string: the eleven kinds in RULE-01.                                                                                                                                                     |
+| Acronym                     | A run of consecutive capital letters, e.g. `HTTP`, `ID`, `URL`; handled as one token where it ends before a following capitalized word (RULE-02); for Keep acronyms, an acronym is defined in RULE-16.                                                                         |
+| Case (case kind)            | One way of joining tokens into a string: the kinds listed in RULE-01.                                                                                                                                                     |
 | Result                      | The input converted into one case kind, shown in one row of the grid.                                                                                                                                                     |
 | Cased / non-cased character | A character that has an upper/lower form (most letters) versus one that does not (digits, punctuation, CJK, emoji). Non-cased characters pass through untouched (RULE-05).                                                |
 | Pass-through                | Leaving characters the conversion cannot meaningfully re-case exactly as written (RULE-05).                                                                                                                               |
@@ -20,3 +20,5 @@
 | Pin | Marking a case so its row floats to the top of the grid (RULE-13). |
 | Last-used badge | A text marker on the most-recently-copied case's row (RULE-13, COPY-badge.last_used). |
 | Language | The language the tool's own text is shown in: en-US or vi-VN, set by the host or the browser (RULE-15). Never applies to case labels or results. |
+| Matches-input badge | A text marker on every row whose result equals the whole input (RULE-17, COPY-badge.matches_input). |
+| Keep acronyms | A preference that keeps acronyms in capitals in camelCase, PascalCase, Train-Case, Title Case and Sentence case (RULE-16). |

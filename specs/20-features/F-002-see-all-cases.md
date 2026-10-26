@@ -16,7 +16,7 @@ depends_on: [F-001]
 
 ## Intent
 
-The heart of the tool: for whatever is in the input, show all eleven cases at once so the user
+The heart of the tool: for whatever is in the input, show every case at once so the user
 never has to pick a target first (PRN-02), with acronyms and numbers handled the way a developer
 expects (PRN-03).
 
@@ -28,8 +28,8 @@ expects (PRN-03).
 
 ## Requirements
 
-- **R1** For any non-empty input, the tool shows a result for each of the eleven case kinds
-  (RULE-01, RULE-01b) at the same time, without the user selecting a target case; the eleven
+- **R1** For any non-empty input, the tool shows a result for each case kind
+  (RULE-01, RULE-01b) at the same time, without the user selecting a target case; all
   outputs are deterministic for a given input and the active preferences (INV-02).
 - **R2** Results update live as the input changes, within the responsiveness cap, and always
   describe the current input (RULE-08, NFR-02, INV-05).
@@ -55,8 +55,8 @@ expects (PRN-03).
 - **AC8** Given the input `Hello, World!`, when it is converted, then snake_case is `hello_world`, camelCase is `helloWorld`, UPPERCASE is `HELLO, WORLD!` and lowercase is `hello, world!` (character-based kinds preserve the comma, space and exclamation mark). (R3, R6)
 - **AC9** Given the input `caféCrème`, when it is converted, then snake_case is `café_crème` and Title Case is `Café Crème` (accented letters are cased; no mojibake). (R4)
 - **AC10** Given an input made only of non-cased characters, e.g. `日本語`, when it is converted, then every token-based result is `日本語` unchanged. (R4)
-- **AC11** Given the input is empty, when the grid is shown, then every one of the eleven result rows shows COPY-result.empty. (R7)
-- **AC12** Given any input, when it is converted, then eleven results are shown at once with no step where the user chooses a target case. (R1)
+- **AC11** Given the input is empty, when the grid is shown, then every result row shows COPY-result.empty. (R7)
+- **AC12** Given any input, when it is converted, then a result for every case kind (RULE-01) is shown at once with no step where the user chooses a target case. (R1)
 - **AC13** Given the input `hello`, when the user appends ` world`, then every result updates to reflect `hello world` with no convert action, and each result corresponds to the current input. (R2)
 - **AC14** Given the input `the lord of the rings`, when it is converted, then Title Case is `The Lord Of The Rings` and Sentence case is `The lord of the rings` (no stop-word list, RULE-04). (R5)
 - **AC15** Given the input `BIG`, when it is converted, then lowercase is `big` using locale-independent folding (a Turkish locale would wrongly give the dotless `bıg`). (R4)

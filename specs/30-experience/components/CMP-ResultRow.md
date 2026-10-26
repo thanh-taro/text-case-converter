@@ -17,6 +17,8 @@ One case's result, labelled and copyable in a single click.
 - The copy target (COPY-action.copy_row): in M-1 the whole row; in M-2 a copy button covering the
   label + value + copy icon, beside the pin button (see Accessibility).
 - (M-2) A last-used badge (COPY-badge.last_used) on the most-recently-copied case's row (RULE-13).
+- (M-3) A matches-input badge (COPY-badge.matches_input) when the result equals the input
+  (RULE-17); quieter than the last-used badge; both may show together.
 - (M-2) A pin control (COPY-action.pin / COPY-action.unpin) to float the case to the top (RULE-13).
 
 ## Variants & states
@@ -28,6 +30,7 @@ One case's result, labelled and copyable in a single click.
 | empty           | Input empty; shows COPY-result.empty; not activatable (RULE-09).                                                                                                 |
 | copied          | A brief "copied" flash: the row tints `successBg` and COPY-status.copied_short appears as an overlay pinned to the trailing edge (it does not reflow the value). |
 | last-used (M-2) | Shows the COPY-badge.last_used badge near the label, never split across lines; persists across sorts and sessions until another case is copied (RULE-13). In the stacked (narrow) layout the badge steps aside while the copied flash shows, so the flash never covers it in any language (F-011.AC10).                                   |
+| matched (M-3)   | Shows COPY-badge.matches_input beside the label (RULE-17); never split across lines; wraps below the label with the last-used badge when space is short; never covered by the copied flash. |
 | pinned (M-2)    | Pin control is active; the row floats to the top group (RULE-13).                                                                                                |
 
 ## Layout
@@ -51,9 +54,10 @@ the row becomes a group (not one button) containing two controls: a **copy butto
 label + value + copy icon (accessible name COPY-action.copy_row, the value as its description) and
 a separate **pin toggle button** at the trailing edge (accessible name COPY-action.pin /
 COPY-action.unpin, pressed state exposed). Keyboard order within the row: copy button, then pin
-button. Both meet `size.targetMin`, growing to `size.touchTarget` on coarse pointers; the copy
+button; from M-3 these are reached with Arrow Left/Right inside the grid (CMP-ResultGrid, F-014). Both meet `size.targetMin`, growing to `size.touchTarget` on coarse pointers; the copy
 icon is always visible on coarse pointers (no hover). The copy/check/pin icons are decorative
-(hidden from assistive tech); the meaning is in the accessible names. The last-used badge is
+(hidden from assistive tech); the meaning is in the accessible names. The matches-input badge (M-3), like the last-used badge, is in the row's accessible description. The last-used badge is
 exposed as text (COPY-badge.last_used), not colour alone, within the row's accessible description.
-An empty row is marked disabled and names its value COPY-label.no_result. The copied flash fade
+On an empty row the copy button is disabled and names its value COPY-label.no_result; the pin
+button stays focusable and operable (F-010, F-014.R7). The copied flash fade
 respects reduced-motion (opacity only).

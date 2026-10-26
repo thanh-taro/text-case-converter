@@ -16,7 +16,7 @@ mode first.
 ```mermaid
 flowchart LR
   A[Open tool] --> B[Type or paste text]
-  B --> C[All eleven cases update live]
+  B --> C[All cases update live]
   C --> D[Click the wanted case]
   D --> E[Copied — confirmation shown]
   C --> B

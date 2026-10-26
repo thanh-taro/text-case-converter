@@ -16,7 +16,7 @@ mirror the portal's tokens so the tool looks native when embedded (PRN-05).
    (`size.statusbar`) is a thin strip on `surface`. Hairlines (`line`) separate regions; borders
    that identify controls use `lineStrong`; no cards, no shadows, no glow inside the tool —
    notices and any floating surface are set apart by a `lineStrong` border on `surface`.
-2. **Every case at once, quietly.** The eleven results (PRN-02) are a plain vertical list, each
+2. **Every case at once, quietly.** The results (PRN-02) are a plain vertical list, each
    row the same weight; none is "primary." There is no Convert button and no filled call-to-action
    competing with the results. The one accent is the focus ring (`accent`).
 3. **Click anything to copy.** The whole result row is the copy target. A quiet copy icon sits at
@@ -55,12 +55,15 @@ mirror the portal's tokens so the tool looks native when embedded (PRN-05).
   top-right when non-empty.
 - **Notice (CMP-Notice):** a thin bar on `warnBg` (large input) with an icon, text and a dismiss
   button; the copy-failure message uses `dangerBg`.
-- **Result grid (CMP-ResultGrid / CMP-ResultRow):** eleven rows in the RULE-01 order, separated by
+- **Result grid (CMP-ResultGrid / CMP-ResultRow):** one row per case kind in the RULE-01 order, separated by
   `line` hairlines on the page background — not a card (no outer border or radius). Each row: case
   label (`muted`, UI type), the converted value (mono, `fg`), and a trailing copy icon (`muted`,
   → `fg`/`accent` on hover/focus); hover `surface2`; focus a 2 px `accent` ring; copied flash
-  `successBg` + overlay "Copied". Empty input shows a dimmed `—` (COPY-result.empty) and rows are
-  inert (disabled).
+  `successBg` + overlay "Copied". Empty input shows a dimmed `—` (COPY-result.empty); the copy button is
+  disabled and the pin button stays operable.
+- **Badges (CMP-ResultRow):** small UI text (`font.size.xs`, medium weight), small radius, never
+  split across lines, text never colour-only. Last-used: `surface2` fill, `muted` text.
+  Matches-input (M-3), the quieter one: no fill, a hairline `line` border, `muted` text.
 - **Status bar (CMP-StatusBar):** line count (COPY-status.lines) when multi-line at the left, the
   privacy statement (COPY-label.privacy) in `success` at the far end, followed by the source-code
   link (COPY-link.source) in `muted`, led by the code host's logo mark, text underlined, → `fg` on hover; focus a 2 px `accent` ring.

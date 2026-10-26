@@ -19,10 +19,10 @@ One word a line is split into before re-joining (RULE-02).
 
 ### ENT-CaseKind — Case kind
 
-One of the eleven ways to render the input (RULE-01, RULE-01b).
+One of the ways to render the input (RULE-01, RULE-01b).
 
 - `id` — stable identifier, e.g. `camel`, `snake`, `kebab`, `constant`, `pascal`, `dot`,
-  `path`, `title`, `sentence`, `upper`, `lower`.
+  `path`, `title`, `sentence`, `upper`, `lower`, and (M-3) `train`, `cobol`.
 - `label` — the user-facing name shown on the result row (defined as copy strings).
 - `tokenBased` — whether it tokenizes (RULE-02) or folds characters directly (RULE-01b).
 
@@ -40,6 +40,7 @@ Per-device settings remembered locally (RULE-14); never user content. Added in M
 
 - `stripSymbols` — boolean (RULE-11); default on.
 - `removeAccents` — boolean (RULE-12); default on.
+- `keepAcronyms` — boolean (RULE-16); default off. Added in M-3.
 - `sortMode` — `default` | `recent` | `alphabetical` (RULE-13).
 - `pinned` — the set of pinned case kinds (RULE-13).
 - `recent` — the case kinds in most-recently-copied order (RULE-13); its head is the last-used
@@ -50,8 +51,8 @@ Per-device settings remembered locally (RULE-14); never user content. Added in M
 - **INV-01** No user text, or anything derived from it, is sent off the device (PRN-01). Per-device
   preferences (ENT-Preferences) are not user text and stay on the device (RULE-14).
 - **INV-02** Conversion is deterministic: the same input and the same preferences (RULE-11 strip
-  symbols, RULE-12 remove accents) always produce the same results. Sort mode, pinning and the
-  last-used badge (RULE-13) change only row order and marking, never a result's text.
+  symbols, RULE-12 remove accents, RULE-16 keep acronyms) always produce the same results. Sort mode, pinning, the
+  last-used badge (RULE-13) and the matches-input badge (RULE-17) change only row order and marking, never a result's text.
 - **INV-03** Every token-based result has the same number of lines as the input; a blank input
   line stays a blank line in the result (RULE-03).
 - **INV-04** Characters with no case mapping appear unchanged in every result (RULE-05); the
