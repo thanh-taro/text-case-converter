@@ -94,7 +94,7 @@
     "iterate": {
       "title": "8 Iterate",
       "status": "in_progress",
-      "step": "8.13 v1.3.2 deployed; awaiting owner verification",
+      "step": "8.14 v1.3.2 verified by the owner; M-4 (copy fix) complete; next: pick from roadmap candidates",
       "gate": {
         "status": "pending",
         "at": null,
@@ -621,9 +621,17 @@
     {
       "at": "2026-10-26T12:56:23+00:00",
       "event": "v1.3.2 deployed to production (version 09d427e5); CI green; smoke 9/9"
+    },
+    {
+      "at": "2026-10-26T13:00:52+00:00",
+      "event": "iterate step: 8.14 v1.3.2 verified by the owner; M-4 (copy fix) complete; next: pick from roadmap candidates"
+    },
+    {
+      "at": "2026-10-26T13:00:52+00:00",
+      "event": "v1.3.2 verified by the owner in the portal; M-4 complete"
     }
   ],
-  "updated": "2026-10-26T12:56:23+00:00",
+  "updated": "2026-10-26T13:00:52+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",
