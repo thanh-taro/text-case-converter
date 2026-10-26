@@ -94,7 +94,7 @@
     "iterate": {
       "title": "8 Iterate",
       "status": "in_progress",
-      "step": "8.8 M-3: release v1.3.0 — CI then deploy",
+      "step": "8.9 M-3 v1.3.0 deployed; awaiting owner verification",
       "gate": {
         "status": "pending",
         "at": null,
@@ -573,9 +573,17 @@
     {
       "at": "2026-10-26T10:33:47+00:00",
       "event": "v1.3.0 release commit on main (F-012–F-015 shipped)"
+    },
+    {
+      "at": "2026-10-26T10:56:00+00:00",
+      "event": "iterate step: 8.9 M-3 v1.3.0 deployed; awaiting owner verification"
+    },
+    {
+      "at": "2026-10-26T10:56:00+00:00",
+      "event": "v1.3.0 deployed to production (version 0b53b0b1); CI green incl. Firefox; smoke 9/9"
     }
   ],
-  "updated": "2026-10-26T10:33:47+00:00",
+  "updated": "2026-10-26T10:56:00+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",
