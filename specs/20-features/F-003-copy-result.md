@@ -6,7 +6,7 @@ milestone: M-1
 priority: P0
 personas: [PER-01]
 entities: [ENT-Result]
-rules: [RULE-07, RULE-09, RULE-14]
+rules: [RULE-07, RULE-09, RULE-14, RULE-08]
 screens: [SCR-Converter]
 components: [CMP-ResultRow, CMP-Notice]
 nfr: [NFR-01, NFR-04]
@@ -39,6 +39,8 @@ their privacy (PRN-01).
 - **R5** If the clipboard write fails or is refused by the browser, the result is unchanged and a
   failure message (COPY-status.copy_failed) is shown and announced (NFR-04); the user can still
   select the text manually.
+- **R6** A copy uses the current input, even when it was activated before the results settled
+  (RULE-07, RULE-08).
 
 ## Acceptance criteria
 
@@ -54,6 +56,9 @@ their privacy (PRN-01).
   copy action, not repeatedly. (R2)
 - **AC6** Given a result row, when the clipboard write is refused by the browser, then no text is
   copied, the result is unchanged, and COPY-status.copy_failed is shown and announced. (R5)
+- **AC7** Given results are showing for `user`, when the user types ` id` and activates the
+  snake_case row before the results settle, then the clipboard contains `user_id` and the row shows
+  `user_id`. (R6)
 
 ## UX notes
 

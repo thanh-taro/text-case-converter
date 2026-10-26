@@ -94,7 +94,7 @@
     "iterate": {
       "title": "8 Iterate",
       "status": "in_progress",
-      "step": "8.9 M-3 done: v1.3.0 verified by the owner; next: M-4 candidates",
+      "step": "8.10 M-4 (owner scope: copy-before-settle fix only; slug dropped) built on fix/copy-settle; awaiting owner: release v1.3.1?",
       "gate": {
         "status": "pending",
         "at": null,
@@ -589,9 +589,17 @@
     {
       "at": "2026-10-26T11:49:54+00:00",
       "event": "v1.3.0 verified by the owner in the portal; M-3 complete"
+    },
+    {
+      "at": "2026-10-26T11:57:49+00:00",
+      "event": "iterate step: 8.10 M-4 (owner scope: copy-before-settle fix only; slug dropped) built on fix/copy-settle; awaiting owner: release v1.3.1?"
+    },
+    {
+      "at": "2026-10-26T11:57:49+00:00",
+      "event": "M-4 scoped by owner: copy-before-settle fix (F-003.R6); slug mode dropped. Built test-first; unit 163, e2e 133 pass"
     }
   ],
-  "updated": "2026-10-26T11:49:54+00:00",
+  "updated": "2026-10-26T11:57:49+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",

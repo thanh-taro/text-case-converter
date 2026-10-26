@@ -3,7 +3,7 @@
 // Implements: F-001 (input/clear), F-002.R2 (live results), RULE-08 (settle delay + cap),
 // RULE-09 (empty), F-004.R4 (line count), F-003 (copy feedback),
 // F-008 (strip symbols), F-009 (remove accents), F-010 (sort/pin/recent/last-used), RULE-11..14;
-// M-3: F-013 (keep acronyms, RULE-16), F-012 (input match, RULE-17).
+// M-3: F-013 (keep acronyms, RULE-16), F-012 (input match, RULE-17); F-003.R6 (copy settles first).
 import { batch, computed, effect, signal } from '@preact/signals';
 import { CASE_IDS, convertAll, matchingCases, type CaseId } from '../engine';
 import { MESSAGES, language, type MessageId } from '../copy';
@@ -142,6 +142,13 @@ export function setInput(value: string): void {
   } else {
     settleTimer = setTimeout(commit, SETTLE_MS);
   }
+}
+
+/** Settle a pending input now, so results match the current input (F-003.R6, RULE-07). */
+export function settleNow(): void {
+  if (settleTimer) clearTimeout(settleTimer);
+  settleTimer = undefined;
+  settled.value = input.value;
 }
 
 /** Clear the input and return to the empty state (F-001.R2, RULE-09). */

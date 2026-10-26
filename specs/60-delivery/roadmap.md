@@ -24,4 +24,4 @@ Features: F-011 … F-015.
 ### M-4 — Candidates
 
 Detect-and-suggest the most likely target case; share a conversion recipe without the text;
-transliteration/slug mode; larger-input hardening beyond the RULE-08 cap (moved from M-3).
+transliteration/slug mode (kebab-case with the default switches already gives ASCII slugs; revisit for non-Latin scripts); larger-input hardening beyond the RULE-08 cap (moved from M-3).

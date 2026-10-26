@@ -18,6 +18,7 @@ import {
   orderedIds,
   pinned,
   results,
+  settleNow,
   togglePin,
 } from '../state';
 import { ResultRow, type Action } from './ResultRow';
@@ -125,7 +126,8 @@ export function ResultGrid(): JSX.Element {
             tabStop={id === activeCase ? activeAction : null}
             onCopy={() => {
               const hadFocus = hasFocus(id, 'copy');
-              void copyText(values[id]).then((ok) => {
+              settleNow(); // F-003.R6: copy the result for the current input, not a stale one
+              void copyText(results.peek()[id]).then((ok) => {
                 if (ok) {
                   markCopied(id, t('status.copied', { case: label }));
                   keepFocus(id, 'copy', hadFocus);
