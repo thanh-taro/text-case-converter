@@ -69,9 +69,9 @@ for the offline cache.
 | ---------- | --------------------------------------------------------------------- | ------------------------------------------------------------------------ |
 | MOD-Engine | Pure tokenizer + eleven case renders, per line                        | F-002, F-003 data, F-004; RULE-01/01b/02/03/04/05/06; INV-01..04; NFR-03 |
 | MOD-App    | Preact shell, state, settle-debounced recompute, grid, status, notice | SCR-Converter, F-001, F-002, F-004, F-006; NFR-02, NFR-06, NFR-08        |
-| MOD-Host   | Theme, origin-checked messages, ready signal, offline SW              | F-005, F-007; RULE-10; NFR-01, NFR-07                                    |
+| MOD-Host   | Theme, language, origin-checked messages, ready signal, offline SW    | F-005, F-007, F-011; RULE-10, RULE-15; NFR-01, NFR-07                    |
 | MOD-IO     | Clipboard copy with failure reporting                                 | F-003; RULE-07                                                           |
-| MOD-Copy   | Generated strings from copy.md                                        | copy.md                                                                  |
+| MOD-Copy   | Generated strings per language from copy.md; active language          | copy.md; F-011                                                           |
 | MOD-Build  | Codegen, headers, size/license/corpus gates, deploy                   | NFR-01, NFR-03, NFR-05                                                   |
 
 Dependency rule (lint-enforced): MOD-Engine imports nothing (no DOM, no deps); only MOD-App
@@ -122,7 +122,7 @@ No editor and no worker, so the critical path is small.
 | JS: Preact + signals                                          | ≤ 10 KB     | ~8 KB     |
 | JS: app shell + engine + host + IO + copy                     | ≤ 20 KB     | ~12 KB    |
 | **Critical path total**                                       | **≤ 50 KB** | ~33 KB    |
-| Fonts (2 variable WOFF2 Latin subsets, swap, non-blocking)    | ≤ 80 KB     | ~60–80 KB |
+| Fonts (2 Latin subsets + Manrope Vietnamese, swap, non-blocking) | ≤ 90 KB | ~74 KB |
 | Enforced by the build size gate and Lighthouse CI (ADR-0009). |
 
 ### Runtime targets (spike-derived)

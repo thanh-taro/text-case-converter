@@ -1,10 +1,13 @@
 // MOD-Host — the host settings contract as pure functions (no DOM), ADR-0008 §1 and §3.
-// Implements: RULE-10, F-005.R1, F-005.R2, F-005.R4 (message side), F-005.R5, INV-01, NFR-07.
+// Implements: RULE-10, F-005.R1, F-005.R2, F-005.R4 (message side), F-005.R5, INV-01, NFR-07;
+// RULE-15, F-011.R2–R4 (language, ADR-0013).
+import { LANGUAGES, type Language } from '../copy';
 
 export type Theme = 'light' | 'dark';
 
-/** Inbound settings message type (portal → tool). */
+/** Inbound settings message types (portal → tool). */
 export const THEME_MESSAGE = 'taro:theme';
+export const LANGUAGE_MESSAGE = 'taro:lang';
 /** The only outbound message type (tool → portal). */
 export const READY_MESSAGE = 'taro:ready';
 
@@ -19,6 +22,20 @@ export interface InboundMessage {
   readonly data: unknown;
 }
 
+/** The `{ type, value }` of a settings message, or null when it must be ignored (F-005.R4). */
+function acceptSettings(
+  message: InboundMessage,
+  allowedOrigins: readonly string[],
+  parent: unknown,
+): { type: unknown; value: unknown } | null {
+  if (!allowedOrigins.includes(message.origin)) return null;
+  if (message.source === null || message.source !== parent) return null;
+  const data = message.data;
+  if (typeof data !== 'object' || data === null || Array.isArray(data)) return null;
+  const { type, value } = data as { type?: unknown; value?: unknown };
+  return { type, value };
+}
+
 /**
  * The theme carried by a settings message, or null when the message must be ignored.
  * Implements: F-005.R4 / F-005.AC5 — accepted only from an allow-listed origin and only from the
@@ -29,13 +46,54 @@ export function acceptThemeMessage(
   allowedOrigins: readonly string[],
   parent: unknown,
 ): Theme | null {
-  if (!allowedOrigins.includes(message.origin)) return null;
-  if (message.source === null || message.source !== parent) return null;
-  const data = message.data;
-  if (typeof data !== 'object' || data === null || Array.isArray(data)) return null;
-  const { type, value } = data as { type?: unknown; value?: unknown };
-  if (type !== THEME_MESSAGE) return null;
-  return parseTheme(value);
+  const settings = acceptSettings(message, allowedOrigins, parent);
+  return settings?.type === THEME_MESSAGE ? parseTheme(settings.value) : null;
+}
+
+/**
+ * The language carried by a settings message, or null when it must be ignored: same origin and
+ * parent checks as the theme; an unsupported value is ignored. Implements: F-011.R2, F-011.R4.
+ */
+export function acceptLanguageMessage(
+  message: InboundMessage,
+  allowedOrigins: readonly string[],
+  parent: unknown,
+): Language | null {
+  const settings = acceptSettings(message, allowedOrigins, parent);
+  return settings?.type === LANGUAGE_MESSAGE ? matchLanguage(settings.value) : null;
+}
+
+/**
+ * RULE-15 matching: equal to a supported language ignoring letter case, else the supported
+ * language with the same primary subtag (`vi` → vi-VN, `en-GB` → en-US); anything else is null.
+ */
+export function matchLanguage(value: unknown): Language | null {
+  if (typeof value !== 'string') return null;
+  const v = value.trim().toLowerCase();
+  if (v === '') return null;
+  const exact = LANGUAGES.find((l) => l.toLowerCase() === v);
+  if (exact) return exact;
+  const primary = v.split(/[-_]/)[0];
+  return LANGUAGES.find((l) => l.toLowerCase().split('-')[0] === primary) ?? null;
+}
+
+/**
+ * Language precedence (RULE-15): latest accepted host message, then a supported address value,
+ * then the first matching browser preference, then the default. Implements: F-011.R1, F-011.R3.
+ */
+export function resolveLanguage(input: {
+  message: Language | null;
+  address: string | null;
+  browser: readonly string[];
+}): Language {
+  if (input.message) return input.message;
+  const fromAddress = matchLanguage(input.address);
+  if (fromAddress) return fromAddress;
+  for (const pref of input.browser) {
+    const match = matchLanguage(pref);
+    if (match) return match;
+  }
+  return LANGUAGES[0];
 }
 
 /**

@@ -19,7 +19,7 @@
   </head>
   <body>
     <!-- Stub of the taro-kit portal: embeds the tool and relays theme settings messages.
-         __E2E_PORT_BASE__ is replaced by the fixture server. Query: ?theme=dark|light|none|bad -->
+         __E2E_PORT_BASE__ is replaced by the fixture server. Query: ?theme=dark|light|none|bad and ?lang=<passed through> -->
     <script>
       const BASE = Number('__E2E_PORT_BASE__');
       const TOOL = `http://localhost:${BASE}`;
@@ -35,11 +35,14 @@
       let src = TOOL + '/';
       if (theme === 'dark' || theme === 'light') src += `?theme=${theme}`;
       else if (theme === 'bad') src += `?theme=purple`;
+      const lang = params.get('lang'); // passed through as-is (F-011)
+      if (lang !== null) src += (src.includes('?') ? '&' : '?') + 'lang=' + encodeURIComponent(lang);
       frame.src = src;
       frame.addEventListener('load', () => window.__host.loads++);
       document.body.appendChild(frame);
       // Test hooks the spec calls via page.evaluate in the host page context.
       window.setTheme = (value) => frame.contentWindow.postMessage({ type: 'taro:theme', value }, TOOL);
+      window.setLang = (value) => frame.contentWindow.postMessage({ type: 'taro:lang', value }, TOOL);
       window.postRaw = (data) => frame.contentWindow.postMessage(data, TOOL);
       window.resizeTool = (w, h) => {
         frame.style.width = typeof w === 'number' ? w + 'px' : w;

@@ -27,7 +27,7 @@ One case's result, labelled and copyable in a single click.
 | hover/focus     | Row fills with `surface2`; the copy icon strengthens; a 2 px `accent` focus ring.                                                                                |
 | empty           | Input empty; shows COPY-result.empty; not activatable (RULE-09).                                                                                                 |
 | copied          | A brief "copied" flash: the row tints `successBg` and COPY-status.copied_short appears as an overlay pinned to the trailing edge (it does not reflow the value). |
-| last-used (M-2) | Shows the COPY-badge.last_used badge near the label; persists across sorts and sessions until another case is copied (RULE-13).                                   |
+| last-used (M-2) | Shows the COPY-badge.last_used badge near the label, never split across lines; persists across sorts and sessions until another case is copied (RULE-13). In the stacked (narrow) layout the badge steps aside while the copied flash shows, so the flash never covers it in any language (F-011.AC10).                                   |
 | pinned (M-2)    | Pin control is active; the row floats to the top group (RULE-13).                                                                                                |
 
 ## Layout

@@ -76,3 +76,13 @@ describe('F-004 line count', () => {
     expect(lineCount.value).toBe(1);
   });
 });
+
+describe('F-011 live language switch', () => {
+  it('F-011.AC3 a language switch clears the last announcement (no old-language live text)', async () => {
+    const { language } = await import('../../src/copy');
+    markCopied('snake', 'Đã sao chép snake_case');
+    language.value = 'en-US' === language.value ? 'vi-VN' : 'en-US';
+    expect(announcement.value).toBe('');
+    language.value = 'en-US';
+  });
+});

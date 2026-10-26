@@ -3,9 +3,9 @@
 // Implements: F-001 (input/clear), F-002.R2 (live results), RULE-08 (settle delay + cap),
 // RULE-09 (empty), F-004.R4 (line count), F-003 (copy feedback),
 // F-008 (strip symbols), F-009 (remove accents), F-010 (sort/pin/recent/last-used), RULE-11..14.
-import { batch, computed, signal } from '@preact/signals';
+import { batch, computed, effect, signal } from '@preact/signals';
 import { CASE_IDS, convertAll, type CaseId } from '../engine';
-import { MESSAGES, type MessageId } from '../copy';
+import { MESSAGES, language, type MessageId } from '../copy';
 import { loadPrefs, savePrefs, type Preferences, type SortMode } from '../prefs';
 
 /** Responsiveness cap (RULE-08): above this, results update only after the input settles. */
@@ -136,6 +136,16 @@ export function clearInput(): void {
     settled.value = '';
   });
 }
+
+// Implements: F-011.R2 — a live language switch clears the last announcement, so the live region
+// never keeps text in the previous language.
+let announcedLanguage = language.peek();
+effect(() => {
+  const now = language.value;
+  if (now === announcedLanguage) return;
+  announcedLanguage = now;
+  announcement.value = '';
+});
 
 /** Record a successful copy: flash the row, announce it, and mark it most-recently-used
  * (F-003.R2, NFR-04, F-010.R2/R3, RULE-13/RULE-14). */

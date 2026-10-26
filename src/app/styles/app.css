@@ -252,6 +252,7 @@
 }
 .row__badge {
   display: inline-block;
+  white-space: nowrap;
   margin-left: var(--tk-space-2);
   padding: 0 var(--tk-space-1);
   border-radius: var(--tk-radius-sm);
@@ -337,6 +338,11 @@
   .row__label {
     flex: none;
   }
+  /* The copied flash sits on the label line here and the copied row always carries the
+     last-used badge, so the badge steps aside while the flash shows (F-011.AC10). */
+  .row--copied .row__badge {
+    visibility: hidden;
+  }
 }
 
 /* status bar (CMP-StatusBar) */
@@ -352,6 +358,7 @@
 }
 .status__lines {
   color: var(--tk-color-muted);
+  white-space: nowrap; /* "1.234 dòng" never breaks (F-011.AC10) */
 }
 .status__spacer {
   flex: 1;
@@ -363,6 +370,8 @@
   gap: var(--tk-space-1);
 }
 .status__source {
+  flex: none;
+  white-space: nowrap;
   color: var(--tk-color-muted);
   display: inline-flex;
   align-items: center;

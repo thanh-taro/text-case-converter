@@ -19,3 +19,4 @@
 | Sort mode | How result rows are ordered: default, recently copied, or alphabetical (RULE-13). |
 | Pin | Marking a case so its row floats to the top of the grid (RULE-13). |
 | Last-used badge | A text marker on the most-recently-copied case's row (RULE-13, COPY-badge.last_used). |
+| Language | The language the tool's own text is shown in: en-US or vi-VN, set by the host or the browser (RULE-15). Never applies to case labels or results. |

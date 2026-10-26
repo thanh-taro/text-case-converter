@@ -22,7 +22,8 @@ Feel like a native part of the portal when embedded, and work fully on its own (
 
 - In: theme (light/dark) following the host or the system; filling the host's area; running
   standalone; accepting messages only from trusted origins.
-- Out: sharing user text with the host (PRN-01); the host's own navigation and chrome.
+- Out: sharing user text with the host (PRN-01); the host's own navigation and chrome; the
+  language the host passes (F-011).
 
 ## Requirements
 

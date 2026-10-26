@@ -15,6 +15,8 @@ Features: F-008 … F-010.
 
 ### M-3 — Smarter & polish
 
+First: use the portal's language — en-US and vi-VN from the host's address or messages, else the
+browser's (F-011, RULE-15).
 Detect and highlight the input's apparent case; optional keep-acronyms-uppercase handling
 (RULE-06); a few more case kinds (e.g. Train-Case, COBOL-CASE) if demand appears; keyboard
 navigation across the result grid; larger-input hardening beyond the RULE-08 cap.

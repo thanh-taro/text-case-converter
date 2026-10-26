@@ -2,7 +2,7 @@
 id: SCR-Converter
 title: Converter
 status: ready
-features: [F-001, F-002, F-003, F-004, F-005, F-006, F-007, F-008, F-009, F-010]
+features: [F-001, F-002, F-003, F-004, F-005, F-006, F-007, F-008, F-009, F-010, F-011]
 components: [CMP-InputArea, CMP-Controls, CMP-ResultGrid, CMP-ResultRow, CMP-Notice, CMP-StatusBar]
 ---
 
@@ -45,4 +45,6 @@ keyboard path and an accessible name (COPY-* labels). A single persistent live r
 the copied confirmation (COPY-status.copied), a copy failure, and notices politely (NFR-04);
 content is injected into it rather than inserted with it. Icons are decorative (hidden from
 assistive tech). Standalone, the tool exposes a top-level landmark/name; embedded, the host
-supplies the title. No theme control when embedded; the host owns it (RULE-10).
+supplies the title. No theme control when embedded; the host owns it (RULE-10). No language control either: the
+page language and every string follow RULE-15 (F-011), and every state must fit at 320 px in
+every language (NFR-06).

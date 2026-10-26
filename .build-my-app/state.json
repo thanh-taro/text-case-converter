@@ -94,7 +94,7 @@
     "iterate": {
       "title": "8 Iterate",
       "status": "in_progress",
-      "step": "8.0 live; collect feedback and next changes",
+      "step": "8.3 CR locale: built & verified locally; awaiting owner to release (v1.2.0)",
       "gate": {
         "status": "pending",
         "at": null,
@@ -103,7 +103,16 @@
     }
   },
   "decisions": [],
-  "loops": {},
+  "loops": {
+    "spec-review-locale": {
+      "round": 1,
+      "max": 3,
+      "active": false,
+      "started": "2026-10-26T04:47:22+00:00",
+      "outcome": "converged",
+      "ended": "2026-10-26T04:51:29+00:00"
+    }
+  },
   "log": [
     {
       "at": "2026-10-15T01:55:43+00:00",
@@ -432,9 +441,45 @@
     {
       "at": "2026-10-20T15:26:07+00:00",
       "event": "phase iterate -> in_progress"
+    },
+    {
+      "at": "2026-10-26T04:45:14+00:00",
+      "event": "iterate step: 8.1 CR: portal locale (?lang=) — spec change"
+    },
+    {
+      "at": "2026-10-26T04:45:14+00:00",
+      "event": "CR locale: owner chose address+taro:lang message, browser→en-US fallback, case labels stay English"
+    },
+    {
+      "at": "2026-10-26T04:47:22+00:00",
+      "event": "loop spec-review-locale started (max 3)"
+    },
+    {
+      "at": "2026-10-26T04:51:29+00:00",
+      "event": "loop spec-review-locale ended: converged"
+    },
+    {
+      "at": "2026-10-26T04:51:29+00:00",
+      "event": "iterate step: 8.1 CR locale: specs reviewed; awaiting owner approval"
+    },
+    {
+      "at": "2026-10-26T04:53:05+00:00",
+      "event": "CR locale approved by owner; vi title kept English; F-011 ready, ADR-0013 accepted"
+    },
+    {
+      "at": "2026-10-26T04:53:05+00:00",
+      "event": "iterate step: 8.2 CR locale: build F-011 (test-first)"
+    },
+    {
+      "at": "2026-10-26T05:05:06+00:00",
+      "event": "F-011 built + reviewed; all local checks green; on branch feat/f-011-portal-language"
+    },
+    {
+      "at": "2026-10-26T05:05:07+00:00",
+      "event": "iterate step: 8.3 CR locale: built & verified locally; awaiting owner to release (v1.2.0)"
     }
   ],
-  "updated": "2026-10-20T15:26:07+00:00",
+  "updated": "2026-10-26T05:05:07+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",

@@ -64,6 +64,35 @@ test.describe('F-007 offline', () => {
     expect(JSON.stringify(urls)).not.toContain('SECRET');
   });
 
+  test('F-011.AC12 first opened in en-US, reopened offline in vi-VN: Vietnamese UI face', async ({ page, context }) => {
+    await loadAndSeed(page); // en-US (the default browser language)
+    // The seed itself must hold the Vietnamese face (not just the browser's HTTP/memory cache).
+    await expect
+      .poll(
+        () =>
+          page.evaluate(async (prefix) => {
+            const name = (await caches.keys()).find((n) => n.startsWith(prefix));
+            const keys = name ? await (await caches.open(name)).keys() : [];
+            return keys.some((r) => /manrope-vietnamese.*\.woff2$/.test(r.url));
+          }, CACHE_PREFIX),
+        { timeout: 10_000 },
+      )
+      .toBe(true);
+    await context.setOffline(true);
+    await page.goto('/?lang=vi-VN');
+    await expect(page.getByLabel('Văn bản cần chuyển đổi')).toBeVisible();
+    const fonts = await page.evaluate(async () => {
+      await document.fonts.ready;
+      return {
+        check: document.fonts.check('400 16px Manrope', 'ễộưđ'),
+        loaded: [...document.fonts].filter((f) => f.family.replace(/["']/g, '') === 'Manrope' && f.status === 'loaded')
+          .length,
+      };
+    });
+    expect(fonts).toEqual({ check: true, loaded: 2 });
+    await context.setOffline(false);
+  });
+
   test('F-007.AC3 a newer version is picked up on a later online open', async ({ page, request }) => {
     await loadAndSeed(page);
     await request.get(`${ADMIN}/publish?on=1`); // server now serves v2

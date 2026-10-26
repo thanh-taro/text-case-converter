@@ -33,7 +33,8 @@ export function ResultRow({ id, label, value, empty, copied, lastUsed, pinned, o
         onClick={empty ? undefined : onCopy}
       >
         <span class="row__label">
-          {label}
+          {/* Case labels are English in every language (RULE-15, F-011 UX notes, WCAG 3.1.2). */}
+          <span lang="en">{label}</span>
           {lastUsed && <span class="row__badge">{t('badge.last_used')}</span>}
         </span>
         <span id={valueId} class={`row__val${empty ? ' row__val--empty' : ''}`}>

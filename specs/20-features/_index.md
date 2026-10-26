@@ -12,3 +12,4 @@
 | F-008 | Strip symbols | M-2 | P1 | shipped |
 | F-009 | Remove accents | M-2 | P1 | shipped |
 | F-010 | Sort and pin results | M-2 | P2 | shipped |
+| F-011 | Use the portal's language | M-3 | P1 | ready |
