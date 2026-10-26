@@ -94,7 +94,7 @@
     "iterate": {
       "title": "8 Iterate",
       "status": "in_progress",
-      "step": "8.4 CR locale: release v1.2.0 — CI then deploy",
+      "step": "8.0 live v1.2.0; collect feedback and next changes",
       "gate": {
         "status": "pending",
         "at": null,
@@ -489,9 +489,21 @@
     {
       "at": "2026-10-26T05:11:00+00:00",
       "event": "v1.2.0 release commit on main (F-011 shipped)"
+    },
+    {
+      "at": "2026-10-26T05:18:17+00:00",
+      "event": "iterate step: 8.4 v1.2.0 tagged, CI green; awaiting owner to run pnpm deploy:prod"
+    },
+    {
+      "at": "2026-10-26T05:38:05+00:00",
+      "event": "v1.2.0 deployed (e09370e, CF version 3dc950e4); smoke 9/9 incl. vi-VN"
+    },
+    {
+      "at": "2026-10-26T05:38:05+00:00",
+      "event": "iterate step: 8.0 live v1.2.0; collect feedback and next changes"
     }
   ],
-  "updated": "2026-10-26T05:11:00+00:00",
+  "updated": "2026-10-26T05:38:05+00:00",
   "environment": {
     "git": "2.54.0",
     "node": "24.19.0",
